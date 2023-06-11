@@ -1,0 +1,27 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Welcome</title>
+    <style>
+        body {
+            background-image: url("/Static/css/gray1.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        a { text-decoration: none; }
+      </style>
+    <title>SENIOR PROJECT 1</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1><a href="{% url 'homepage' %}">SENIOR PROJECT 1</a></h1>
+
+    <div class="footer">
+        <center><p>This responsive web application is created for educational purpose. Do not use for making profits. Credit: ABAC students.</p></center>
+      </div>
+</body>
+</html>
+
