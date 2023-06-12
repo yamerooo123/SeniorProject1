@@ -1,5 +1,6 @@
 from django.urls import path
 from hello import views
+from django.contrib import admin
 
 urlpatterns = [
     path('', views.welcome, name="welcome"),
@@ -13,5 +14,6 @@ urlpatterns = [
     path('contact-view/', views.contact_view, name="contact_view"),
     path('user-dashboard/', views.user_dashboard, name="user_dashboard"),
     path('user-settings/', views.user_settings, name="user_settings"),
+    path('admin/', admin.site.urls),
     
 ]

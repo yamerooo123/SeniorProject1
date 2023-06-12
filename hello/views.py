@@ -1,15 +1,15 @@
-from django.core.mail import EmailMessage
-from django.core.mail import send_mail #ส่งอีเมล
-from django.http import HttpResponse #รับHttp
-from django.shortcuts import render #ประมวลเว็ป
-from django.shortcuts import redirect #คล้ายๆ echo
-from django.contrib.auth.models import User
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.views.decorators.csrf import csrf_protect, csrf_exempt #เอาไว้อัพไฟล์
-import os 
+from django.contrib.auth.models import User
+from django.core.mail import EmailMessage, send_mail
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
+import os
+
+from .models import UserProfile
+
 
 def welcome(request):
     return render(request, 'welcomepage.html')
@@ -19,47 +19,65 @@ def homepage(request):
 
 
 
+@csrf_protect
 def signup(request):
-    #เช็ค attribute
     if request.method == 'POST':
         name = request.POST.get('name')
         surname = request.POST.get('surname')
         username = request.POST.get('username')
         password = request.POST.get('password')
+        password2 = request.POST.get('password2')
         email = request.POST.get('email')
         birthdate = request.POST.get('birthdate')
         phoneno = request.POST.get('phoneno')
         
-        user = User(
-            name=name,
-            surname=surname,
-            username=username,
-            password=password,
-            email=email,
-            birthdate=birthdate,
-            phoneno=phoneno
-        )
-        user.save()
+        if password != password2:
+            messages.error(request, "Sorry, passwords do not match :(")
         
-        #return redirect('homepage.html')  # Redirect to a success page after saving
+        elif User.objects.filter(username=username).exists():
+            messages.error(request, "Sorry, this username already exists :(")
+        
+        elif User.objects.filter(email=email).exists():
+            messages.error(request, "Sorry, this email has been registered. :(")
+        
+        elif UserProfile.objects.filter(phoneno=phoneno).exists():
+            messages.error(request, "Sorry, this phone number has been registered. :(")
+        
+        else:
+            user = User.objects.create_user(
+                username=username,  
+                password=password,
+                email=email,
+                first_name=name,
+                last_name=surname
+            )
+            user_profile = UserProfile.objects.create(
+                user=user,
+                birthdate=birthdate,
+                phoneno=phoneno
+            )
 
-    return render(request, 'signup.html')
+    messages.success(request, "Registration successful. You can now login.")
+            
+    
+    return render(request, 'signup.html', {'messages': messages.get_messages(request)})
+
 
 def signin(request):
     if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, login)
-            messages.info(request, f"You are now logged in as {username}.")
-            return redirect("user_dashboard")
-        else:
-            messages.error(request,"Invalid username or password.")
-
-
-
-    return render(request, 'signin.html')
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {username}.")
+                return redirect("user_dashboard")
+        messages.error(request, "Invalid username or password.")
+    else:
+        form = AuthenticationForm()
+    return render(request=request, template_name="signin.html", context={"form": form})
 
 def aboutus(request):
     return render(request, 'aboutus.html')

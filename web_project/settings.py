@@ -137,3 +137,8 @@ EMAIL_HOST_USER = 'u6311374@au.edu'
 EMAIL_HOST_PASSWORD = 'mvhvnjkmrstqnwfy' 
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'u6311374@au.edu'  
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+

@@ -28,6 +28,8 @@ from hello.views import contact
 from hello.views import contact_view
 from hello.views import user_dashboard
 from hello.views import user_settings
+from django.contrib import admin
+
 urlpatterns = [
     path('', welcome, name='welcome'),
     path('homepage/',homepage, name='homepage'),
@@ -40,4 +42,5 @@ urlpatterns = [
     path('contact-view/', contact_view, name='contact_view'),
     path('user-dashboard/', user_dashboard, name="user_dashboard"),
     path('user-settings/', user_settings, name="user_settings"),
-]
+    path('admin/', admin.site.urls),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

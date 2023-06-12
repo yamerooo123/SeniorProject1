@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {%load static%}
+
 <html>
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -114,7 +115,7 @@
                 </div>
               <div class="col">
                 <label for="phoneno" class="form-label">Mobile phone</label>
-                <input type="number" class="form-control" id="phoneno" name="phoneno" required>
+                <input type="tel" class="form-control" id="phoneno" name="phoneno" required>
               </div>
               <div class="mb-3">
                 <label class="form-check-label">
@@ -123,6 +124,19 @@
                 </label>
               </div>             
               <center><button type="submit" class="btn btn-dark">Sign Up</button></center>
+              {% if messages %}
+                {% for message in messages %}
+                  {% if message.tags == 'success' %}
+                    <div class="alert alert-success">
+                  {% else %}
+                    <div class="alert alert-danger">
+                  {% endif %}
+                  <ul>
+                    <li>{{ message }}</li>
+                  </ul>
+                  </div>
+                {% endfor %}
+              {% endif %}
             </form>
         </div>
           </div>
@@ -131,6 +145,7 @@
       <div class="footer">
         <center><p>This responsive web application is created for educational purpose. Do not use for making profits. Credit: ABAC students.</p></center>
       </div> 
+      
   </body>
         
 
