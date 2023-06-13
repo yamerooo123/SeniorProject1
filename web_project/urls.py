@@ -28,7 +28,10 @@ from hello.views import contact
 from hello.views import contact_view
 from hello.views import user_dashboard
 from hello.views import user_settings
+from hello.views import menshoes
+from hello.views import womenshoes
 from django.contrib import admin
+from hello.views import signout
 
 urlpatterns = [
     path('', welcome, name='welcome'),
@@ -42,5 +45,9 @@ urlpatterns = [
     path('contact-view/', contact_view, name='contact_view'),
     path('user-dashboard/', user_dashboard, name="user_dashboard"),
     path('user-settings/', user_settings, name="user_settings"),
+    path('menshoes/', menshoes, name='menshoes'),
+    path('womenshoes/', womenshoes, name='womenshoes'),
     path('admin/', admin.site.urls),
+    path('signout/', signout, name='signout'),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

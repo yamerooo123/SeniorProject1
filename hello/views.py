@@ -1,12 +1,14 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage, send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
+from django.contrib.auth.decorators import login_required
 import os
+from .decorators import unauthenticated_user
 
 from .models import UserProfile
 
@@ -14,6 +16,7 @@ from .models import UserProfile
 def welcome(request):
     return render(request, 'welcomepage.html')
 
+@login_required(login_url='user_dashboard')
 def homepage(request):
     return render(request, 'homepage.html')
 
@@ -56,13 +59,12 @@ def signup(request):
                 birthdate=birthdate,
                 phoneno=phoneno
             )
-
     messages.success(request, "Registration successful. You can now login.")
             
     
     return render(request, 'signup.html', {'messages': messages.get_messages(request)})
 
-
+@unauthenticated_user
 def signin(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
@@ -78,6 +80,11 @@ def signin(request):
     else:
         form = AuthenticationForm()
     return render(request=request, template_name="signin.html", context={"form": form})
+
+
+def signout(request):
+    logout(request)
+    return redirect('homepage')
 
 def aboutus(request):
     return render(request, 'aboutus.html')
@@ -119,10 +126,16 @@ def contact_view(request):
 
     return render(request, 'contact.html')
 
-
+@login_required(login_url='signin')
 def user_dashboard(request):
-    return render(request, 'user_dashboard.html')
+    return render(request, "user_dashboard.html", {'user': request.user})
 
 
 def user_settings(request):
     return render(request, 'user_settings.html')
+
+def menshoes(request):
+    return render(request, 'menshoes.html')
+
+def womenshoes(request):
+    return render(request, 'womenshoes.html')

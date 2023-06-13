@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Sign In</title>
+        <title>Products for Men</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
@@ -51,7 +51,7 @@
                           <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashions</a>
                           <div class="dropdown-menu" aria-labelledby="dropdownId">
                               <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
-                              <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
+                              <a class="dropdown-item" href="{% url 'menshoes' %}">Women's Shoes</a>
                           </div>
                       </li>
                       <li class="nav-item">
@@ -68,44 +68,8 @@
           </div>
       </nav>
       <body>
-        <div class="container my-5" id="container2">
-            <div class="row justify-content-center">
-              
-                <h2 class="text-center mb-4">Sign In</h2>
-                <form action="{% url 'signin' %}" method="POST">
-                  {% csrf_token %}
-                  <div class="mb-3 ">
-                    <div class="col">  
-                      <label for="username" class="form-label">Username</label>
-                      <input type="varchar" class="form-control" id="username" name="username" required placeholder="Enter your username">
-                    </div>
-                    <div class="col">
-                      <label for="password" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
-                    </div>
-                  </div>
-                  <div class="form-check d-flex align-items-center mb-3">
-                    <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
-                    <label class="form-check-label" for="rememberMe">Remember me</label>
-                    <a href="#" class="btn btn-link ms-auto">Forgot password?</a>
-                </div>
-                  <center>
-                    <button type="submit" class="btn btn-dark">Login</button>
-                  </center>
-                  
-                {% if messages %}
-                  <div class="alert alert-danger">
-                    <ul>
-                      {% for message in messages %}
-                      <li>{{ message }}</li>
-                      {% endfor %}
-                    </ul>
-                  </div>
-                {% endif %}
-                </form>
-              </div>
-            </div>
-          </div>
+        
+        
           
           <div class="footer">
             <center><p>This responsive web application is created for educational purpose. Do not use for making profits. Credit: ABAC students.</p></center>

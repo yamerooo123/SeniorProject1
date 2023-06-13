@@ -34,8 +34,8 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashions</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="#">Men's Shoes</a>
-                                <a class="dropdown-item" href="#">Women's Shoes</a>
+                                <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
+                              <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -45,7 +45,14 @@
                     <form class="d-flex my-2 my-lg-0">
                         <input class="form-control me-sm-2" type="text" placeholder="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">Login</a>
+                        <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                            {% if user.is_authenticated %}
+                                <span>Welcome, {{ user.username }}</span>
+                            {% else %}
+                                Login
+                            {% endif %}
+                        </a>
+                        </a>
                     </form>
                 </div>
             </div>
