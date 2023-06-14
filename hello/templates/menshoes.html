@@ -1,79 +1,185 @@
-{%load static%}
+{% load static %}
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Products for Men</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-            <style>                  
-            .d-flex .flex-fill {
-                display: inline-block;
-                }
-                 #form-group {
-                    background-color: #fff;
-                    box-shadow: 0 1px 3px rgba(0,0,0,.3);
-                    padding: 20px;
-                    border-radius: 8px;    
-                        }
-                body {
-                    background-image: url('/Static/css/aboutus.jpg');
-                    background-size: cover;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                }
-            </style>
-        </head> 
-        <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
-          <div class="container">
-              <a class="navbar-logo"id="navbar-logo">Happy Feet</a>
-              
-              <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-                  aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="collapsibleNavId">
-                  <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                      <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
-                          <div class="dropdown-menu" aria-labelledby="dropdownId">
+<head>
+    <title>Products for Men</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+   
+    
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-logo" id="navbar-logo">Happy Feet</a>
+
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Home</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
                             <a class="dropdown-item" href="{% url 'homepage' %}">Home</a>
                             <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
                             <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
                             <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
                             <a class="dropdown-item" href="#">FAQ</a>
-                          </div>
-                      </li>
-                      <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashions</a>
-                          <div class="dropdown-menu" aria-labelledby="dropdownId">
-                              <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
-                              <a class="dropdown-item" href="{% url 'menshoes' %}">Women's Shoes</a>
-                          </div>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
-                      </li>
-                  </ul>
-                  <form class="d-flex my-2 my-lg-0">
-                      <input class="form-control me-sm-2" type="text" placeholder="Search">
-                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                      <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">Login</a>
-                      <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">Guest</a>
-                  </form>
-              </div>
-          </div>
-      </nav>
-      <body>
-        
-        
-          
-          <div class="footer">
-            <center><p>This responsive web application is created for educational purpose. Do not use for making profits. Credit: ABAC students.</p></center>
-          </div> 
-      </body>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Fashions</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
+                            <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                    </li>
+                </ul>
+                <form class="d-flex my-2 my-lg-0">
+                    <input class="form-control me-sm-2" type="text" placeholder="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                        {% if user.is_authenticated %}
+                        <span>Welcome, {{ user.username }}</span>
+                        {% else %}
+                        Login
+                        {% endif %}
+                    </a>
 
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container text-left" id="womenfilterproducts">
+        <div class="card card-sm">
+        <div class="card-body">
+        <h3>Category</h3>
+        <form class="row g-6" method="GET" action="{% url 'menshoes' %}">
+            <div class="col-md-6">
+                <h6><label class="form-label">Gender:</label></h6>
+                <div class="form-check">
+                    <input type="checkbox" name="MaleGender" id="MaleGender" class="form-check-input">
+                    <label for="MaleGender" class="form-check-label">Male</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="FemaleGender" id="FemaleGender" class="form-check-input">
+                    <label for="FemaleGender" class="form-check-label">Female</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="UnisexGender" id="UnisexGender" class="form-check-input">
+                    <label for="UnisexGender" class="form-check-label">Unisex</label>
+                </div>
+                
+            <div class="row">
+            <div class="col-md-6">
+                <h6><label class="form-label">Shoes:</label></h6>
+                <div class="form-check">
+                    <input type="checkbox" name="SportShoes" id="SportShoes" class="form-check-input">
+                    <label for="SportShoes" class="form-check-label">Sports</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="RunningShoes" id="RunningShoes" class="form-check-input">
+                    <label for="RunningShoes" class="form-check-label">Running</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="TrekkingShoes" id="TrekkingShoes" class="form-check-input">
+                    <label for="TrekkingShoes" class="form-check-label">Trekking</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="Sneakers" id="Sneakers" class="form-check-input">
+                    <label for="Sneakers" class="form-check-label">Sneakers</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name=CasualShoes" id=CasualShoes" class="form-check-input">
+                    <label for="CasualShoes" class="form-check-label">Casual</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name=FormalShoes" id=FormalShoes" class="form-check-input">
+                    <label for="FormalShoes" class="form-check-label">Formal</label>
+                </div>
+            </div>
+            </div>
+            
+            <div class="col-md-6">
+                <h6 class="my-2"><label class="form-label">Size:</label></h6>
+                <select name="size" id="size" class="form-select">
+                    <option value="7">7</option>
+                    <option value="7.5">7.5</option>
+                    <option value="8">8</option>
+                    <option value="8.5">8.5</option>
+                    <option value="9">9</option>
+                    <option value="9.5">9.5</option>
+                    <option value="10">10</option>
+                    <option value="10.5">10.5</option>
+                    <option value="11">11</option>
+                    <option value="11.5">11.5</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+
+                </select>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <label for="brand" class="form-label">Brand:</label>
+                <select name="brand" id="brand" class="form-select">
+                    <!-- Options -->
+                </select>
+            </div>
+            </div> 
+            <div class="col-md-6">
+                <label class="form-label">Price Range:</label>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="price_range" value="low" class="form-check-input">
+                    <label class="form-check-label">Low</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="price_range" value="medium" class="form-check-input">
+                    <label class="form-check-label">Medium</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="price_range" value="high" class="form-check-input">
+                    <label class="form-check-label">High</label>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">Apply Filters</button>
+            </div>
+        </form>
+        </div>
+        </div>
+        <div class="row">
+            {% for product in filtered_products %}
+                <div class="col-md-4">
+                    <!-- Display product information -->
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="footer">
+        <center>
+            <p>This responsive web application is created for educational purposes. Do not use for making profits.
+                Credit: ABAC students.</p>
+        </center>
+    </div>
+    
+
+</body>
 </html>

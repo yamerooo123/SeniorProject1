@@ -16,6 +16,6 @@ urlpatterns = [
     path('user-settings/', views.user_settings, name="user_settings"),
     path('menshoes/', views.menshoes, name="menshoes"),
     path('womenshoes/', views.womenshoes, name="womenshoes"),
+    path('filtered_products/', views.filtered_products, name="filtered_products"),
     path('admin/', admin.site.urls),
-    
 ]

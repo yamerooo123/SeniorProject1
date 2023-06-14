@@ -32,6 +32,8 @@ from hello.views import menshoes
 from hello.views import womenshoes
 from django.contrib import admin
 from hello.views import signout
+from hello.views import filtered_products
+from hello.views import filter_products
 
 urlpatterns = [
     path('', welcome, name='welcome'),
@@ -49,5 +51,7 @@ urlpatterns = [
     path('womenshoes/', womenshoes, name='womenshoes'),
     path('admin/', admin.site.urls),
     path('signout/', signout, name='signout'),
+    path('filtered_products/', filtered_products, name='filtered_products'),
+    path('filter_products/', filter_products, name='filter_products'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

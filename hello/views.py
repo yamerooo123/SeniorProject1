@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 import os
 from .decorators import unauthenticated_user
 
-from .models import UserProfile
+from .models import UserProfile, ShoeFeatures
 
 
 def welcome(request):
@@ -139,3 +139,45 @@ def menshoes(request):
 
 def womenshoes(request):
     return render(request, 'womenshoes.html')
+
+def filtered_products(request):
+    return render(request, 'filtered_products.html')
+
+def filter_products(request):
+    type1 = request.GET.get('type1')  
+    type2 = request.GET.get('type2') 
+    maincolor = request.GET.get('maincolor')  
+    subcolor1 = request.GET.get('subcolor1')  
+    subcolor2 = request.GET.get('subcolor2')  
+    size = request.GET.get('size') 
+    price_range = request.GET.getlist('price_range')  
+    brand = request.GET.get('brand')  
+    
+    
+    products = ShoeFeatures.objects.all() 
+    
+    
+    if type1:
+        products = products.filter(type1=type1)
+    if type2:
+        products = products.filter(type2=type2)
+    if maincolor:
+        products = products.filter(maincolor=maincolor)
+    if subcolor1:
+        products = products.filter(subcolor1=subcolor1)
+    if subcolor2:
+        products = products.filter(subcolor2=subcolor2)
+    if size:
+        products = products.filter(size=size)
+    if price_range:
+        if 'low' in price_range:
+            products = products.filter(price__lte=50)  
+        if 'medium' in price_range:
+            products = products.filter(price__gt=50, price__lte=100)  
+            products = products.filter(price__gt=100) 
+    if brand:
+        products = products.filter(brand=brand)
+    context = {
+        'filtered_products': products
+    }
+    return render(request, 'filtered_products.html', context)
