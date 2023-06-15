@@ -253,7 +253,7 @@ h1::before {
   color: white;
 }
 
-/*account settings*/
+
 .card {
   margin-bottom: 1.5rem;
   box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);
@@ -290,4 +290,3 @@ h1::before {
   background-size: cover;
   background-repeat: no-repeat;
 }
-

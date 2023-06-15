@@ -6,17 +6,14 @@ from django.core.mail import EmailMessage, send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
-from django.contrib.auth.decorators import login_required
 import os
-from .decorators import unauthenticated_user
-
 from .models import UserProfile, ShoeFeatures
 
 
 def welcome(request):
     return render(request, 'welcomepage.html')
 
-@login_required(login_url='user_dashboard')
+
 def homepage(request):
     return render(request, 'homepage.html')
 
@@ -64,7 +61,6 @@ def signup(request):
     
     return render(request, 'signup.html', {'messages': messages.get_messages(request)})
 
-@unauthenticated_user
 def signin(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
@@ -112,7 +108,7 @@ def contact_view(request):
                 for chunk in file.chunks():
                     destination.write(chunk)
 
-        # Send email
+       
         subject = f'New Contact from www.happyfeet.com: {problem}'
         message = f'Name: {name}\nEmail: {email}\nProblem: {problem}\nDetails: {details}'
         if file:
@@ -126,7 +122,6 @@ def contact_view(request):
 
     return render(request, 'contact.html')
 
-@login_required(login_url='signin')
 def user_dashboard(request):
     return render(request, "user_dashboard.html", {'user': request.user})
 

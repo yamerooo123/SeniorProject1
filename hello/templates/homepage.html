@@ -32,9 +32,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                        {% if not user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
                         </li>
+                        {% endif %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="{% url 'homepage' %}" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownId">
@@ -74,14 +76,14 @@
             <center><h3>Men Shoes</h3></center>
             <p class="inline-content">sneakers, boots, sandals,...</p>
             <div class="centered-content">
-                <center><a href="#">Find your style</a></center>
+                <center><a href="{% url 'menshoes' %}">Find your style</a></center>
               </div>
         </div>
         <div class="womenshoes" id="womenshoes">
             <center><h3>Women Shoes</h3></center>
             <p>sneakers, flats, sandals, heels,...</p>
             <div class="centered-content">
-                <center><a href="#">Find your style</a></center>
+                <center><a href="{% url 'womenshoes' %}">Find your style</a></center>
               </div>
         </div>
         <div class="recommendation" id="recommendation">

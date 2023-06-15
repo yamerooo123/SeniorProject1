@@ -1,0 +1,66 @@
+#navbar-logo {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 23px;
+    letter-spacing: -1px;
+    word-spacing: -0.6px;
+    color: #4B79A4;
+    font-weight: 700;
+    text-decoration: none solid rgb(68, 68, 68);
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: capitalize;
+    margin-right: 20px;
+    }
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(186, 185, 185, 0.763);
+  color: white;
+}
+
+
+.card {
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);
+}
+.card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #e5e9f2;
+  border-radius: .2rem;
+}
+.card-header:first-child {
+  border-radius: calc(.2rem - 1px) calc(.2rem - 1px) 0 0;
+}
+.card-header {
+  border-bottom-width: 1px;
+}
+.card-header {
+  padding: .75rem 1.25rem;
+  margin-bottom: 0;
+  color: inherit;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e9f2;
+}
+
+.card.card-sm {
+  width: 100%; 
+  height: 100%; 
+}
+
+#container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+

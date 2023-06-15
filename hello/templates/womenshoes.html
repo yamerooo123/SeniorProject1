@@ -1,36 +1,21 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Products for Women</title>
+    {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Style2.css' %}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-    .d-flex .flex-fill {
-        display: inline-block;
-        }
-         #form-group {
-            background-color: #fff;
-            box-shadow: 0 1px 3px rgba(0,0,0,.3);
-            padding: 20px;
-            border-radius: 8px;    
-                }
-        body {
-            background-image: url('/Static/css/aboutus.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-    </style>
+    
+    
 </head>
 
+
 <body>
-    <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="container">
             <a class="navbar-logo" id="navbar-logo">Happy Feet</a>
 
@@ -79,105 +64,439 @@
             </div>
         </div>
     </nav>
-    <div class="container" id="womenfilterproducts">
-        <div class="card card-sm">
-        <div class="card-body">
-        <h3>Category</h3>
-        <form class="row g-6" method="GET" action="{% url 'womenshoes' %}">
-            <div class="col-md-6">
-                <h6><label class="form-label">Gender:</label></h6>
-                <div class="form-check">
-                    <input type="checkbox" name="MaleGender" id="MaleGender" class="form-check-input">
-                    <label for="MaleGender" class="form-check-label">Male</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name="FemaleGender" id="FemaleGender" class="form-check-input">
-                    <label for="FemaleGender" class="form-check-label">Female</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name="UnisexGender" id="UnisexGender" class="form-check-input">
-                    <label for="UnisexGender" class="form-check-label">Unisex</label>
-                </div>
-            <div class="row">
-            <div class="col-md-6">
-                <h6><label class="form-label">Shoes:</label></h6>
-                <div class="form-check">
-                    <input type="checkbox" name="SportShoes" id="SportShoes" class="form-check-input">
-                    <label for="SportShoes" class="form-check-label">Sports</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name="RunningShoes" id="RunningShoes" class="form-check-input">
-                    <label for="RunningShoes" class="form-check-label">Running</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name="TrekkingShoes" id="TrekkingShoes" class="form-check-input">
-                    <label for="TrekkingShoes" class="form-check-label">Trekking</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name="Sneakers" id="Sneakers" class="form-check-input">
-                    <label for="Sneakers" class="form-check-label">Sneakers</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name=CasualShoes" id=CasualShoes" class="form-check-input">
-                    <label for="CasualShoes" class="form-check-label">Casual</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" name=FormalShoes" id=FormalShoes" class="form-check-input">
-                    <label for="FormalShoes" class="form-check-label">Formal</label>
-                </div>
-            </div>
-            </div>
-            <div class="col-md-6">
-                <label for="size" class="form-label">Size:</label>
-                <select name="size" id="size" class="form-select">
-                    <!-- Options -->
-                </select>
-            </div>
-            <div class="row">
-            <div class="col-md-6">
-                <label for="brand" class="form-label">Brand:</label>
-                <select name="brand" id="brand" class="form-select">
-                    <!-- Options -->
-                </select>
-            </div>
-            </div> 
-            <div class="col-md-6">
-                <label class="form-label">Price Range:</label>
-                <div class="form-check form-check-inline">
-                    <input type="checkbox" name="price_range" value="low" class="form-check-input">
-                    <label class="form-check-label">Low</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input type="checkbox" name="price_range" value="medium" class="form-check-input">
-                    <label class="form-check-label">Medium</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input type="checkbox" name="price_range" value="high" class="form-check-input">
-                    <label class="form-check-label">High</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <button type="submit" class="btn btn-primary">Apply Filters</button>
-            </div>
-        </form>
-        </div>
-        </div>
+    <div class="container" id="menfilterproducts">
         <div class="row">
-            {% for product in filtered_products %}
-                <div class="col-md-4">
-                    <!-- Display product information -->
+            <div class="card card-sm col-md-4">
+                <div class="card-body">
+                    <center><h3>Category</h3></center>
+                    <form class="row g-6" method="GET" action="{% url 'menshoes' %}">
+                        <div class="col-md-6">
+                            <h6><label class="form-label">Gender:</label></h6>
+                            <div class="form-check">
+                                <input type="checkbox" name="MaleGender" id="MaleGender" class="form-check-input">
+                                <label for="MaleGender" class="form-check-label">Male</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" name="FemaleGender" id="FemaleGender" class="form-check-input">
+                                <label for="FemaleGender" class="form-check-label">Female</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" name="UnisexGender" id="UnisexGender" class="form-check-input">
+                                <label for="UnisexGender" class="form-check-label">Unisex</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" name="KidsGender" id="KidsGender" class="form-check-input">
+                                <label for="KidsGender" class="form-check-label">Kids</label>
+                            </div>
+                        </div>
+                            <div class="col-md-6">
+                                <h6><label class="form-label">Style:</label></h6>
+                                <div class="form-check">
+                                    <input type="checkbox" name="SportShoes" id="SportShoes" class="form-check-input">
+                                    <label for="SportShoes" class="form-check-label">Sports</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="RunningShoes" id="RunningShoes"
+                                        class="form-check-input">
+                                    <label for="RunningShoes" class="form-check-label">Running</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="TrekkingShoes" id="TrekkingShoes"
+                                        class="form-check-input">
+                                    <label for="TrekkingShoes" class="form-check-label">Trekking</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="Sneakers" id="Sneakers" class="form-check-input">
+                                    <label for="Sneakers" class="form-check-label">Sneakers</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="CasualShoes" id="CasualShoes" class="form-check-input">
+                                    <label for="CasualShoes" class="form-check-label">Casual</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="FormalShoes" id="FormalShoes" class="form-check-input">
+                                    <label for="FormalShoes" class="form-check-label">Formal</label>
+                                </div>
+                            </div>
+                        <div class="col-md-6">
+                            <h6><label class="form-label">Size:</label></h6>
+                                <div class="form-check">
+                                    <input type="checkbox" name="7" id="7" class="form-check-input">
+                                    <label for="7" class="form-check-label">7</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="7.5" id="7.5" class="form-check-input">
+                                    <label for="7.5" class="form-check-label">7.5</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="8" id="8" class="form-check-input">
+                                    <label for="8" class="form-check-label">8</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="8.5" id="8.5" class="form-check-input">
+                                    <label for="8.5" class="form-check-label">8.5</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="9" id="9" class="form-check-input">
+                                    <label for="9" class="form-check-label">9</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="9.5" id="9.5" class="form-check-input">
+                                    <label for="9.5" class="form-check-label">9.5</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="10" id="10" class="form-check-input">
+                                    <label for="10" class="form-check-label">10</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="10.5" id="10.5" class="form-check-input">
+                                    <label for="10.5" class="form-check-label">10.5</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="11" id="11" class="form-check-input">
+                                    <label for="11" class="form-check-label">11</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="11.5" id="11.5" class="form-check-input">
+                                    <label for="11.5" class="form-check-label">11.5</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="12" id="12" class="form-check-input">
+                                    <label for="12" class="form-check-label">12</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="13" id="13" class="form-check-input">
+                                    <label for="13" class="form-check-label">13</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="14" id="14" class="form-check-input">
+                                    <label for="14" class="form-check-label">14</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="15" id="15" class="form-check-input">
+                                    <label for="15" class="form-check-label">15</label>
+                                </div>
+                        </div>
+                            <div class="col-md-6">
+                                <h6><label class="form-label">Brands:</label></h6>
+                                <div class="form-check">
+                                    <input type="checkbox" name="Asian" id="Asian" class="form-check-input">
+                                    <label for="Asian" class="form-check-label">Asian</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="Reebok" id="Reebok" class="form-check-input">
+                                    <label for="Reebok" class="form-check-label">Reebok</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="Puma" id="Puma" class="form-check-input">
+                                    <label for="Puma" class="form-check-label">Puma</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="Generic" id="Generic" class="form-check-input">
+                                    <label for="Generic" class="form-check-label">Generic</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="Sparx" id="Sparx" class="form-check-input">
+                                    <label for="Sparx" class="form-check-label">Sparx</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="Campus" id="Campus" class="form-check-input">
+                                    <label for="Campus" class="form-check-label">Campus</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="RoadRunner" id="RoadRunner" class="form-check-input">
+                                    <label for="RoadRunner" class="form-check-label">Road Runner</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="Corstyle" id="Corstyle" class="form-check-input">
+                                    <label for="Corstyle" class="form-check-label">Corstyle</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="BATA" id="BATA" class="form-check-input">
+                                    <label for="BATA" class="form-check-label">BATA</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="RobbieJones" id="RobbieJones" class="form-check-input">
+                                    <label for="RobbieJones" class="form-check-label">Robbie Jones</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="Bourge" id="Bourge" class="form-check-input">
+                                    <label for="Bourge" class="form-check-label">Bourge</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" name="Adidas" id="Adidas" class="form-check-input">
+                                    <label for="Adidas" class="form-check-label">Adidas</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6><label class="form-label">Main Color:</label></h6>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="black1" id="black1" class="form-check-input">
+                                        <label for="black1" class="form-check-label">Black</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="brown1" id="brown1" class="form-check-input">
+                                        <label for="brown1" class="form-check-label">Brown</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="white1" id="white1" class="form-check-input">
+                                        <label for="white1" class="form-check-label">White</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="grey1" id="grey1" class="form-check-input">
+                                        <label for="grey1" class="form-check-label">Grey</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="green1" id="green1" class="form-check-input">
+                                        <label for="green1" class="form-check-label">Green</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="red1" id="red1" class="form-check-input">
+                                        <label for="red1" class="form-check-label">Red</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="blue1" id="blue1" class="form-check-input">
+                                        <label for="blue1" class="form-check-label">Blue</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6><label class="form-label">Sub Color:</label></h6>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="black2" id="black2" class="form-check-input">
+                                        <label for="black2" class="form-check-label">Black</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="brown2" id="brown2" class="form-check-input">
+                                        <label for="brown2" class="form-check-label">Brown</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="white2" id="white2" class="form-check-input">
+                                        <label for="white2" class="form-check-label">White</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="grey2" id="grey2" class="form-check-input">
+                                        <label for="grey2" class="form-check-label">Grey</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="green2" id="green2" class="form-check-input">
+                                        <label for="green2" class="form-check-label">Green</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="red2" id="red2" class="form-check-input">
+                                        <label for="red2" class="form-check-label">Red</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="blue2" id="blue2" class="form-check-input">
+                                        <label for="blue2" class="form-check-label">Blue</label>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                        <div class="col-md-6">
+                            <h6><label class="form-label">Price Range:</label></h6>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" name="price_range" value="low" class="form-check-input">
+                                <label class="form-check-label">Low($20 to $50)</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" name="price_range" value="medium" class="form-check-input">
+                                <label class="form-check-label">Medium($50 to $150)</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" name="price_range" value="high" class="form-check-input">
+                                <label class="form-check-label">High($150 to $300)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-dark">Apply Filters</button>
+                        </div>
+                    </form>
                 </div>
-            {% endfor %}
+            </div>
         </div>
     </div>
-
+    <section>
+        <div class="text-center container py-5">
+          <h2 class="mt-4 mb-5" style="text-align: left;"><strong>Products</strong></h2>
+      
+          <div class="row">
+            <div class="col-lg-4 col-md-12 mb-4">
+              <div class="card">
+                <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                  data-mdb-ripple-color="light">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/belt.webp"
+                    class="w-100" />
+                  <a href="#!">
+                    <div class="mask">
+                    </div>
+                    <div class="hover-overlay">
+                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                    </div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <a href="" class="text-reset">
+                    <h5 class="card-title mb-3">Product name</h5>
+                  </a>
+                  <a href="" class="text-reset">
+                    <p>Category</p>
+                  </a>
+                  <h6 class="mb-3">$61.99</h6>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                  data-mdb-ripple-color="light">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp"
+                    class="w-100" />
+                  <a href="#!">
+                    <div class="mask">
+                    </div>
+                    <div class="hover-overlay">
+                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                    </div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <a href="" class="text-reset">
+                    <h5 class="card-title mb-3">Product name</h5>
+                  </a>
+                  <a href="" class="text-reset">
+                    <p>Category</p>
+                  </a>
+                  <h6 class="mb-3">$61.99</h6>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="bg-image hover-zoom ripple" data-mdb-ripple-color="light">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/shoes%20(3).webp"
+                    class="w-100" />
+                  <a href="#!">
+                    <div class="hover-overlay">
+                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                    </div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <a href="" class="text-reset">
+                    <h5 class="card-title mb-3">Product name</h5>
+                  </a>
+                  <a href="" class="text-reset">
+                    <p>Category</p>
+                  </a>
+                  <h6 class="mb-3">
+                    <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong>
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <div class="row">
+            <div class="col-lg-4 col-md-12 mb-4">
+              <div class="card">
+                <div class="bg-image hover-zoom ripple" data-mdb-ripple-color="light">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(23).webp"
+                    class="w-100" />
+                  <a href="#!">
+                    <div class="hover-overlay">
+                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                    </div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <a href="" class="text-reset">
+                    <h5 class="card-title mb-3">Product name</h5>
+                  </a>
+                  <a href="" class="text-reset">
+                    <p>Category</p>
+                  </a>
+                  <h6 class="mb-3">
+                    <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong>
+                  </h6>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                  data-mdb-ripple-color="light">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(17).webp"
+                    class="w-100" />
+                  <a href="#!">
+                    <div class="mask">
+                      <div class="d-flex justify-content-start align-items-end h-100"></div>
+                    </div>
+                    <div class="hover-overlay">
+                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                    </div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <a href="" class="text-reset">
+                    <h5 class="card-title mb-3">Product name</h5>
+                  </a>
+                  <a href="" class="text-reset">
+                    <p>Category</p>
+                  </a>
+                  <h6 class="mb-3">$61.99</h6>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="bg-image hover-zoom ripple" data-mdb-ripple-color="light">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(30).webp"
+                    class="w-100" />
+                  <a href="#!">
+                    <div class="hover-overlay">
+                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                    </div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <a href="" class="text-reset">
+                    <h5 class="card-title mb-3">Product name</h5>
+                  </a>
+                  <a href="" class="text-reset">
+                    <p>Category</p>
+                  </a>
+                  <h6 class="mb-3">
+                    <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong>
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div id="container">
+        <nav aria-label="pagination">
+            <ul class="pagination pagination-lg">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+            </ul>
+          </nav>
+        </div>
     <div class="footer">
         <center>
             <p>This responsive web application is created for educational purposes. Do not use for making profits.
                 Credit: ABAC students.</p>
         </center>
     </div>
-
+    
 
 </body>
 </html>
