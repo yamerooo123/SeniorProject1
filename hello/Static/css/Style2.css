@@ -54,13 +54,9 @@
 }
 
 .card.card-sm {
-  width: 100%; 
+  width: 50%; 
   height: 100%; 
 }
 
-#container {
-  display: flex;
-  justify-content: flex-end;
-}
 
 
