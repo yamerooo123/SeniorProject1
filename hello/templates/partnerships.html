@@ -33,19 +33,19 @@
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="{% url 'homepage' %}" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="{% url 'homepage' %}">Home</a>
-                                <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
-                                <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
-                                <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
-                                <a class="dropdown-item" href="#">FAQ</a>
+                              <a class="dropdown-item" href="{% url 'homepage' %}">Home</a>
+                              <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
+                              <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
+                              <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
+                              <a class="dropdown-item" href="#">FAQ</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashions</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
+                              <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
                               <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
                             </div>
                         </li>
@@ -56,14 +56,16 @@
                     <form class="d-flex my-2 my-lg-0">
                         <input class="form-control me-sm-2" type="text" placeholder="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
-                            {% if user.is_authenticated %}
-                                <span>Welcome, {{ user.username }}</span>
-                            {% else %}
-                                Login
-                            {% endif %}
-                        </a>
-                        </a>
+                        {% if user.is_authenticated %}
+                          <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
+                            Welcome, {{ user.username }}
+                          </a>
+                        {% else %}
+                          <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                            Login
+                           </a>
+                        {% endif %}
+                        
                     </form>
                 </div>
             </div>

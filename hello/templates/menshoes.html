@@ -50,17 +50,18 @@
                     </li>
                 </ul>
                 <form class="d-flex my-2 my-lg-0">
-                    <input class="form-control me-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
-                        {% if user.is_authenticated %}
-                        <span>Welcome, {{ user.username }}</span>
-                        {% else %}
-                        Login
-                        {% endif %}
+                  <input class="form-control me-sm-2" type="text" placeholder="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                  {% if user.is_authenticated %}
+                    <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
+                      Welcome, {{ user.username }}
                     </a>
-
-                </form>
+                  {% else %}
+                    <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                      Login
+                     </a>
+                  {% endif %}
+              </form>
             </div>
         </div>
     </nav>
