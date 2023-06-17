@@ -35,6 +35,11 @@ from hello.views import signout
 from hello.views import filtered_products
 from hello.views import filter_products
 from hello.views import product_page
+<<<<<<< HEAD
+from hello.views import faqpage
+
+=======
+>>>>>>> a8787906520979a31d761a8301cf3e9848123b70
 urlpatterns = [
     path('', welcome, name='welcome'),
     path('homepage/',homepage, name='homepage'),
@@ -53,5 +58,6 @@ urlpatterns = [
     path('filtered-products/', filtered_products, name='filtered_products'),
     path('filter-products/', filter_products, name='filter_products'),
     path('product-page/', product_page, name='product_page'),
-    
+    path('faqpage/', faqpage, name="faqpage"),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

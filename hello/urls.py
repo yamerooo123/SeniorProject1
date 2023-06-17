@@ -18,4 +18,5 @@ urlpatterns = [
     path('filtered_products/', views.filtered_products, name="filtered_products"),
     path('product-page/', views.product_page, name="product_page"),
     path('admin/', admin.site.urls),
+    path('faqpage/', views.faqpage, name="faqpage"),
 ]

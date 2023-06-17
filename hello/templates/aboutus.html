@@ -28,7 +28,7 @@
                               <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
                               <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
                               <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
-                              <a class="dropdown-item" href="#">FAQ</a>
+                              <a class="dropdown-item" href="{% url 'faqpage' %}">FAQ</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -59,9 +59,13 @@
                 </div>
             </div>
         </nav>
-        <h2>About Us</h2>
-        
-          
+       
+        <div class="aboutus" id="aboutus" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
+          <img src="{% static 'css/store.jpg' %}">
+          <h2>ABOUT US</h2>
+              <p>Happy Feet takes pride in providing a broad selection of premium shoes that are made to make both men and women look amazing while providing the utmost comfort. We understand the value of having footwear that not only matches your style but also supports your feet all day long.</p>
+      </div>
+
           <div class="footer">
             <center><p>This responsive web application is created for educational purpose. Do not use for making profits. Credit: ABAC students.</p></center>
           </div>

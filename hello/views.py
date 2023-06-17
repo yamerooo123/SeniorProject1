@@ -180,3 +180,6 @@ def filter_products(request):
         'filtered_products': products
     }
     return render(request, 'filtered_products.html', context)
+
+def faqpage(request):
+    return render(request, 'faqpage.html')
