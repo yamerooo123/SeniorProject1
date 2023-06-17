@@ -35,8 +35,11 @@ from hello.views import signout
 from hello.views import filtered_products
 from hello.views import filter_products
 from hello.views import product_page
+<<<<<<< HEAD
 from hello.views import faqpage
 
+=======
+>>>>>>> a8787906520979a31d761a8301cf3e9848123b70
 urlpatterns = [
     path('', welcome, name='welcome'),
     path('homepage/',homepage, name='homepage'),
