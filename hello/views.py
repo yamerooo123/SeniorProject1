@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage, send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -134,6 +135,9 @@ def menshoes(request):
 
 def womenshoes(request):
     return render(request, 'womenshoes.html')
+
+def product_page(request):
+    return render(request, 'product_page.html')
 
 def filtered_products(request):
     return render(request, 'filtered_products.html')

@@ -34,7 +34,7 @@ from django.contrib import admin
 from hello.views import signout
 from hello.views import filtered_products
 from hello.views import filter_products
-
+from hello.views import product_page
 urlpatterns = [
     path('', welcome, name='welcome'),
     path('homepage/',homepage, name='homepage'),
@@ -45,13 +45,13 @@ urlpatterns = [
     path('partnerships/',partnerships, name="partnerships"),
     path('contact/', contact, name="contact"),
     path('contact-view/', contact_view, name='contact_view'),
-    path('user-dashboard/', user_dashboard, name="user_dashboard"),
     path('user-settings/', user_settings, name="user_settings"),
     path('menshoes/', menshoes, name='menshoes'),
     path('womenshoes/', womenshoes, name='womenshoes'),
     path('admin/', admin.site.urls),
     path('signout/', signout, name='signout'),
-    path('filtered_products/', filtered_products, name='filtered_products'),
-    path('filter_products/', filter_products, name='filter_products'),
+    path('filtered-products/', filtered_products, name='filtered_products'),
+    path('filter-products/', filter_products, name='filter_products'),
+    path('product-page/', product_page, name='product_page'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

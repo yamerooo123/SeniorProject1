@@ -65,6 +65,7 @@
                           <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
                             Welcome, {{ user.username }}
                           </a>
+
                         {% else %}
                           <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
                             Login

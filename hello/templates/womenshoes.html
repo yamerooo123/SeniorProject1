@@ -13,8 +13,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-      body {
-                background-color: white;
+     body {
+            background-image: url('/Static/css/aboutus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             }
     </style>
 </head>
@@ -83,7 +87,7 @@
 				</ol>
 				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<img class="d-block w-100" alt="WomenProduct1" src="https://www.layoutit.com/img/sports-q-c-1600-500-1.jpg" />
+						<img class="d-block w-100" alt="WomenProduct1" src='/Static/css/womenads1.jpg' style="object-fit: cover; width: 1600px; height: 500px;" />
 						<div class="carousel-caption">
 							<h4>
 								 Footwears for Women
@@ -94,24 +98,24 @@
 						</div>
 					</div>
 					<div class="carousel-item">
-						<img class="d-block w-100" alt="Carousel Bootstrap Second" src="https://www.layoutit.com/img/sports-q-c-1600-500-2.jpg" />
+						<img class="d-block w-100" alt="WomenProduct2" src='/Static/css/womenads2.jpg' style="object-fit: cover; width: 1600px; height: 500px;" />
 						<div class="carousel-caption">
 							<h4>
-								Second Thumbnail label
+								Customize your shoes with us!
 							</h4>
 							<p>
-								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+								Happy Feet allows customers to customize shoe style however customers like!
 							</p>
 						</div>
 					</div>
 					<div class="carousel-item">
-						<img class="d-block w-100" alt="Carousel Bootstrap Third" src="https://www.layoutit.com/img/sports-q-c-1600-500-3.jpg" />
+						<img class="d-block w-100" alt="WomenProduct3" src='/Static/css/womenads3.jpg' style="object-fit: cover; width: 1600px; height: 500px;" />
 						<div class="carousel-caption">
 							<h4>
-								Third Thumbnail label
+								Many shoes to choose from our store!
 							</h4>
 							<p>
-								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+								Happy Feet also comes up with a variety of styles of shoes including formal shoes!
 							</p>
 						</div>
 					</div>
@@ -137,7 +141,7 @@
       <div class="row">
         <div class="col-lg-3">
           <button
-                  class="btn btn-outline-secondary mb-3 w-100 d-lg-none"
+                  class="btn btn-success mb-3 w-100 d-lg-none"
                   type="button"
                   data-mdb-toggle="collapse-sidebar"
                   data-mdb-target="#navbarSupportedContent"
@@ -164,15 +168,42 @@
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
                   <div class="accordion-body">
-                    <ul class="list-unstyled">
-                      <li><a href="#" class="text-dark">Sports</a></li>
-                      <li><a href="#" class="text-dark">Sneakers</a></li>
-                      <li><a href="#" class="text-dark">Casual</a></li>
-                      <li><a href="#" class="text-dark">Formal</a></li>
-                      <li><a href="#" class="text-dark">Unisex</a></li>
-                      <li><a href="#" class="text-dark">Boots</a></li>
-                      <li><a href="#" class="text-dark">Slippers</a></li>
-                    </ul>
+                    <div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="sports" id="flexCheckChecked1" checked />
+                        <label class="form-check-label" for="flexCheckChecked1">Sports</label>
+                      </div>
+              
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="sneakers" id="flexCheckChecked2" checked />
+                        <label class="form-check-label" for="flexCheckChecked2">Sneakers</label>
+                      </div>
+                    
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="casual" id="flexCheckChecked3" checked />
+                        <label class="form-check-label" for="flexCheckChecked3">Casual</label>
+                      </div>
+                    
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="formal" id="flexCheckChecked4" checked />
+                        <label class="form-check-label" for="flexCheckChecked4">Formal</label>
+                      </div>
+                    
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="unisex" id="flexCheckDefault" />
+                        <label class="form-check-label" for="flexCheckDefault">Unisex</label>
+                      </div>
+                    
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="boots" id="flexCheckDefault" />
+                        <label class="form-check-label" for="flexCheckDefault">Boots</label>
+                      </div>
+                    
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="slippers" id="flexCheckDefault" />
+                        <label class="form-check-label" for="flexCheckDefault">Slippers</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -382,7 +413,7 @@
                         </p>
                       </div>
                       <div class="mt-4">
-                        <button class="btn btn-primary shadow-0" type="button">Buy this</button>
+                        <a class="btn btn-dark shadow-0" href="{% url 'product_page' %}">Buy this</a>
                       </div>
                     </div>
                   </div>
@@ -407,33 +438,7 @@
                         </p>
                       </div>
                       <div class="mt-4">
-                        <button class="btn btn-primary shadow-0" type="button">Buy this</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-  
-          <div class="row justify-content-center mb-3">
-            <div class="col-md-12">
-              <div class="card shadow-0 border rounded-3">
-                <div class="card-body">
-                  <div class="row g-0">
-                    <div class="col-xl-3 col-md-4 d-flex justify-content-center">
-                      <div class="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0">
-                      </div>
-                    </div>
-                    <div class="col-xl-6 col-md-5 col-sm-7">
-                      <h5>ITEM 1</h5>
-                      <div class="d-flex flex-row">
-                        <p class="text mb-4 mb-md-0">
-                          description
-                        </p>
-                      </div>
-                      <div class="mt-4">
-                        <button class="btn btn-primary shadow-0" type="button">Buy this</button>
+                        <button class="btn btn-dark shadow-0" type="button">Buy this</button>
                       </div>
                     </div>
                   </div>
@@ -459,7 +464,7 @@
                         </p>
                       </div>
                       <div class="mt-4">
-                        <button class="btn btn-primary shadow-0" type="button">Buy this</button>
+                        <button class="btn btn-dark shadow-0" type="button">Buy this</button>
                       </div>
                     </div>
                   </div>
@@ -485,7 +490,33 @@
                         </p>
                       </div>
                       <div class="mt-4">
-                        <button class="btn btn-primary shadow-0" type="button">Buy this</button>
+                        <button class="btn btn-dark shadow-0" type="button">Buy this</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row justify-content-center mb-3">
+            <div class="col-md-12">
+              <div class="card shadow-0 border rounded-3">
+                <div class="card-body">
+                  <div class="row g-0">
+                    <div class="col-xl-3 col-md-4 d-flex justify-content-center">
+                      <div class="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0">
+                      </div>
+                    </div>
+                    <div class="col-xl-6 col-md-5 col-sm-7">
+                      <h5>ITEM 1</h5>
+                      <div class="d-flex flex-row">
+                        <p class="text mb-4 mb-md-0">
+                          description
+                        </p>
+                      </div>
+                      <div class="mt-4">
+                        <button class="btn btn-dark shadow-0" type="button">Buy this</button>
                       </div>
                     </div>
                   </div>
@@ -497,7 +528,7 @@
           <hr />
   
       
-          <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
+          <nav aria-label="pagination" class="d-flex justify-content-center mt-3">
             <ul class="pagination">
               <li class="page-item disabled">
                 <a class="page-link" href="#" aria-label="Previous">
