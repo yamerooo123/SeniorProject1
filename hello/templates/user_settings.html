@@ -8,8 +8,10 @@
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-
         <title>Account Settings</title>
+        <style>
+           
+        </style>
     </head>
     <body>
         <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
@@ -21,9 +23,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="{% url 'homepage' %}" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownId">
@@ -31,14 +30,14 @@
                                 <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
                                 <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
                                 <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
-                                <a class="dropdown-item" href="#">FAQ</a>
+                                <a class="dropdown-item" href="{% url 'faqpage' %}">FAQ</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashions</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="#">Men's Shoes</a>
-                                <a class="dropdown-item" href="#">Women's Shoes</a>
+                                <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
+                              <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -48,7 +47,12 @@
                     <form class="d-flex my-2 my-lg-0">
                         <input class="form-control me-sm-2" type="text" placeholder="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">Welcome,username!</a>
+                        {% if user.is_authenticated %}
+                        <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">Welcome,{{ request.user.username }}!</a>
+                        {% else %}
+                        <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                        Login</a>
+                        {% endif %}
                     </form>
                 </div>
             </div>
@@ -86,8 +90,8 @@
                             <a class="list-group-item list-group-item-action" data-toggle="list" href="#" role="tab">
                               Your data
                             </a>
-                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#" role="tab">
-                              Delete account
+                            <a class="list-group-item list-group-item-action" data-toggle="list" href="{% url 'signout' %}" role="tab">
+                              Logout
                             </a>
                         </div>
                     </div>

@@ -12,8 +12,11 @@ urlpatterns = [
     path('partnerships/', views.partnerships, name="partnerships"),
     path('contact/', views.contact, name="contact"),
     path('contact-view/', views.contact_view, name="contact_view"),
-    path('user-dashboard/', views.user_dashboard, name="user_dashboard"),
     path('user-settings/', views.user_settings, name="user_settings"),
+    path('menshoes/', views.menshoes, name="menshoes"),
+    path('womenshoes/', views.womenshoes, name="womenshoes"),
+    path('filtered_products/', views.filtered_products, name="filtered_products"),
+    path('product-page/', views.product_page, name="product_page"),
     path('admin/', admin.site.urls),
-    
+    path('faqpage/', views.faqpage, name="faqpage"),
 ]

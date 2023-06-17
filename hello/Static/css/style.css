@@ -100,6 +100,15 @@
   padding: 10px;
   color: rgb(4, 4, 4);
       }
+  
+
+/*women product filter*/
+.card.card-sm {
+  width: 50%; 
+  height: 100%; 
+}
+
+
 .recommendation {
   background-image: url('/Static/css/recommendation.jpg');
   background-size: cover;
@@ -244,7 +253,7 @@ h1::before {
   color: white;
 }
 
-/*account settings*/
+
 .card {
   margin-bottom: 1.5rem;
   box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);

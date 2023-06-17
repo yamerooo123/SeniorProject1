@@ -32,24 +32,26 @@
                 </button>
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                        {% if not user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                            <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
                         </li>
+                        {% endif %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="{% url 'homepage' %}" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="{% url 'homepage' %}">Home</a>
-                                <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
-                                <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
-                                <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
-                                <a class="dropdown-item" href="#">FAQ</a>
+                              <a class="dropdown-item" href="{% url 'homepage' %}">Home</a>
+                              <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
+                              <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
+                              <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
+                              <a class="dropdown-item" href="{% url 'faqpage' %}">FAQ</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashions</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="#">Men's Shoes</a>
-                                <a class="dropdown-item" href="#">Women's Shoes</a>
+                              <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
+                              <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -59,7 +61,17 @@
                     <form class="d-flex my-2 my-lg-0">
                         <input class="form-control me-sm-2" type="text" placeholder="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">Login</a>
+                        {% if user.is_authenticated %}
+                          <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
+                            Welcome, {{ user.username }}
+                          </a>
+
+                        {% else %}
+                          <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                            Login
+                           </a>
+                        {% endif %}
+                        
                     </form>
                 </div>
             </div>
@@ -68,14 +80,14 @@
             <center><h3>Men Shoes</h3></center>
             <p class="inline-content">sneakers, boots, sandals,...</p>
             <div class="centered-content">
-                <center><a href="#">Find your style</a></center>
+                <center><a href="{% url 'menshoes' %}">Find your style</a></center>
               </div>
         </div>
         <div class="womenshoes" id="womenshoes">
             <center><h3>Women Shoes</h3></center>
             <p>sneakers, flats, sandals, heels,...</p>
             <div class="centered-content">
-                <center><a href="#">Find your style</a></center>
+                <center><a href="{% url 'womenshoes' %}">Find your style</a></center>
               </div>
         </div>
         <div class="recommendation" id="recommendation">

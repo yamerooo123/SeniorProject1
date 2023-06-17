@@ -10,3 +10,14 @@ class UserProfile(models.Model):
     city = models.CharField(max_length=100, null=True, blank=True)
     state = models.CharField(max_length=100, null=True, blank=True)
     zip_code = models.IntegerField(null=True, blank=True)
+
+class ShoeFeatures(models.Model):
+    type1 = models.CharField(max_length=255)
+    type2 = models.CharField(max_length=255)
+    maincolor = models.CharField(max_length=255)
+    subcolor1 = models.CharField(max_length=255)
+    subcolor2 = models.CharField(max_length=255)
+    size = models.IntegerField()
+    price = models.DecimalField(max_digits=100, decimal_places=2)
+    brand = models.CharField(max_length=255)
+

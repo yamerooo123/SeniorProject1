@@ -1,18 +1,19 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage, send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 import os
-
-from .models import UserProfile
+from .models import UserProfile, ShoeFeatures
 
 
 def welcome(request):
     return render(request, 'welcomepage.html')
+
 
 def homepage(request):
     return render(request, 'homepage.html')
@@ -56,12 +57,10 @@ def signup(request):
                 birthdate=birthdate,
                 phoneno=phoneno
             )
-
     messages.success(request, "Registration successful. You can now login.")
             
     
     return render(request, 'signup.html', {'messages': messages.get_messages(request)})
-
 
 def signin(request):
     if request.method == "POST":
@@ -78,6 +77,11 @@ def signin(request):
     else:
         form = AuthenticationForm()
     return render(request=request, template_name="signin.html", context={"form": form})
+
+
+def signout(request):
+    logout(request)
+    return redirect('homepage')
 
 def aboutus(request):
     return render(request, 'aboutus.html')
@@ -105,7 +109,7 @@ def contact_view(request):
                 for chunk in file.chunks():
                     destination.write(chunk)
 
-        # Send email
+       
         subject = f'New Contact from www.happyfeet.com: {problem}'
         message = f'Name: {name}\nEmail: {email}\nProblem: {problem}\nDetails: {details}'
         if file:
@@ -119,10 +123,63 @@ def contact_view(request):
 
     return render(request, 'contact.html')
 
-
 def user_dashboard(request):
-    return render(request, 'user_dashboard.html')
+    return render(request, "user_dashboard.html", {'user': request.user})
 
 
 def user_settings(request):
     return render(request, 'user_settings.html')
+
+def menshoes(request):
+    return render(request, 'menshoes.html')
+
+def womenshoes(request):
+    return render(request, 'womenshoes.html')
+
+def product_page(request):
+    return render(request, 'product_page.html')
+
+def filtered_products(request):
+    return render(request, 'filtered_products.html')
+
+def filter_products(request):
+    type1 = request.GET.get('type1')  
+    type2 = request.GET.get('type2') 
+    maincolor = request.GET.get('maincolor')  
+    subcolor1 = request.GET.get('subcolor1')  
+    subcolor2 = request.GET.get('subcolor2')  
+    size = request.GET.get('size') 
+    price_range = request.GET.getlist('price_range')  
+    brand = request.GET.get('brand')  
+    
+    
+    products = ShoeFeatures.objects.all() 
+    
+    
+    if type1:
+        products = products.filter(type1=type1)
+    if type2:
+        products = products.filter(type2=type2)
+    if maincolor:
+        products = products.filter(maincolor=maincolor)
+    if subcolor1:
+        products = products.filter(subcolor1=subcolor1)
+    if subcolor2:
+        products = products.filter(subcolor2=subcolor2)
+    if size:
+        products = products.filter(size=size)
+    if price_range:
+        if 'low' in price_range:
+            products = products.filter(price__lte=50)  
+        if 'medium' in price_range:
+            products = products.filter(price__gt=50, price__lte=100)  
+            products = products.filter(price__gt=100) 
+    if brand:
+        products = products.filter(brand=brand)
+    context = {
+        'filtered_products': products
+    }
+    return render(request, 'filtered_products.html', context)
+
+def faqpage(request):
+    return render(request, 'faqpage.html')

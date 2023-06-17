@@ -22,20 +22,20 @@
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="{% url 'homepage' %}" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="{% url 'homepage' %}">Home</a>
-                                <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
-                                <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
-                                <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
-                                <a class="dropdown-item" href="#">FAQ</a>
+                              <a class="dropdown-item" href="{% url 'homepage' %}">Home</a>
+                              <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
+                              <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
+                              <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
+                              <a class="dropdown-item" href="{% url 'faqpage' %}">FAQ</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashions</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="#">Men's Shoes</a>
-                                <a class="dropdown-item" href="#">Women's Shoes</a>
+                              <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
+                              <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -45,16 +45,26 @@
                     <form class="d-flex my-2 my-lg-0">
                         <input class="form-control me-sm-2" type="text" placeholder="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">Login</a>
+                        {% if user.is_authenticated %}
+                          <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
+                            Welcome, {{ user.username }}
+                          </a>
+                        {% else %}
+                          <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                            Login
+                           </a>
+                        {% endif %}
+                        
                     </form>
                 </div>
             </div>
         </nav>
-
-        <div>
-            <h2>About Us</h2>
-                <p>Happy Feet takes pride in providing a broad selection of premium shoes that are made to make both men and women look amazing while providing the utmost comfort. We understand the value of having footwear that not only matches your style but also supports your feet all day long.</p>
-        </div>
+       
+        <div class="aboutus" id="aboutus" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
+          <img src="{% static 'css/store.jpg' %}">
+          <h2>ABOUT US</h2>
+              <p>Happy Feet takes pride in providing a broad selection of premium shoes that are made to make both men and women look amazing while providing the utmost comfort. We understand the value of having footwear that not only matches your style but also supports your feet all day long.</p>
+      </div>
 
           <div class="footer">
             <center><p>This responsive web application is created for educational purpose. Do not use for making profits. Credit: ABAC students.</p></center>
