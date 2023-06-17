@@ -290,3 +290,28 @@ h1::before {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+/*about us*/
+.aboutus {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+}
+
+.aboutus-content {
+  text-align: right;
+  margin-right: 20px;
+}
+
+.aboutus-image {
+  max-width: 50%;
+  height: auto;
+  margin-left: 20px;
+}
+
+.small-logo {
+  max-width: 200px;
+  height: auto;
+}
