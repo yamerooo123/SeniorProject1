@@ -153,7 +153,7 @@
         $('#submitButton').click(function() {
           $(this).prop('disabled', true);
   
-          // Perform form submission using Ajax
+         
           $.ajax({
           url: $('#contactForm').attr('action'),
           method: $('#contactForm').attr('method'),
@@ -161,17 +161,16 @@
           processData: false,
           contentType: false,
           success: function(response) {
-            // Show the notification when the form is successfully submitted
+           
             $('#notification').removeClass('d-none');
           },
           complete: function() {
-            // Re-enable the button after form submission is complete
+           
             $('#submitButton').prop('disabled', false);
           }
           });
         });
   
-        // Hide the notification when the close button is clicked
         $('#notification .btn-close').click(function() {
           $('#notification').addClass('d-none');
         });

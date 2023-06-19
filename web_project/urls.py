@@ -35,11 +35,11 @@ from hello.views import signout
 from hello.views import filtered_products
 from hello.views import filter_products
 from hello.views import product_page
-<<<<<<< HEAD
 from hello.views import faqpage
-
-=======
->>>>>>> a8787906520979a31d761a8301cf3e9848123b70
+from hello.views import user_private_info_change
+from hello.views import user_public_info_change
+from hello.views import change_password
+from hello.views import forgot_password
 urlpatterns = [
     path('', welcome, name='welcome'),
     path('homepage/',homepage, name='homepage'),
@@ -59,5 +59,8 @@ urlpatterns = [
     path('filter-products/', filter_products, name='filter_products'),
     path('product-page/', product_page, name='product_page'),
     path('faqpage/', faqpage, name="faqpage"),
-
+    path('user-private-info-change/', user_private_info_change, name='user_private_info_change'),
+    path('user-public-info-change/', user_public_info_change, name='user_public_info_change'),
+    path('change-password/', change_password, name='change_password'),
+    path('forgot-password/', forgot_password, name='forgot_password'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

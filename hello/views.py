@@ -7,6 +7,7 @@ from django.core.mail import EmailMessage, send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
+from django.urls import reverse
 import os
 from .models import UserProfile, ShoeFeatures
 
@@ -58,8 +59,6 @@ def signup(request):
                 phoneno=phoneno
             )
     messages.success(request, "Registration successful. You can now login.")
-            
-    
     return render(request, 'signup.html', {'messages': messages.get_messages(request)})
 
 def signin(request):
@@ -72,7 +71,7 @@ def signin(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
-                return redirect("user_dashboard")
+                return redirect("homepage")
         messages.error(request, "Invalid username or password.")
     else:
         form = AuthenticationForm()
@@ -82,7 +81,6 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('homepage')
-
 def aboutus(request):
     return render(request, 'aboutus.html')
 
@@ -183,3 +181,54 @@ def filter_products(request):
 
 def faqpage(request):
     return render(request, 'faqpage.html')
+
+@login_required
+@csrf_protect
+def user_private_info_change(request):
+    if request.method == 'POST':
+        address = request.POST.get('inputAddress')
+        address1 = request.POST.get('inputAddress1')
+        city = request.POST.get('inputCity')
+        state = request.POST.get('inputState')
+        zip_code = request.POST.get('inputZip')
+
+        if zip_code and not zip_code.isdigit():
+            message = "Invalid zip code. Please enter the correct zip code."
+            return render(request, "user_settings.html", {'message': message})
+
+        user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
+        user_profile.address = address
+        user_profile.address1 = address1
+        user_profile.city = city
+        user_profile.state = state
+        user_profile.zip_code = zip_code
+        user_profile.save()
+
+        message = "Your account has been successfully updated"
+        return render(request, "user_settings.html", {'message': message})
+
+    return render(request, "user_settings.html")
+
+
+@login_required
+@csrf_protect
+def user_public_info_change(request):
+    if request.method == 'POST':
+        phoneno = request.POST.get('inputPhoneno')
+
+        user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
+        user_profile.phoneno = phoneno
+        user_profile.save()
+
+        message = "Success!"
+        return render(request, "user_settings.html", {'message': message})
+    return render(request, "user_settings.html")
+
+@login_required
+def change_password(request):
+    return render(request, "change_password.html")
+
+@login_required
+def forgot_password(request):
+    return render(request, "forgot_password.html")
+

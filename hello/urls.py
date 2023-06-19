@@ -19,4 +19,4 @@ urlpatterns = [
     path('product-page/', views.product_page, name="product_page"),
     path('admin/', admin.site.urls),
     path('faqpage/', views.faqpage, name="faqpage"),
-]
+    path('change-password/', views.change_password, name="change_password"),
