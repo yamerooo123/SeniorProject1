@@ -36,10 +36,14 @@ from hello.views import filtered_products
 from hello.views import filter_products
 from hello.views import product_page
 from hello.views import faqpage
+<<<<<<< HEAD
 from hello.views import user_private_info_change
 from hello.views import user_public_info_change
 from hello.views import change_password
 from hello.views import forgot_password
+=======
+
+>>>>>>> 2753348795b5d2f56130a884a34d3d4c8806b7a3
 urlpatterns = [
     path('', welcome, name='welcome'),
     path('homepage/',homepage, name='homepage'),
