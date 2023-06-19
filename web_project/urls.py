@@ -1,57 +1,19 @@
-"""
-URL configuration for web_project project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.urls import path
-from django.conf.urls.static import static
-from django.conf import settings
-from hello.views import welcome
-from hello.views import homepage
-from hello.views import signup
-from hello.views import signin
-from hello.views import aboutus
-from hello.views import howtobuy
-from hello.views import partnerships
-from hello.views import contact
-from hello.views import contact_view
-from hello.views import user_dashboard
-from hello.views import user_settings
-from hello.views import menshoes
-from hello.views import womenshoes
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib import admin
-from hello.views import signout
-from hello.views import filtered_products
-from hello.views import filter_products
-from hello.views import product_page
-from hello.views import faqpage
-<<<<<<< HEAD
-from hello.views import user_private_info_change
-from hello.views import user_public_info_change
-from hello.views import change_password
-from hello.views import forgot_password
-=======
+from hello.views import (
+    welcome, homepage, signup, signin, aboutus, howtobuy, partnerships, contact, contact_view, user_settings, menshoes, womenshoes, signout, filtered_products, filter_products, product_page, faqpage, user_private_info_change, user_public_info_change, password_change_done
+, edit_account_success
+)
 
->>>>>>> 2753348795b5d2f56130a884a34d3d4c8806b7a3
 urlpatterns = [
     path('', welcome, name='welcome'),
-    path('homepage/',homepage, name='homepage'),
-    path('signup/',signup, name="signup"),
-    path('signin/',signin, name="signin"),
-    path('aboutus/',aboutus, name="aboutus"),
-    path('howtobuy/',howtobuy, name="howtobuy"),
-    path('partnerships/',partnerships, name="partnerships"),
+    path('homepage/', homepage, name='homepage'),
+    path('signup/', signup, name="signup"),
+    path('signin/', signin, name="signin"),
+    path('aboutus/', aboutus, name="aboutus"),
+    path('howtobuy/', howtobuy, name="howtobuy"),
+    path('partnerships/', partnerships, name="partnerships"),
     path('contact/', contact, name="contact"),
     path('contact-view/', contact_view, name='contact_view'),
     path('user-settings/', user_settings, name="user_settings"),
@@ -65,6 +27,7 @@ urlpatterns = [
     path('faqpage/', faqpage, name="faqpage"),
     path('user-private-info-change/', user_private_info_change, name='user_private_info_change'),
     path('user-public-info-change/', user_public_info_change, name='user_public_info_change'),
-    path('change-password/', change_password, name='change_password'),
-    path('forgot-password/', forgot_password, name='forgot_password'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('change-password/', PasswordChangeView.as_view(template_name='user_settings.html'), name='change_password'),
+    path('password-change-done/', password_change_done, name='password_change_done'),
+    path('edit-account-success/', edit_account_success, name='edit_account_success'),
+]   

@@ -10,6 +10,14 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
         <title>Account Settings</title>
         <style>
+           body {
+            background-image: url('/Static/css/aboutus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            }
+    </style>
        </style>
     </head>
     <body>
@@ -101,22 +109,6 @@
                         <div class="tab-pane fade show active" id="account" role="tabpanel">
                             <div class="card">
                                 <div class="card-header">
-                                    <div class="card-actions float-right">
-                                        <div class="dropdown show">
-                                            <a href="#" data-toggle="dropdown" data-display="static">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle">
-                                                    <circle cx="12" cy="12" r="1"></circle>
-                                                    <circle cx="19" cy="12" r="1"></circle>
-                                                    <circle cx="5" cy="12" r="1"></circle>
-                                                </svg>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#">Action</a>
-                                                <a class="dropdown-item" href="#">Another action</a>
-                                                <a class="dropdown-item" href="#">Something else here</a>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <h5 class="card-title mb-0">Public info</h5>
                                 </div>
                                 <div class="card-body">
@@ -150,23 +142,6 @@
         
                             <div class="card">
                                 <div class="card-header">
-                                    <div class="card-actions float-right">
-                                        <div class="dropdown show">
-                                            <a href="#" data-toggle="dropdown" data-display="static">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle">
-                                                    <circle cx="12" cy="12" r="1"></circle>
-                                                    <circle cx="19" cy="12" r="1"></circle>
-                                                    <circle cx="5" cy="12" r="1"></circle>
-                                                </svg>
-                                            </a>
-        
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#">Action</a>
-                                                <a class="dropdown-item" href="#">Another action</a>
-                                                <a class="dropdown-item" href="#">Something else here</a>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <h5 class="card-title mb-0">Private info</h5>
                                 </div>
                                 <div class="card-body">
@@ -220,34 +195,33 @@
                                 </div>
                             </div>      
                         </div>
-                        <div class="tab-pane fade" id="password" role="tabpanel">
+                        <div class="tab-pane fade mb-0" id="password" role="tabpanel">
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Password</h5>
                                     <form action="{% url 'change_password' %}" method="POST">
-                                        <div class="form-group">
-                                            <label for="inputPasswordCurrent">Current password</label>
-                                            <input type="password" class="form-control" id="inputPasswordCurrent">
-                                            <small><a href="{% url 'forgot_password' %}">Forgot your password?</a></small>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputPasswordNew">New password</label>
-                                            <input type="password" class="form-control" id="inputPasswordNew">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputPasswordNew2">Verify password</label>
-                                            <input type="password" class="form-control" id="inputPasswordNew2">
-                                        </div>
+                                        {% csrf_token %}
+                                        {{ form.as_p }}
                                         <button type="submit" class="btn btn-dark">Save changes</button>
                                     </form>
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            {% if message.tags == 'error' %}
+                                                <div class="alert alert-danger">{{ message }}</div>
+                                            {% elif message.tags == 'success' %}
+                                                <div class="alert alert-success">{{ message }}</div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
                                 </div>
+                            </div>
+                        </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        </div>
+            </div>
         <script>
             $(document).ready(function() {
                 $('.list-group-item-action').on('click', function() {

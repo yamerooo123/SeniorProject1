@@ -1,6 +1,7 @@
 from django.urls import path
 from hello import views
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.welcome, name="welcome"),
@@ -19,4 +20,9 @@ urlpatterns = [
     path('product-page/', views.product_page, name="product_page"),
     path('admin/', admin.site.urls),
     path('faqpage/', views.faqpage, name="faqpage"),
-    path('change-password/', views.change_password, name="change_password"),
+    path('user-private-info-change/', views.user_private_info_change, name="user_private_info_change"),
+    path('user-public-info-change/', views.user_public_info_change, name="user_public_info_change"),
+    path('change-password/', auth_views.PasswordChangeView.as_view(template_name='user_settings.html', success_url='/user-settings/'), name='change_password'),
+    path('edit-account-success/', views.edit_account_success, name="edit_account_success"),
+]
+   

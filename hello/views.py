@@ -1,15 +1,16 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage, send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
-from django.urls import reverse
 import os
 from .models import UserProfile, ShoeFeatures
+
 
 
 def welcome(request):
@@ -204,11 +205,9 @@ def user_private_info_change(request):
         user_profile.zip_code = zip_code
         user_profile.save()
 
-        message = "Your account has been successfully updated"
-        return render(request, "user_settings.html", {'message': message})
+        return redirect("edit_account_success")
 
     return render(request, "user_settings.html")
-
 
 @login_required
 @csrf_protect
@@ -220,15 +219,31 @@ def user_public_info_change(request):
         user_profile.phoneno = phoneno
         user_profile.save()
 
-        message = "Success!"
-        return render(request, "user_settings.html", {'message': message})
+        
+        return render(request, "edit_account_success.html")
     return render(request, "user_settings.html")
 
 @login_required
-def change_password(request):
-    return render(request, "change_password.html")
+@csrf_protect
+def user_settings(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('user_settings')
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = PasswordChangeForm(user=request.user)
+    
+    context = {
+        'form': form
+    }
+    return render(request, 'user_settings.html', context)
 
-@login_required
-def forgot_password(request):
-    return render(request, "forgot_password.html")
+def password_change_done(request):
+    return render(request, 'password_change_done.html')
 
+def edit_account_success(request):
+    return render(request, 'edit_account_success.html')

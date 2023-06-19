@@ -285,11 +285,7 @@ h1::before {
   border-bottom: 1px solid #e5e9f2;
 }
 
-.background {
-  background-image: url('/Static/css/aboutus.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-}
+
 
 /*about us*/
 .aboutus {
