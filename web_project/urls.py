@@ -3,7 +3,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.contrib import admin
 from hello.views import (
     welcome, homepage, signup, signin, aboutus, howtobuy, partnerships, contact, contact_view, user_settings, menshoes, womenshoes, signout, filtered_products, filter_products, product_page, faqpage, user_private_info_change, user_public_info_change, password_change_done
-, edit_account_success
+, edit_account_success, cart_view
 )
 
 urlpatterns = [
@@ -24,6 +24,7 @@ urlpatterns = [
     path('filtered-products/', filtered_products, name='filtered_products'),
     path('filter-products/', filter_products, name='filter_products'),
     path('product-page/', product_page, name='product_page'),
+    path('cart-view/', cart_view, name='cart_view'),
     path('faqpage/', faqpage, name="faqpage"),
     path('user-private-info-change/', user_private_info_change, name='user_private_info_change'),
     path('user-public-info-change/', user_public_info_change, name='user_public_info_change'),

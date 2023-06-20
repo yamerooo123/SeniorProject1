@@ -18,6 +18,7 @@ urlpatterns = [
     path('womenshoes/', views.womenshoes, name="womenshoes"),
     path('filtered_products/', views.filtered_products, name="filtered_products"),
     path('product-page/', views.product_page, name="product_page"),
+    path('cart-view/', views.cart_view, name="cart_view"),
     path('admin/', admin.site.urls),
     path('faqpage/', views.faqpage, name="faqpage"),
     path('user-private-info-change/', views.user_private_info_change, name="user_private_info_change"),

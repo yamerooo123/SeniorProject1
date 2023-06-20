@@ -138,6 +138,9 @@ def womenshoes(request):
 def product_page(request):
     return render(request, 'product_page.html')
 
+def cart_view(request):
+    return render(request, "cart_view.html")
+
 def filtered_products(request):
     return render(request, 'filtered_products.html')
 
@@ -145,8 +148,7 @@ def filter_products(request):
     type1 = request.GET.get('type1')  
     type2 = request.GET.get('type2') 
     maincolor = request.GET.get('maincolor')  
-    subcolor1 = request.GET.get('subcolor1')  
-    subcolor2 = request.GET.get('subcolor2')  
+    subcolor = request.GET.get('subcolor')   
     size = request.GET.get('size') 
     price_range = request.GET.getlist('price_range')  
     brand = request.GET.get('brand')  
@@ -159,14 +161,12 @@ def filter_products(request):
         products = products.filter(type1=type1)
     if type2:
         products = products.filter(type2=type2)
+    if size:
+        products = products.filter(size=size)    
     if maincolor:
         products = products.filter(maincolor=maincolor)
-    if subcolor1:
-        products = products.filter(subcolor1=subcolor1)
-    if subcolor2:
-        products = products.filter(subcolor2=subcolor2)
-    if size:
-        products = products.filter(size=size)
+    if subcolor:
+        products = products.filter(subcolor=subcolor)
     if price_range:
         if 'low' in price_range:
             products = products.filter(price__lte=50)  
@@ -231,7 +231,7 @@ def user_settings(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
-            return redirect('user_settings')
+            return redirect('user_settings#password')
         else:
             messages.error(request, 'Please correct the errors below.')
     else:

@@ -19,7 +19,7 @@ class ShoeFeatures(models.Model):
     type1 = models.CharField(max_length=255)
     type2 = models.CharField(max_length=255)
     maincolor = models.CharField(max_length=255)
-    subcolor1 = models.CharField(max_length=255)
+    subcolor = models.CharField(max_length=255)
     subcolor2 = models.CharField(max_length=255)
     size = models.IntegerField()
     price = models.DecimalField(max_digits=100, decimal_places=2)

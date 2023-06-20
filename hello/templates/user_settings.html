@@ -4,7 +4,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -54,12 +54,21 @@
                     
                     <form class="d-flex my-2 my-lg-0">
                         <input class="form-control me-sm-2" type="text" placeholder="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
                         {% if user.is_authenticated %}
-                        <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">Welcome,{{ request.user.username }}!</a>
+                        <a class="btn btn-outline-dark ms-2" href="{% url 'cart_view' %}">
+                          Cart
+                        </a>
+                          <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
+                            Welcome,&nbsp;{{ user.username }}
+                          </a>
+                          <a class="btn btn-outline-dark ms-2" href="{% url 'signout' %}">
+                            Log&nbsp;Out
+                          </a>
                         {% else %}
-                        <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
-                        Login</a>
+                          <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                            Login
+                           </a>
                         {% endif %}
                     </form>
                 </div>
@@ -69,11 +78,10 @@
         <div class="container p-0">
             <h1 class="h3 mb-3">Settings</h1>
             <div class="row">
-                <div class="col-md-5 col-xl-4">
-        
+                <div class="col-md-12 col-xl-4">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">Profile Settings</h5>
+                            <h5 class="card-title mb-0">Account Settings</h5>
                         </div>
         
                         <div class="list-group list-group-flush" role="tablist">
@@ -81,10 +89,10 @@
                               Account
                             </a>
                             <a class="list-group-item list-group-item-action" data-toggle="list" href="#password" role="tab">
-                              Password
+                              Change Password
                             </a>
-                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#" role="tab">
-                              Privacy and safety
+                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#order_tracker" role="tab">
+                              Order Tracker
                             </a>
                             <a class="list-group-item list-group-item-action" data-toggle="list" href="#" role="tab">
                               Email notifications
@@ -134,9 +142,6 @@
                                         </div>
                                         <button type="submit" class="btn btn-dark">Save changes</button>
                                     </form>
-                                    {% if message %}
-                                        <div class="alert-success">{{ message }}</div>
-                                    {% endif %}
                                 </div>
                                 </div>
         
@@ -158,12 +163,12 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="inputEmail4">Email</label>
-                                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" value="{{ request.user.email }}" readonly>
-                                        </div>
-                                        <div class="form-group">
                                             <label for="inputBirthdate">Birthdate</label>
                                             <input type="date" class="form-control" id="inputBirthdate" name="birthdate" placeholder="Birthdate" value="{{ request.user.userprofile.birthdate|date:'Y-m-d' }}" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputEmail4">Email</label>
+                                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" value="{{ request.user.email }}">
                                         </div>
                                         <div class="form-group">
                                             <label for="inputAddress">Address 1</label>
@@ -190,7 +195,7 @@
                                         <button type="submit" class="btn btn-dark">Save changes</button>
                                     </form>
                                     {% if message %}
-                                        <div class="alert alert-success">{{ message }}</div>
+                                        <div class="alert alert-danger">{{ message }}</div>
                                     {% endif %}
                                 </div>
                             </div>      
@@ -215,6 +220,94 @@
                                     {% endif %}
                                 </div>
                             </div>
+                        </div>
+                        <div class="tab-pane fade mb-0" id="order_tracker" role="tabpanel">
+                            <div class="container-fluid">
+                                <div class="card">
+                                <div class="card-body">
+                                <div class=" row">
+                                    <div class="col-md-12">                                 
+                                            <div class="table-responsive table-borderless">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">
+                                                                <div class="toggle-btn">
+                                                                    <div class="inner-circle"></div>
+                                                                </div>
+                                                            </th>
+                                                            <th>Order&nbsp;#</th>
+                                                            <th>Name</th>
+                                                            <th>Status</th>
+                                                            <th>Total</th>
+                                                            <th>Created</th>
+                                                            <th>Delivery&nbsp;status</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table-body">
+                                                        <tr class="cell-1">
+                                                            <td class="text-center">
+                                                                <div class="toggle-btn">
+                                                                    <div class="inner-circle"></div>
+                                                                </div>
+                                                            </td>
+                                                            <td>#SO-13487</td>
+                                                            <td>Gasper Antunes</td>
+                                                            <td><span class="badge badge-success">Fullfilled</span></td>
+                                                            <td>$2674.00</td>
+                                                            <td>Today</td>
+                                                            <td><i class="fa fa-ellipsis-h text-black-50"></i></td>
+                                                        </tr>
+                                                        <tr class="cell-1">
+                                                            <td class="text-center">
+                                                                <div class="toggle-btn">
+                                                                    <div class="inner-circle"></div>
+                                                                </div>
+                                                            </td>
+                                                            <td>#SO-13453</td>
+                                                            <td>Aartsen van</td>
+                                                            <td><span class="badge badge-info">Confirmed</span></td>
+                                                            <td>$3454.00</td>
+                                                            <td>Yesterday</td>
+                                                            <td><i class="fa fa-ellipsis-h text-black-50"></i></td>
+                                                        </tr>
+                                                        <tr class="cell-1">
+                                                            <td class="text-center">
+                                                                <div class="toggle-btn">
+                                                                    <div class="inner-circle"></div>
+                                                                </div>
+                                                            </td>
+                                                            <td>#SO-13498</td>
+                                                            <td>Trashes Habard</td>
+                                                            <td><span class="badge badge-danger">Partially shipped</span></td>
+                                                            <td>$6274.00</td>
+                                                            <td>May 12,2020</td>
+                                                            <td><i class="fa fa-ellipsis-h text-black-50"></i></td>
+                                                        </tr>
+                                                        <tr class="cell-1">
+                                                            <td class="text-center">
+                                                                <div class="toggle-btn">
+                                                                    <div class="inner-circle"></div>
+                                                                </div>
+                                                            </td>
+                                                            <td>#SO-16499</td>
+                                                            <td>Samban Hubart</td>
+                                                            <td><span class="badge badge-success">Fullfilled</span></td>
+                                                            <td>$6375.00</td>
+                                                            <td>May 11,2020</td>
+                                                            <td><i class="fa fa-ellipsis-h text-black-50"></i></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                            
+                             
                         </div>
                             </div>
                         </div>
