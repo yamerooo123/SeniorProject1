@@ -5,3 +5,4 @@
 # 16/06/66 login authentication fixed, update product page(add product filter)
 # 17/06/66 update product page(add single product page) and men & women products page.
 # 19/06/66 update user settings( account and change password functions )
+# 22/06/66 success deploying on Heroku( css is not render )
