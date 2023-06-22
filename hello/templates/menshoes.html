@@ -20,6 +20,31 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             }
+            body {
+            margin: 0;
+            padding: 0;
+        }
+
+        footer {
+            background-color: #45526e;
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 2rem 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -559,13 +584,73 @@
       </div>
     </div>
   </section>
-    <div class="footer">
-        <center>
-            <p>This responsive web application is created for educational purposes. Do not use for making profits.
-                Credit: ABAC students.</p>
-        </center>
-    </div>
-    
+    <footer>
+      <div class="container">
+          <div class="footer-links">
+              <div class="col-md-3 col-lg-3 col-xl-3">
+                  <h6 class="text-uppercase mb-4 font-weight-bold">Happy Team</h6>
+                  <p>
+                     <a href="{% url 'homepage' %}" >Michael Grey</a>
+                  </p>
+                  <p>
+                    <a href="{% url 'homepage' %}" >Ezio Auditore da Firenze</a>
+                 </p>
+                 <p>
+                  <a href="{% url 'homepage' %}" >Billy Russo</a>
+               </p>
+              </div>
+
+              <div class="col-md-2 col-lg-2 col-xl-2">
+                  <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                  <p>
+                      <a href="{% url 'menshoes' %}" class="text-white">Men Shoes</a>
+                  </p>
+                  <p>
+                      <a href="{% url 'womenshoes' %}" class="text-white">Women Shoes</a>
+                  </p>
+                  <p>
+                      <a href="#" class="text-white">Best Selling</a>
+                  </p>
+              </div>
+
+              <div class="col-md-4 col-lg-3 col-xl-3">
+                  <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                  <p><i class="fas fa-home mr-3"></i> Bangkok, Bang Pho 10012, TH</p>
+                  <p><i class="fas fa-envelope mr-3"></i> happyfeet_cs@gmail.com</p>
+                  <p><i class="fas fa-phone mr-3"></i> + 092 496 5301 </p>
+                  <p><i class="fas fa-print mr-3"></i> + 092 496 5302</p>
+              </div>
+          </div>
+
+          <hr class="my-3">
+
+          <section class="p-3 pt-0">
+              <div class="row d-flex align-items-center">
+                  <div class="col-md-7 col-lg-8 text-center text-md-start">
+                      <div class="p-3">
+                          &copy; 2023 Happy Feet. All rights reserved.
+                      </div>
+                  </div>
+
+                  <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+                      <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                          <i class="fab fa-facebook-f"></i>
+                      </a>
+                      <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                          <i class="fab fa-twitter"></i>
+                      </a>
+                      <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                          <i class="fab fa-google"></i>
+                      </a>
+                      <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                          <i class="fab fa-instagram"></i>
+                      </a>
+                  </div>
+              </div>
+          </section>
+      </div>
+  </footer>
+  
     <script>
       $(document).ready(function() {
         // Toggle collapse-sidebar when Show filter button is clicked

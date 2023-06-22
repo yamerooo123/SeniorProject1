@@ -5,21 +5,12 @@
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta charset="utf-8">
+      <link rel="stylesheet" href="{% static 'css/Style3.css' %}">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
-      <link rel="stylesheet" href="{% static 'css/style.css' %}">
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
         <style>
-        #container2 {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
-            padding: 20px;
-            margin-top: 0px;
-                    }
-        .d-flex .flex-fill {
-            display: inline-block;
-            }
              #form-group {
                 background-color: #fff;
                 box-shadow: 0 1px 3px rgba(0,0,0,.3);
@@ -32,7 +23,24 @@
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
+                background-attachment: fixed;
             }
+            footer {
+            background-color: #45526e;
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 2rem 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
         </style>
         <title>Sign up</title>
     </head> 
@@ -76,75 +84,129 @@
       </div>
   </nav>
   <body>
-    <div class="container my-5" id="container2">
-        <div class="row justify-content-center">
-          
-            <h2 class="text-center mb-4">Sign Up</h2>
-            <form action="{% url 'signup' %}" method="POST">
-              {% csrf_token %}
-              <div class="mb-3 row">
-                <div class="col">
-                  <label for="name" class="form-label">Name</label>
-                  <input type="text" class="form-control" id="name" name="name" required>
-                </div>
-                <div class="col">
-                  <label for="surname" class="form-label">Surname</label>
-                  <input type="text" class="form-control" id="surname" name="surname" required>
-                </div>
+    <div class="container-fluid d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+      <div class="card" style="height: 750px; width: 600px;">
+          <div class="card-body">
+              <div class="row justify-content-center">
+                  <h2 class="text-center mb-4">Sign Up</h2>
+                  <form action="{% url 'signup' %}" method="POST">
+                      {% csrf_token %}
+                      <div class="mb-3 row">
+                          <div class="col">
+                              <label for="name" class="form-label">Name</label>
+                              <input type="text" class="form-control" id="name" name="name" required>
+                          </div>
+                          <div class="col">
+                              <label for="surname" class="form-label">Surname</label>
+                              <input type="text" class="form-control" id="surname" name="surname" required>
+                          </div>
+                      </div>
+                      <div class="mb-3">
+                          <label for="username" class="form-label">Username</label>
+                          <input type="varchar" class="form-control" id="username" name="username" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="password" class="form-label">Password</label>
+                          <input type="password" class="form-control" id="password" name="password" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="password2" class="form-label">Confirm Password</label>
+                          <input type="password" class="form-control" id="password2" name="password2" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="email" class="form-label">Email address</label>
+                          <input type="email" class="form-control" id="email" name="email" required>
+                      </div>
+                      <div class="mb-3 row">
+                          <div class="col">
+                              <label for="birthdate" class="form-label">Birth date</label>
+                              <input type="date" class="form-control" id="birthdate" name="birthdate" required>
+                          </div>
+                          <div class="col">
+                              <label for="phoneno" class="form-label">Mobile phone</label>
+                              <input type="tel" class="form-control" id="phoneno" name="phoneno" required>
+                          </div>
+                      </div>
+                      <div class="mb-3 form-check" style="margin-top: 30px;">
+                          <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                          <label class="form-check-label" for="terms">
+                              I have read and agree to the <a href="#">terms & policy</a>
+                          </label>
+                      </div>
+                      <center>
+                          <button type="submit" class="btn btn-dark" style="margin-top: 40px;">Sign Up</button>
+                      </center>
+                  </form>
               </div>
-              <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="varchar" class="form-control" id="username" name="username" required>
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-              </div>
-              <div class="mb-3">
-                <label for="password2" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" id="password2" name="password2" required>
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-              </div>
-              <div class="mb-3 row">
-                <div class="col">
-                <label for="birthdate" class="form-label">Birth date</label>
-                <input type="date" class="form-control" id="birthdate" name="birthdate" required>
-                </div>
-              <div class="col">
-                <label for="phoneno" class="form-label">Mobile phone</label>
-                <input type="tel" class="form-control" id="phoneno" name="phoneno" required>
-              </div>
-              <div class="mb-3">
-                <label class="form-check-label">
-                  <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
-                  I have read and agree to the <a href="#">terms & policy</a>
-                </label>
-              </div>             
-              <center><button type="submit" class="btn btn-dark">Sign Up</button></center>
-              {% if messages %}
-                {% for message in messages %}
-                  {% if message.tags == 'success' %}
-                    <div class="alert alert-success">
-                  {% else %}
-                    <div class="alert alert-danger">
-                  {% endif %}
-                  <ul>
-                    <li>{{ message }}</li>
-                  </ul>
-                  </div>
-                {% endfor %}
-              {% endif %}
-            </form>
-        </div>
           </div>
-        </div>
       </div>
-      <div class="footer">
-        <center><p>This responsive web application is created for educational purpose. Do not use for making profits. Credit: ABAC students.</p></center>
-      </div> 
+  </div>
+  <footer>
+    <div class="container">
+        <div class="footer-links">
+            <div class="col-md-3 col-lg-3 col-xl-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Happy Team</h6>
+                <p>
+                    <a href="{% url 'homepage' %}">Michael Grey</a>
+                </p>
+                <p>
+                    <a href="{% url 'homepage' %}">Ezio Auditore da Firenze</a>
+                </p>
+                <p>
+                    <a href="{% url 'homepage' %}">Billy Russo</a>
+                </p>
+            </div>
+
+            <div class="col-md-2 col-lg-2 col-xl-2">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                <p>
+                    <a href="{% url 'menshoes' %}" class="text-white">Men Shoes</a>
+                </p>
+                <p>
+                    <a href="{% url 'womenshoes' %}" class="text-white">Women Shoes</a>
+                </p>
+                <p>
+                    <a href="#" class="text-white">Best Selling</a>
+                </p>
+            </div>
+
+            <div class="col-md-4 col-lg-3 col-xl-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                <p><i class="fas fa-home mr-3"></i> Bangkok, Bang Pho 10012, TH</p>
+                <p><i class="fas fa-envelope mr-3"></i> happyfeet_cs@gmail.com</p>
+                <p><i class="fas fa-phone mr-3"></i> + 092 496 5301 </p>
+                <p><i class="fas fa-print mr-3"></i> + 092 496 5302</p>
+            </div>
+        </div>
+
+        <hr class="my-3">
+
+        <section class="p-3 pt-0">
+            <div class="row d-flex align-items-center">
+                <div class="col-md-7 col-lg-8 text-center text-md-start">
+                    <div class="p-3">
+                        &copy; 2023 Happy Feet. All rights reserved.
+                    </div>
+                </div>
+
+                <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+                    <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+</footer>
       
   </body>
         

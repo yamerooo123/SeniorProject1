@@ -1,16 +1,6 @@
 /*globe*/
 
-.inline-content p{
-  display: inline;
-}
 
-.centered-content {
-  text-align: center;
-}
-
-.centered-content a {
-  display: inline-block;
-}
 
 .dropdown-menu a {
     font-family: "Comic Sans MS", cursive, sans-serif;
@@ -207,18 +197,7 @@ h1::before {
     }
   }
 
-  /*nav bar position*/
-  nav {
-    
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-  .nav-link-equal {
-    font-size: 16px; 
-  }
-
+ 
 /*container*/
 #container2 {
     background-color: #fff;
@@ -261,9 +240,9 @@ h1::before {
 .card {
   position: relative;
   display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  
+
+ 
   min-width: 0;
   word-wrap: break-word;
   background-color: #fff;
@@ -288,13 +267,6 @@ h1::before {
 
 
 /*about us*/
-.aboutus {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 100vh;
-  padding: 20px;
-}
 
 .aboutus-content {
   text-align: right;
