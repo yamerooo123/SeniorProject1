@@ -136,6 +136,19 @@
                       <center>
                           <button type="submit" class="btn btn-dark" style="margin-top: 40px;">Sign Up</button>
                       </center>
+                      {% if messages %}
+                {% for message in messages %}
+                  {% if message.tags == 'success' %}
+                    <div class="alert alert-success">
+                  {% else %}
+                    <div class="alert alert-danger">
+                  {% endif %}
+                  <ul>
+                    <li>{{ message }}</li>
+                  </ul>
+                  </div>
+                {% endfor %}
+              {% endif %}
                   </form>
               </div>
           </div>

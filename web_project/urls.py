@@ -2,8 +2,7 @@ from django.urls import path
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib import admin
 from hello.views import (
-    welcome, homepage, signup, signin, aboutus, howtobuy, partnerships, contact, contact_view, user_settings, menshoes, womenshoes, signout, filtered_products, filter_products, product_page, faqpage, user_private_info_change, user_public_info_change, password_change_done
-, edit_account_success, cart_view
+    welcome, homepage, signup, signin, aboutus, howtobuy, partnerships, contact, contact_view, user_settings, menshoes, womenshoes, signout, filtered_products, filter_products, product_page, faqpage, user_private_info_change, user_public_info_change, password_change_done, edit_account_success, cart_view, 
 )
 
 urlpatterns = [
@@ -31,4 +30,5 @@ urlpatterns = [
     path('change-password/', PasswordChangeView.as_view(template_name='user_settings.html'), name='change_password'),
     path('password-change-done/', password_change_done, name='password_change_done'),
     path('edit-account-success/', edit_account_success, name='edit_account_success'),
-]   
+]
+

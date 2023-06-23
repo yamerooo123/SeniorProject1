@@ -59,8 +59,8 @@ def signup(request):
                 birthdate=birthdate,
                 phoneno=phoneno
             )
-    messages.success(request, "Registration successful. You can now login.")
-    return render(request, 'signup.html', {'messages': messages.get_messages(request)})
+            messages.success(request, "Registration is completed. You may login. ;)")
+    return render(request, 'signup.html')
 
 def signin(request):
     if request.method == "POST":
@@ -247,3 +247,4 @@ def password_change_done(request):
 
 def edit_account_success(request):
     return render(request, 'edit_account_success.html')
+
