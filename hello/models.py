@@ -24,4 +24,3 @@ class ShoeFeatures(models.Model):
     size = models.IntegerField()
     price = models.DecimalField(max_digits=100, decimal_places=2)
     brand = models.CharField(max_length=255)
-
