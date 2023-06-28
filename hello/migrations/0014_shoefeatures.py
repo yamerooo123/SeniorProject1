@@ -18,9 +18,10 @@ class Migration(migrations.Migration):
                 ('subcolor1', models.CharField(max_length=255)),
                 ('subcolor2', models.CharField(max_length=255)),
                 ('size', models.IntegerField()),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10)),  # Adjusted precision to 2 decimal places and max of 10 digits
+                ('price', models.DecimalField(decimal_places=2, max_digits=10)), 
                 ('brand', models.CharField(max_length=255)),
             ],
         ),
     ]
 
+ 

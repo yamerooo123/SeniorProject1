@@ -248,3 +248,4 @@ def password_change_done(request):
 def edit_account_success(request):
     return render(request, 'edit_account_success.html')
 
+

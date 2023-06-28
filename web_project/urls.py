@@ -2,8 +2,8 @@ from django.urls import path
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib import admin
 from hello.views import (
-    welcome, homepage, signup, signin, aboutus, howtobuy, partnerships, contact, contact_view, user_settings, menshoes, womenshoes, signout, filtered_products, filter_products, product_page, faqpage, user_private_info_change, user_public_info_change, password_change_done, edit_account_success, cart_view, 
-)
+    welcome, homepage, signup, signin, aboutus, howtobuy, partnerships, contact, contact_view, user_settings, menshoes, womenshoes, signout, filtered_products, filter_products, product_page, faqpage, user_private_info_change, user_public_info_change, 
+    password_change_done, edit_account_success, cart_view,)
 
 urlpatterns = [
     path('', welcome, name='welcome'),
