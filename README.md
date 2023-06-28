@@ -7,3 +7,4 @@
 # 19/06/66 update user settings( account and change password functions )
 # 22/06/66 success deploying on Heroku( css is not render )
 # 23/06/66 edit homepage and other pages
+# 27/06/66 switch from SQLite to MySQL
