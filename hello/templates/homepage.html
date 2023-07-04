@@ -91,18 +91,18 @@
                     <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
                     {% if user.is_authenticated %}
                     <a class="btn btn-outline-dark ms-2" href="{% url 'cart_view' %}">
-                        Cart
+                      Cart
                     </a>
-                    <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
+                      <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
                         Welcome,&nbsp;{{ user.username }}
-                    </a>
-                    <a class="btn btn-outline-dark ms-2" href="{% url 'signout' %}">
+                      </a>
+                      <a class="btn btn-outline-dark ms-2" href="{% url 'signout' %}">
                         Log&nbsp;Out
-                    </a>
+                      </a>
                     {% else %}
-                    <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                      <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
                         Login
-                    </a>
+                       </a>
                     {% endif %}
                 </form>
             </div>

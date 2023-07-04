@@ -88,6 +88,7 @@ DATABASES = {
         'PASSWORD': '19752518M',
         'HOST': 'localhost',
         'PORT': '3306',
+        'CREATE DATABASE': True,
     }
 }
 

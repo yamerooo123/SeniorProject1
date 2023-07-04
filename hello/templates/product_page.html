@@ -77,7 +77,7 @@
                             <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
                         </li>
                     </ul>
-                    <<form class="d-flex my-2 my-lg-0">
+                    <form class="d-flex my-2 my-lg-0">
                         <input class="form-control me-sm-2" type="text" placeholder="Search">
                         <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
                         {% if user.is_authenticated %}
@@ -95,7 +95,7 @@
                             Login
                            </a>
                         {% endif %}
-                    </form> 
+                    </form>
                 </div>
             </div>
         </nav>
@@ -109,9 +109,11 @@
                   <li class="breadcrumb-item">
                     <a href="{% url 'womenshoes' %}">men or women products</a>
                   </li>
+                  {% for shoefeature in shoefeatures %}
                   <li class="breadcrumb-item active">
-                    Product Page 
+                    {{ shoefeature.productName }}
                   </li>
+                  {% endfor %}
             </div>
           </div>
     <div class="container mt-5 mb-5">
@@ -121,9 +123,14 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="images p-3">
-                                <div class="text-center p-4"> <img id="main-image" src=# width="250" /> </div>
-                                <div class="thumbnail text-center"> <img onclick="change_image(this)" src=# width="70"> <img onclick="change_image(this)" src=# width="70"> </div>
+                                {% for shoefeature in shoefeatures %}
+                                <div class="text-center p-4"> 
+                                    <img id="main-image" src="{{ shoefeature.productImage }}" width="250" />
+                                </div>
+                                
+                                <div class="thumbnail text-center"> <img onclick="change_image(this)" src="{{ shoefeature.productImage }}" width="70"> <img onclick="change_image(this)" src="{{ shoefeature.productImage }}" width="70"> </div>
                             </div>
+                                {% endfor %}
                         </div>
                         <div class="col-md-6">
                             <div class="product p-4">
@@ -135,13 +142,21 @@
                                           </a>
                                     </div>
                                 </div>
-                                <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand">brand name</span>
-                                    <h5 class="text-uppercase">shoe product name</h5>
-                                    <div class="price d-flex flex-row align-items-center"> <span class="act-price">price in $</span>
+                                {% for shoefeature in shoefeatures %}
+                                <div class="mt-4 mb-3">
+                                    <span class="text-uppercase text-muted brand">{{ shoefeature.brand }}</span>
+                                    <h5 class="text-uppercase">{{ shoefeature.productName }}</h5>
+                                    {% for shoefeature in shoefeatures %}
+                                    <div class="price d-flex flex-row align-items-center">
+                                        <span class="act-price">${{ shoefeature.price }}</span>
                                     </div>
+                                    {% endfor %}
                                 </div>
-                                <p class="about">description.</p>
-                                <div class="sizes mt-5">
+                                {% endfor %}
+                                {% for shoefeature in shoefeatures %}
+                                <p class="about">{{ shoefeature.description }}</p>
+                                {% endfor %}
+                                <div class="sizes mt-3">
                                     <h6 class="text-uppercase">Size</h6> 
                                     <label class="radio"> <input type="radio" name="size" value="7" checked> <span>7</span> </label> 
                                     <label class="radio"> <input type="radio" name="size" value="8"> <span>8</span> </label> 
@@ -152,7 +167,7 @@
                                     <label class="radio"> <input type="radio" name="size" value="13"> <span>13</span> </label>
                                     <label class="radio"> <input type="radio" name="size" value="14"> <span>14</span> </label>
                                 </div>
-                                <div class="MainColor mt-5">
+                                <div class="MainColor mt-3">
                                     <h6 class="text-uppercase">Main Color</h6> 
                                     <label class="radio"> <input type="radio" name="MainColor" value="black" checked> <span>Black</span> </label> 
                                     <label class="radio"> <input type="radio" name="MainColor" value="white"> <span>White</span></label> 
@@ -160,7 +175,7 @@
                                     <label class="radio"> <input type="radio" name="MainColor" value="blue"> <span>Blue</span></label>
                                     <label class="radio"> <input type="radio" name="MainColor" value="red"> <span>Red</span></label>
                                 </div>
-                                <div class="SubColor mt-5">
+                                <div class="SubColor mt-3">
                                     <h6 class="text-uppercase">Sub Color</h6> 
                                     <label class="radio"> <input type="radio" name="SubColor" value="black" checked> <span>Black</span> </label> 
                                     <label class="radio"> <input type="radio" name="SubColor" value="white"> <span>White</span></label> 
@@ -168,12 +183,39 @@
                                     <label class="radio"> <input type="radio" name="SubColor" value="blue"> <span>Blue</span></label>
                                     <label class="radio"> <input type="radio" name="SubColor" value="red"> <span>Red</span></label>
                                 </div>
-                                <div class="cart mt-4 align-items-center d-inline-flex">
+                                {% for shoefeature in shoefeatures %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="Quantity mt-3">
+                                        <h6 class="text-uppercase">In stock</h6>
+                                        <h6 class="rounded bg-light d-inline-block p-2">{{ shoefeature.InStock }}</h6>
+                                      </div>
+                                    </div>
+                                    {% endfor %}
+                                    <div class="col-md-6">
+                                      <div class="OrderQuantity mt-3">
+                                        <h6 class="text-uppercase">Quantity</h6>
+                                        <select class="form-select">
+                                          <option value="option1">1</option>
+                                          <option value="option2">2</option>
+                                          <option value="option3">3</option>
+                                          <option value="option3">4</option>
+                                          <option value="option3">5</option>
+                                          <option value="option3">6</option>
+                                          <option value="option3">7</option>
+                                          <option value="option3">8</option>
+                                          <option value="option3">9</option>
+                                          <option value="option3">10</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                <div class="cart mt-3 align-items-center d-inline-flex">
                                     <button class="btn btn-success text-uppercase  px-4">Buy this</button>
                                     <i class="fa fa-heart text-muted"></i>
                                     <i class="fa fa-share-alt text-muted"></i>
                                   </div>
-                                <div class="cart mt-4 align-items-center d-inline-flex">
+                                <div class="cart mt-3 align-items-center d-inline-flex">
                                     <button class="btn btn-danger text-uppercase px-4">Add to cart</button>
                                     <i class="fa fa-heart text-muted"></i>
                                     <i class="fa fa-share-alt text-muted"></i>
@@ -251,6 +293,8 @@
             </section>
         </div>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
     <script>
     function change_image(image){
         var container = document.getElementById("main-image");

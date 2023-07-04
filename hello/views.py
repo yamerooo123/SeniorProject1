@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage, send_mail
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 import os
 from .models import UserProfile, ShoeFeatures
@@ -130,13 +130,27 @@ def user_settings(request):
     return render(request, 'user_settings.html')
 
 def menshoes(request):
-    return render(request, 'menshoes.html')
+    shoefeatures = ShoeFeatures.objects.all()
+    context = {
+        'shoefeatures': shoefeatures,
+    }
+    return render(request, 'menshoes.html', context)
+
 
 def womenshoes(request):
-    return render(request, 'womenshoes.html')
+    shoefeatures = ShoeFeatures.objects.all()
+    context = {
+        'shoefeatures': shoefeatures,
+    }
+    return render(request, 'womenshoes.html', context)
 
-def product_page(request):
-    return render(request, 'product_page.html')
+def product_page(request, product_id):
+    shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
+    context = {
+        'shoefeatures': [shoefeature],
+    }
+    return render(request, 'product_page.html', context)
+
 
 def cart_view(request):
     return render(request, "cart_view.html")
@@ -153,8 +167,6 @@ def filter_products(request):
     price_range = request.GET.getlist('price_range')  
     brand = request.GET.get('brand')  
     
-    
-    products = ShoeFeatures.objects.all() 
     
     
     if type1:

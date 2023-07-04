@@ -15,12 +15,20 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
+
+
+
 class ShoeFeatures(models.Model):
+    product_id = models.IntegerField(primary_key=True)
     type1 = models.CharField(max_length=255)
     type2 = models.CharField(max_length=255)
     maincolor = models.CharField(max_length=255)
     subcolor = models.CharField(max_length=255)
     subcolor2 = models.CharField(max_length=255)
     size = models.IntegerField()
-    price = models.DecimalField(max_digits=100, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     brand = models.CharField(max_length=255)
+    productImage = models.URLField(max_length=200)
+    description = models.CharField(max_length=255)
+    productName = models.CharField(max_length=255)
+    InStock = models.IntegerField()

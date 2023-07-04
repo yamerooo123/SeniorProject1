@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{%load static%}
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <style>
+            body {
+                background-image: url('/Static/css/aboutus.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+            .gray-h3 {
+                color: ghostwhite
+            }
+            
+        </style>
+        <title>Homepage</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+            <div class="container">
+                <a class="navbar-logo"id="navbar-logo">Happy Feet</a>
+                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                    <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{% url 'homepage' %}" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item" href="{% url 'homepage' %}">Home</a>
+                                <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
+                                <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
+                                <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
+                                <a class="dropdown-item" href="#">FAQ</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashions</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
+                              <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex my-2 my-lg-0">
+                        <input class="form-control me-sm-2" type="text" placeholder="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">Welcome,{{ request.user.username }}!</a>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="menshoes gray-h3" id="menshoes">
+            <center><h3>Men Shoes</h3></center>
+            <p class="inline-content">sneakers, boots, sandals,...</p>
+            <div class="centered-content">
+                <center><a href="#">Find your style</a></center>
+              </div>
+        </div>
+        <div class="womenshoes" id="womenshoes">
+            <center><h3>Women Shoes</h3></center>
+            <p>sneakers, flats, sandals, heels,...</p>
+            <div class="centered-content">
+                <center><a href="#">Find your style</a></center>
+              </div>
+        </div>
+        <div class="recommendation" id="recommendation">
+            <center><h3>For You</h3></center>
+            <center><p>We'll help you find your new favorite!</p></center>
+            <div class="centered-content">
+                <center><a href="#">Explore</a></center>
+              </div>
+          </div>
+    </body>
+    <div class="footer">
+        <center><p>This responsive web application is created for educational purpose. Do not use for making profits. Credit: ABAC students.</p></center>
+      </div>
+</html>
