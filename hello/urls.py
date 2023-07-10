@@ -18,12 +18,19 @@ urlpatterns = [
     path('womenshoes/', views.womenshoes, name="womenshoes"),
     path('filtered_products/', views.filtered_products, name="filtered_products"),
     path('product-page/<int:product_id>/', views.product_page, name="product_page"),
-    path('cart-view/', views.cart_view, name="cart_view"),
+    path('women-product-page/<int:product_id>/', views.women_product_page, name="women_product_page"),
     path('admin/', admin.site.urls),
     path('faqpage/', views.faqpage, name="faqpage"),
     path('user-private-info-change/', views.user_private_info_change, name="user_private_info_change"),
     path('user-public-info-change/', views.user_public_info_change, name="user_public_info_change"),
     path('change-password/', auth_views.PasswordChangeView.as_view(template_name='user_settings.html', success_url='/user-settings/'), name='change_password'),
     path('edit-account-success/', views.edit_account_success, name="edit_account_success"),
+    path('cart-view/', views.cart_view, name="cart_view"),
+    path('add-to-cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+    path('remove-from-cart/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
+    path('edit_quantity/<int:product_id>/', views.edit_quantity, name='edit_quantity'),
+    path('thank_you_for_purchase/', views.thank_you_for_purchase, name='thank_you_for_purchase'),
+    
+   
 ]
    

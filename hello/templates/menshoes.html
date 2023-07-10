@@ -439,7 +439,7 @@
                     <div class="d-flex flex-row">
                       <span class="text-uppercase text-muted brand">{{ shoefeature.brand }}</span>
                     </div>
-                    <div class="mt-1 mb-1 spec-1"><span>{{ shoefeature.description }}</span></div>
+                    <div class="mt-1 mb-1 spec-1"><span>{{ shoefeature.short_description }}</span></div>
                   </div>
                   <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                     <div class="d-flex flex-row align-items-center">
@@ -448,13 +448,18 @@
                     <h6 class="text-success">Free shipping</h6>
                     <div class="d-flex flex-column mt-4">
                       <a href="{% url 'product_page' product_id=shoefeature.product_id %}" class="btn btn-primary btn-sm">Details</a>
-                      <button class="btn btn-outline-primary btn-sm mt-2" type="button">Add to wishlist</button>
+                      <form action=# method="post" onsubmit="alert('{{ shoefeature.productName }} added to shopping cart')">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-primary btn-sm mt-2 w-100" type="submit">Add to wishlist</button>
+                      </form>
                     </div>
                   </div>
                 </div>
                 {% endfor %}
               </div>
             </div>
+          </div>
+          
             
             <nav aria-label="pagination" class="d-flex justify-content-center mt-3">
               <ul class="pagination">

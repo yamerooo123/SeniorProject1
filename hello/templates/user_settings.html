@@ -203,7 +203,9 @@
                                                 <input type="text" class="form-control" id="inputZip" name="inputZip" placeholder="ZIP code" value="{{ request.user.userprofile.zip_code }}">
                                             </div>
                                         </div>
+                                        <div class="SPACEOUTBITCH mt-3">
                                         <button type="submit" class="btn btn-dark">Save changes</button>
+                                        </div>
                                     </form>
                                     {% if message %}
                                         <div class="alert alert-danger">{{ message }}</div>
@@ -250,6 +252,7 @@
                                                             <th>Order&nbsp;#</th>
                                                             <th>Name</th>
                                                             <th>Status</th>
+                                                            
                                                             <th>Total</th>
                                                             <th>Created</th>
                                                             <th>Delivery&nbsp;status</th>

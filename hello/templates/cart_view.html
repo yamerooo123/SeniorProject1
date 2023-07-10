@@ -5,9 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'css/Style2.css' %}">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <title>Cart</title>
+        <title>{{request.user.username}}'s Shopping Cart</title>
         <style>
             body {
                 background-image: url('/Static/css/aboutus.jpg');
@@ -16,9 +17,86 @@
                 background-repeat: no-repeat;
                 background-attachment: fixed;
             }
+            footer {
+            background-color: #45526e;
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 2rem 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
         </style>
     </head>
     <body>
+      <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-logo" id="navbar-logo">Happy Feet</a>
+
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Home</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="{% url 'homepage' %}">Home</a>
+                            <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
+                            <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
+                            <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
+                            <a class="dropdown-item" href="{% url 'faqpage' %}">FAQ</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Fashions</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
+                            <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                    </li>
+                </ul>
+                <form class="d-flex my-2 my-lg-0">
+                  <input class="form-control me-sm-2" type="text" placeholder="Search">
+                  <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
+                  {% if user.is_authenticated %}
+                  <a class="btn btn-outline-dark ms-2" href="{% url 'cart_view' %}">
+                    Cart
+                  </a>
+                    <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
+                      Welcome,&nbsp;{{ user.username }}
+                    </a>
+                    <a class="btn btn-outline-dark ms-2" href="{% url 'signout' %}">
+                      Log&nbsp;Out
+                    </a>
+                  {% else %}
+                    <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                      Login
+                     </a>
+                  {% endif %}
+              </form>    
+            </div>
+        </div>
+    </nav>
         <section class="h-100 h-custom">
             <div class="container py-5 h-100">
               <div class="row d-flex justify-content-center align-items-center h-100">
@@ -32,115 +110,53 @@
                           <h5 class="mb-3"><a href="{% url 'homepage' %}" class="text-body"><i
                                 class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
                           <hr>
-          
+                         
                           <div class="d-flex justify-content-between align-items-center mb-4">
                             <div>
                               <p class="mb-1">Shopping cart</p>
-                              <p class="mb-0">You have xxx items in your cart</p>
-                            </div>
-                            <div>
-                              <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
-                                  class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
-                            </div>
+                              <p class="mb-0">You have {{ products_in_cart|length }} items in your cart</p>
+                            </div>                         
+                          </div>                        
+                          {% for products_in_cart in products_in_cart %}
+                         <div class="card mb-3">
+                          <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                          <div class="d-flex flex-row align-items-center">
+                          <div>
+                            <img src="{{products_in_cart.product_image}}" class="img-fluid rounded-3" alt="Shopping item" style="width: 100px;">
                           </div>
-          
-                          <div class="card mb-3">
-                            <div class="card-body">
-                              <div class="d-flex justify-content-between">
-                                <div class="d-flex flex-row align-items-center">
-                                  <div class="ms-3">
-                                    <h5>order name </h5>
-                                    <p class="small mb-0">color</p>
-                                  </div>
-                                </div>
-                                <div class="d-flex flex-row align-items-center">
-                                  <div style="width: 50px;">
-                                    <h5 class="fw-normal mb-0">2</h5>
-                                  </div>
-                                  <div style="width: 80px;">
-                                    <h5 class="mb-0">$900</h5>
-                                  </div>
-                                  <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                                </div>
-                              </div>
-                            </div>
+                          <div class="ms-3">
+                            <h5>{{ products_in_cart.productName}}</h5>
+                            <p class="small mb-0">Size:{{ products_in_cart.product_size}} {{ products_in_cart.main_color}},{{ products_in_cart.sub_color}}</p>
                           </div>
-          
-                          <div class="card mb-3">
-                            <div class="card-body">
-                              <div class="d-flex justify-content-between">
-                                <div class="d-flex flex-row align-items-center">
-                                  <div class="ms-3">
-                                    <h5>order name </h5>
-                                    <p class="small mb-0">color</p>
-                                  </div>
-                                </div>
-                                <div class="d-flex flex-row align-items-center">
-                                  <div style="width: 50px;">
-                                    <h5 class="fw-normal mb-0">2</h5>
-                                  </div>
-                                  <div style="width: 80px;">
-                                    <h5 class="mb-0">$900</h5>
-                                  </div>
-                                  <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                                </div>
-                              </div>
-                            </div>
                           </div>
-          
-                          <div class="card mb-3">
-                            <div class="card-body">
-                              <div class="d-flex justify-content-between">
-                                <div class="d-flex flex-row align-items-center">
-                                  <div class="ms-3">
-                                    <h5>order name </h5>
-                                    <p class="small mb-0">color</p>
-                                  </div>
-                                </div>
-                                <div class="d-flex flex-row align-items-center">
-                                  <div style="width: 50px;">
-                                    <h5 class="fw-normal mb-0">2</h5>
-                                  </div>
-                                  <div style="width: 80px;">
-                                    <h5 class="mb-0">$900</h5>
-                                  </div>
-                                  <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-          
-                          <div class="card mb-3">
-                            <div class="card-body">
-                              <div class="d-flex justify-content-between">
-                                <div class="d-flex flex-row align-items-center">
-                                  <div class="ms-3">
-                                    <h5>order name </h5>
-                                    <p class="small mb-0">color</p>
-                                  </div>
-                                </div>
-                                <div class="d-flex flex-row align-items-center">
-                                  <div style="width: 50px;">
-                                    <h5 class="fw-normal mb-0">2</h5>
-                                  </div>
-                                  <div style="width: 80px;">
-                                    <h5 class="mb-0">$900</h5>
-                                  </div>
-                                  <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-          
+                        <div class="d-flex flex-row align-items-center">
+                         <div class="input-group">
+                          <input type="number" name="quantity" value="{{ products_in_cart.product_quantity }}" min="1" step="1" max="10" class="form-control" style="width: 60px;">
+                          <button type="submit" class="btn btn-outline-primary">Update</button>
                         </div>
-                        <div class="col-lg-5">
-          
+                        <div class="ms-3">
+                        <div class="mb-0">
+                          <h5 class="mb-0">${{ products_in_cart.product_price}}</h5>
+                        </div>
+                        </div>
+                          <form action="{% url 'remove_from_cart' product_id=products_in_cart.id %}" method="post">
+                          {% csrf_token %}
+                          <button type="submit" class="btn btn-danger">Remove</button>
+                          </form>
+                            <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                      </div>
+                     </div>
+                  </div>
+                    {% endfor %}
+                        </div>
+                        <div class="col-lg-5">          
                           <div class="card bg-dark text-white rounded-3">
                             <div class="card-body">
                               <div class="d-flex justify-content-between align-items-center mb-4">
                                 <h5 class="mb-0">Card details</h5>
-                              </div>
-          
+                              </div>   
                               <p class="small mb-2">Card type</p>
                               <a href="#!" type="submit" class="text-white"><i
                                   class="fab fa-cc-mastercard fa-2x me-2"></i></a>
@@ -183,15 +199,15 @@
                               </form>
           
                               <hr class="my-4">
-          
+                              
                               <div class="d-flex justify-content-between">
-                                <p class="mb-2">Subtotal</p>
-                                <p class="mb-2">$4798.00</p>
+                                <p class="mb-2">Total amount</p>
+                                <p class="mb-2">${{ total_amount }}</p>
                               </div>
           
                               <div class="d-flex justify-content-between">
                                 <p class="mb-2">Shipping</p>
-                                <p class="mb-2">$20.00</p>
+                                <p class="mb-2">FREE</p>
                               </div>
           
                               <div class="d-flex justify-content-between mb-4">
@@ -201,11 +217,12 @@
           
                               <button type="button" class="btn btn-outline-light btn-block btn-lg">
                                 <div class="d-flex justify-content-between">
-                                  <span>$xxx</span>
-                                  <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                  <span>${{ total_amount }}</span>
+                                  <span>
+                                    <a href="{% url 'thank_you_for_purchase' %}" style="text-decoration:none; color:white;"> Checkout</a>
+                                    <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                 </div>
                               </button>
-          
                             </div>
                           </div>
           
@@ -219,6 +236,72 @@
               </div>
             </div>
           </section>
+          <footer>
+            <div class="container">
+                <div class="footer-links">
+                    <div class="col-md-3 col-lg-3 col-xl-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">Happy Team</h6>
+                        <p>
+                           <a href="{% url 'homepage' %}" >Michael Grey</a>
+                        </p>
+                        <p>
+                          <a href="{% url 'homepage' %}" >Ezio Auditore da Firenze</a>
+                       </p>
+                       <p>
+                        <a href="{% url 'homepage' %}" >Billy Russo</a>
+                     </p>
+                    </div>
+      
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                        <p>
+                            <a href="{% url 'menshoes' %}" class="text-white">Men Shoes</a>
+                        </p>
+                        <p>
+                            <a href="{% url 'womenshoes' %}" class="text-white">Women Shoes</a>
+                        </p>
+                        <p>
+                            <a href="#" class="text-white">Best Selling</a>
+                        </p>
+                    </div>
+      
+                    <div class="col-md-4 col-lg-3 col-xl-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                        <p><i class="fas fa-home mr-3"></i> Bangkok, Bang Pho 10012, TH</p>
+                        <p><i class="fas fa-envelope mr-3"></i> happyfeet_cs@gmail.com</p>
+                        <p><i class="fas fa-phone mr-3"></i> + 092 496 5301 </p>
+                        <p><i class="fas fa-print mr-3"></i> + 092 496 5302</p>
+                    </div>
+                </div>
+      
+                <hr class="my-3">
+      
+                <section class="p-3 pt-0">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-7 col-lg-8 text-center text-md-start">
+                            <div class="p-3">
+                                &copy; 2023 Happy Feet. All rights reserved.
+                            </div>
+                        </div>
+      
+                        <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+                            <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                                <i class="fab fa-google"></i>
+                            </a>
+                            <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </footer>
     
 
 </html>

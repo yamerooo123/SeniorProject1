@@ -9,8 +9,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 import os
-from .models import UserProfile, ShoeFeatures
-
+from .models import UserProfile, ShoeFeatures, WomenShoeFeatures, M_Cart, User
 
 
 def welcome(request):
@@ -138,9 +137,9 @@ def menshoes(request):
 
 
 def womenshoes(request):
-    shoefeatures = ShoeFeatures.objects.all()
+    womenshoefeature = WomenShoeFeatures.objects.all()
     context = {
-        'shoefeatures': shoefeatures,
+        'womenshoefeatures': womenshoefeature,
     }
     return render(request, 'womenshoes.html', context)
 
@@ -148,12 +147,16 @@ def product_page(request, product_id):
     shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
     context = {
         'shoefeatures': [shoefeature],
+
     }
     return render(request, 'product_page.html', context)
 
-
-def cart_view(request):
-    return render(request, "cart_view.html")
+def women_product_page(request, product_id):
+    womenshoefeature = get_object_or_404(WomenShoeFeatures, product_id=product_id)
+    context = {
+        'womenshoefeatures': [womenshoefeature],
+    }
+    return render(request, 'women_product_page.html', context)
 
 def filtered_products(request):
     return render(request, 'filtered_products.html')
@@ -260,4 +263,86 @@ def password_change_done(request):
 def edit_account_success(request):
     return render(request, 'edit_account_success.html')
 
+@login_required
+def cart_view(request):   
+    products_in_cart = M_Cart.objects.filter(username=request.user.username)
+
+    total_amount = 0
+    for cart_item in products_in_cart:
+        total_amount += cart_item.product_quantity * cart_item.product_price
+
+    context = {
+        'products_in_cart': products_in_cart,
+        'total_amount': total_amount,
+    }
+    return render(request, "cart_view.html", context)
+
+
+
+
+
+@login_required
+def add_to_cart(request, product_id):
+    shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
+    if request.method == 'POST':
+        product_quantity = request.POST.get('quantity', 1)
+        main_color = request.POST.get('main_color')
+        sub_color = request.POST.get('sub_color')
+        product_size = request.POST.get('product_size') 
+        cart = M_Cart(
+            product_price=shoefeature.price,
+            productName=shoefeature.productName,
+            username=request.user.username,
+            product_image=shoefeature.productImage,
+            product_quantity=product_quantity,
+            main_color =main_color,
+            sub_color=sub_color,
+            product_size=product_size,
+        )
+        cart.save()
+        return redirect('product_page', product_id=product_id)
+
+    context = {
+        'shoefeatures': shoefeature,
+    }
+    return render(request, 'product_page.html', context)
+
+@login_required
+def remove_from_cart(request, product_id):
+    product = get_object_or_404(M_Cart, id=product_id, username=request.user.username)
+    
+    if request.method == 'POST':
+        product.delete()
+        return redirect('cart_view')
+    
+    context = {
+        'product': product
+    }
+    return render(request, 'cart_view.html', context)
+
+def edit_quantity(request, product_id):
+    cart_item = get_object_or_404(M_Cart, id=product_id)
+
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
+        cart_item.product_quantity = quantity
+        cart_item.save()
+
+        return redirect('cart_view')
+
+def thank_you_for_purchase(request):
+    products_in_cart = M_Cart.objects.filter(username=request.user.username)
+    total_amount = calculate_total_amount(products_in_cart)
+
+    context = {
+        'products_in_cart': products_in_cart,
+        'total_amount': total_amount,
+    }
+    return render(request, "thank_you_for_purchase.html", context)
+
+def calculate_total_amount(products_in_cart):
+    total_amount = 0
+    for cart_item in products_in_cart:
+        total_amount += cart_item.product_quantity * cart_item.product_price
+    return total_amount
 

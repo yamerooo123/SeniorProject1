@@ -34,7 +34,7 @@ ALLOWED_HOSTS = ['127.0.0.1','localhost', 'happyfeetteam-070ff2b4cfea.herokuapp.
 # Application definition
 
 INSTALLED_APPS = [
-    'hello',
+    'hello',   
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -88,7 +88,6 @@ DATABASES = {
         'PASSWORD': '19752518M',
         'HOST': 'localhost',
         'PORT': '3306',
-        'CREATE DATABASE': True,
     }
 }
 
@@ -156,3 +155,5 @@ AUTHENTICATION_BACKENDS = [
 
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+CART_SESSION_ID = 'cart'

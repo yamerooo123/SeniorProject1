@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% for womenshoefeature in womenshoefeatures %}
+        <title>{{womenshoefeature.productName}}</title>
+        {% endfor %}
+        {% load static %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'css/Style2.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <style>
+         body {
+            background-image: url('/Static/css/aboutus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            }
+            footer {
+            background-color: #45526e;
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 2rem 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-logo" id="navbar-logo">Happy Feet</a>
+    
+                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                    <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Home</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item" href="{% url 'homepage' %}">Home</a>
+                                <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
+                                <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
+                                <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
+                                <a class="dropdown-item" href="{% url 'faqpage' %}">FAQ</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Fashions</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
+                                <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex my-2 my-lg-0">
+                        <input class="form-control me-sm-2" type="text" placeholder="Search">
+                        <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
+                        {% if user.is_authenticated %}
+                        <a class="btn btn-outline-dark ms-2" href="{% url 'cart_view' %}">
+                          Cart
+                        </a>
+                          <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
+                            Welcome,&nbsp;{{ user.username }}
+                          </a>
+                          <a class="btn btn-outline-dark ms-2" href="{% url 'signout' %}">
+                            Log&nbsp;Out
+                          </a>
+                        {% else %}
+                          <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                            Login
+                           </a>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="row">
+            <div class="col-md-12">
+              <nav>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="{% url 'homepage' %}">Home</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a href="{% url 'womenshoes' %}">Women products</a>
+                  </li>
+                  {% for womenshoefeature in womenshoefeatures %}
+                  <li class="breadcrumb-item active">
+                    {{ womenshoefeature.productName }}
+                  </li>
+                  {% endfor %}
+            </div>
+          </div>
+    <div class="container mt-5 mb-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="images p-3">
+                                {% for womenshoefeature in womenshoefeatures %}
+                                <div class="text-center p-4"> 
+                                    <img id="main-image" src="{{ womenshoefeature.productImage }}" width="250" />
+                                </div>
+                                
+                                <div class="thumbnail text-center"> <img onclick="change_image(this)" src="{{ womenshoefeature.productImage }}" width="70"> <img onclick="change_image(this)" src="{{ womenshoefeature.productImage }}" width="70"> </div>
+                            </div>
+                                {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            <div class="product p-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <a href="{% url 'womenshoes' %}" class="text-decoration-none text-dark">
+                                            <i class="fa fa-long-arrow-left"></i>
+                                            <span class="ml-1">Back</span>
+                                          </a>
+                                    </div>
+                                </div>
+                                {% for womenshoefeature in womenshoefeatures %}
+                                <div class="mt-4 mb-3">
+                                    <span class="text-uppercase text-muted brand">{{ womenshoefeature.brand }}</span>
+                                    <h5 class="text-uppercase">{{ womenshoefeature.productName }}</h5>
+                                    {% for womenshoefeature in womenshoefeatures %}
+                                    <div class="price d-flex flex-row align-items-center">
+                                        <span class="act-price">${{ womenshoefeature.price }}</span>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% endfor %}
+                                {% for womenshoefeature in womenshoefeatures %}
+                                <p class="about">{{ womenshoefeature.description }}</p>
+                                {% endfor %}
+                                <div class="sizes mt-3">
+                                    <h6 class="text-uppercase">Size</h6> 
+                                    <label class="radio"> <input type="radio" name="size" value="7" checked> <span>7</span> </label> 
+                                    <label class="radio"> <input type="radio" name="size" value="8"> <span>8</span> </label> 
+                                    <label class="radio"> <input type="radio" name="size" value="9"> <span>9</span> </label> 
+                                    <label class="radio"> <input type="radio" name="size" value="10"> <span>10</span> </label>
+                                    <label class="radio"> <input type="radio" name="size" value="11"> <span>11</span> </label>
+                                    <label class="radio"> <input type="radio" name="size" value="12"> <span>12</span> </label>
+                                    <label class="radio"> <input type="radio" name="size" value="13"> <span>13</span> </label>
+                                    <label class="radio"> <input type="radio" name="size" value="14"> <span>14</span> </label>
+                                </div>
+                                <div class="MainColor mt-3">
+                                    <h6 class="text-uppercase">Main Color</h6> 
+                                    <label class="radio"> <input type="radio" name="MainColor" value="black" checked> <span>Black</span> </label> 
+                                    <label class="radio"> <input type="radio" name="MainColor" value="white"> <span>White</span></label> 
+                                    <label class="radio"> <input type="radio" name="MainColor" value="grey"> <span>Grey</span></label> 
+                                    <label class="radio"> <input type="radio" name="MainColor" value="blue"> <span>Blue</span></label>
+                                    <label class="radio"> <input type="radio" name="MainColor" value="red"> <span>Red</span></label>
+                                </div>
+                                <div class="SubColor mt-3">
+                                    <h6 class="text-uppercase">Sub Color</h6> 
+                                    <label class="radio"> <input type="radio" name="SubColor" value="black" checked> <span>Black</span> </label> 
+                                    <label class="radio"> <input type="radio" name="SubColor" value="white"> <span>White</span></label> 
+                                    <label class="radio"> <input type="radio" name="SubColor" value="grey"> <span>Grey</span></label> 
+                                    <label class="radio"> <input type="radio" name="SubColor" value="blue"> <span>Blue</span></label>
+                                    <label class="radio"> <input type="radio" name="SubColor" value="red"> <span>Red</span></label>
+                                </div>
+                                {% for womenshoefeature in womenshoefeatures %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="Quantity mt-3">
+                                        <h6 class="text-uppercase">In stock</h6>
+                                        <h6 class="rounded bg-light d-inline-block p-2">{{ womenshoefeature.InStock }}</h6>
+                                      </div>
+                                    </div>
+                                    {% endfor %}
+                                    <div class="col-md-6">
+                                      <div class="OrderQuantity mt-3">
+                                        <h6 class="text-uppercase">Quantity</h6>
+                                        <select class="form-select">
+                                          <option value="option1">1</option>
+                                          <option value="option2">2</option>
+                                          <option value="option3">3</option>
+                                          <option value="option3">4</option>
+                                          <option value="option3">5</option>
+                                          <option value="option3">6</option>
+                                          <option value="option3">7</option>
+                                          <option value="option3">8</option>
+                                          <option value="option3">9</option>
+                                          <option value="option3">10</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                <div class="cart mt-3 align-items-center d-inline-flex">
+                                    <button class="btn btn-success text-uppercase  px-4">Buy this</button>
+                                    <i class="fa fa-heart text-muted"></i>
+                                    <i class="fa fa-share-alt text-muted"></i>
+                                  </div>
+                                <div class="cart mt-3 align-items-center d-inline-flex">
+                                    <button class="btn btn-danger text-uppercase px-4">Add to cart</button>
+                                    
+                                    <i class="fa fa-heart text-muted"></i>
+                                    <i class="fa fa-share-alt text-muted"></i>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <div class="col-md-3 col-lg-3 col-xl-3">
+                    <h6 class="text-uppercase mb-4 font-weight-bold">Happy Team</h6>
+                    <p>
+                       <a href="{% url 'homepage' %}" >Michael Grey</a>
+                    </p>
+                    <p>
+                      <a href="{% url 'homepage' %}" >Ezio Auditore da Firenze</a>
+                   </p>
+                   <p>
+                    <a href="{% url 'homepage' %}" >Billy Russo</a>
+                 </p>
+                </div>
+  
+                <div class="col-md-2 col-lg-2 col-xl-2">
+                    <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                    <p>
+                        <a href="{% url 'menshoes' %}" class="text-white">Men Shoes</a>
+                    </p>
+                    <p>
+                        <a href="{% url 'womenshoes' %}" class="text-white">Women Shoes</a>
+                    </p>
+                    <p>
+                        <a href="#" class="text-white">Best Selling</a>
+                    </p>
+                </div>
+  
+                <div class="col-md-4 col-lg-3 col-xl-3">
+                    <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                    <p><i class="fas fa-home mr-3"></i> Bangkok, Bang Pho 10012, TH</p>
+                    <p><i class="fas fa-envelope mr-3"></i> happyfeet_cs@gmail.com</p>
+                    <p><i class="fas fa-phone mr-3"></i> + 092 496 5301 </p>
+                    <p><i class="fas fa-print mr-3"></i> + 092 496 5302</p>
+                </div>
+            </div>
+  
+            <hr class="my-3">
+  
+            <section class="p-3 pt-0">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-7 col-lg-8 text-center text-md-start">
+                        <div class="p-3">
+                            &copy; 2023 Happy Feet. All rights reserved.
+                        </div>
+                    </div>
+  
+                    <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+                        <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                            <i class="fab fa-google"></i>
+                        </a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function change_image(image){
+        var container = document.getElementById("main-image");
+       container.src = image.src;
+   }
+   document.addEventListener("DOMContentLoaded", function(event) {
+   });
+    </script>   
+    </body>
+    
+</html>

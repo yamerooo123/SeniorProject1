@@ -1,0 +1,3 @@
+[console_scripts]
+mul=mul.__main__:main
+
