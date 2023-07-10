@@ -9,9 +9,8 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
-from pathlib import Path
 import dj_database_url
+from pathlib import Path
 import os.path
 import os
 
@@ -82,8 +81,16 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(),
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'web_project',
+        'USER': 'root',
+        'PASSWORD': '19752518M',
+        'HOST': '/var/run/mysqld/mysqld.sock',
+        'PORT': '3306',
+    }
 }
+
 
 
 
