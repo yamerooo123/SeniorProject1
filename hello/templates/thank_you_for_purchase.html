@@ -12,9 +12,9 @@
 <div class="container">
 	<div class="row text-center">
         <div class="col-sm-6 col-sm-offset-3">
-        <br><br> <h2 style="color:#0fad00">Thank you for your purchasing!</h2>
+        <br><br> <h2 style="color:#0fad00">Payment Received!</h2>
         <h3>Dear, {{ request.user.username }}!</h3>
-        <p style="font-size:20px;color:#5C5C5C;">You have paid the amount of ${{ total_amount }} for {% for product in products_in_cart %} {{ product.productName }} {% endfor %} This order has been recorded in Order Tracker. Please return to the website or check your order status.</p>
+        <p style="font-size:20px;color:#5C5C5C;">Thank you for your support. This order has been recorded in Order Tracker. Please return to the website or check your order status.</p>
         <a href="{% url 'homepage' %}" class="btn btn-success">     Return to the website     </a>
         <a href="{% url 'user_settings' %}" class="btn btn-success">     Check order status      </a>
     <br><br>

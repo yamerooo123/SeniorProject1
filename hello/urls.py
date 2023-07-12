@@ -25,12 +25,11 @@ urlpatterns = [
     path('user-public-info-change/', views.user_public_info_change, name="user_public_info_change"),
     path('change-password/', auth_views.PasswordChangeView.as_view(template_name='user_settings.html', success_url='/user-settings/'), name='change_password'),
     path('edit-account-success/', views.edit_account_success, name="edit_account_success"),
-    path('cart-view/', views.cart_view, name="cart_view"),
+    path('cart-view/<int:product_id>/', views.cart_view, name="cart_view"),
     path('add-to-cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     path('remove-from-cart/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
     path('edit_quantity/<int:product_id>/', views.edit_quantity, name='edit_quantity'),
-    path('thank_you_for_purchase/', views.thank_you_for_purchase, name='thank_you_for_purchase'),
-    
-   
+    path('thank-you-for-purchase/', views.thank_you_for_purchase, name='thank_you_for_purchase'),
+    path('checkout/', views.checkout, name='checkout'),
+    path('buy-this/<int:product_id>/', views.buy_this, name="buy_this"),
 ]
-   

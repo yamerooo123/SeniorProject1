@@ -38,6 +38,7 @@
             text-decoration: underline;
         }
         
+        
         </style>
     </head>
     <body>
@@ -140,7 +141,7 @@
                           <h5 class="mb-0">${{ products_in_cart.product_price}}</h5>
                         </div>
                         </div>
-                          <form action="{% url 'remove_from_cart' product_id=products_in_cart.id %}" method="post">
+                          <form action="{% url 'remove_from_cart' product_id=products_in_cart.product_id %}" method="post">
                           {% csrf_token %}
                           <button type="submit" class="btn btn-danger">Remove</button>
                           </form>
@@ -201,28 +202,36 @@
                               <hr class="my-4">
                               
                               <div class="d-flex justify-content-between">
-                                <p class="mb-2">Total amount</p>
+                                <p class="mb-2">Total amount(no shipment)</p>
                                 <p class="mb-2">${{ total_amount }}</p>
                               </div>
           
-                              <div class="d-flex justify-content-between">
-                                <p class="mb-2">Shipping</p>
-                                <p class="mb-2">FREE</p>
+                              <div class="d-flex justify-content-between ">
+                                <p class="mb-2">VAT 7%</p>
+                                <p class="mb-2">${{ vat_amount }}</p>
                               </div>
           
                               <div class="d-flex justify-content-between mb-4">
                                 <p class="mb-2">Total(Incl. taxes)</p>
-                                <p class="mb-2">$4818.00</p>
+                                <p class="mb-2">${{ total_amount_vat }}</p>
                               </div>
-          
-                              <button type="button" class="btn btn-outline-light btn-block btn-lg">
-                                <div class="d-flex justify-content-between">
-                                  <span>${{ total_amount }}</span>
-                                  <span>
-                                    <a href="{% url 'thank_you_for_purchase' %}" style="text-decoration:none; color:white;"> Checkout</a>
-                                    <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
-                                </div>
-                              </button>
+                              
+                              <div class="d-flex justify-content-between">
+                                <span></span>
+                                <span>
+                                    {% csrf_token %}                                   
+                                    <form action="{% url 'checkout' %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-outline-light btn-lg">
+                                            <h4 class="m-0">Checkout</h4>
+                                        </button>
+                                    </form>
+                                </span>
+                            </div>
+                            
+                            <script>
+                                document.getElementById("checkout-button").style.display = "none";
+                            </script>
                             </div>
                           </div>
           

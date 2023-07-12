@@ -225,15 +225,16 @@
                                         </div>
                                         </form> 
                                         <div class="cart mt-3 align-items-center d-inline-flex">
-                                            {% csrf_token %}
-                                            <a href="{% url 'cart_view' %}" class="btn btn-success text-uppercase px-4">Buy this</a>
+                                            <form action="{% url 'buy_this' shoefeature.product_id %}" method="POST" >
+                                             {% csrf_token %}
+                                            <button type="submit" class="btn btn-success text-uppercase px-4">Buy this</button>                                        
                                             <i class="fa fa-heart text-muted"></i>
                                             <i class="fa fa-share-alt text-muted"></i>
+                                            </form>
                                           </div>     
                                       </div>
                                     </div>
-                                  </div> 
-                                         
+                                  </div>                                         
                                 {% endfor %}                                                                                                                      
                             </div>
                         </div>

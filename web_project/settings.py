@@ -157,3 +157,5 @@ AUTHENTICATION_BACKENDS = [
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 CART_SESSION_ID = 'cart'
+
+vat_rate = 0.07

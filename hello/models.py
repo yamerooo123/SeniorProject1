@@ -52,6 +52,7 @@ class WomenShoeFeatures(models.Model):
     InStock = models.IntegerField()
 
 class M_Cart(models.Model):
+    product_id = models.IntegerField(primary_key=True)
     username = models.CharField(max_length=100)
     productName = models.CharField(max_length=255)
     product_price = models.DecimalField(max_digits=10, decimal_places=2)
