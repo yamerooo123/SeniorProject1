@@ -115,7 +115,7 @@
                           <div class="d-flex justify-content-between align-items-center mb-4">
                             <div>
                               <p class="mb-1">Shopping cart</p>
-                              <p class="mb-0">You have {{ products_in_cart|length }} items in your cart</p>
+                              <p class="mb-0">You have {{ total_items }} items in your cart</p>
                             </div>                         
                           </div>                        
                           {% for products_in_cart in products_in_cart %}
@@ -151,6 +151,39 @@
                      </div>
                   </div>
                     {% endfor %}
+                    {% for women_products_in_cart in  women_products_in_cart %}
+                    <div class="card mb-3">
+                     <div class="card-body">
+                       <div class="d-flex justify-content-between">
+                     <div class="d-flex flex-row align-items-center">
+                     <div>
+                       <img src="{{ women_products_in_cart.product_image}}" class="img-fluid rounded-3" alt="Shopping item" style="width: 100px;">
+                     </div>
+                     <div class="ms-3">
+                       <h5>{{  women_products_in_cart.productName}}</h5>
+                       <p class="small mb-0">Size:{{  women_products_in_cart.product_size}} {{  women_products_in_cart.main_color}},{{  women_products_in_cart.sub_color}}</p>
+                     </div>
+                     </div>
+                   <div class="d-flex flex-row align-items-center">
+                    <div class="input-group">
+                     <input type="number" name="quantity" value="{{  women_products_in_cart.product_quantity }}" min="1" step="1" max="10" class="form-control" style="width: 60px;">
+                     <button type="submit" class="btn btn-outline-primary">Update</button>
+                   </div>
+                   <div class="ms-3">
+                   <div class="mb-0">
+                    <h5 class="mb-0" style="margin-left: 10px;">${{ women_products_in_cart.product_price }}</h5>
+                   </div>
+                   </div>
+                   <form action="{% url 'remove_from_cart' product_id=women_products_in_cart.product_id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Remove</button>
+                    </form>
+                       <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                   </div>
+                 </div>
+                </div>
+             </div>
+               {% endfor %}
                         </div>
                         <div class="col-lg-5">          
                           <div class="card bg-dark text-white rounded-3">

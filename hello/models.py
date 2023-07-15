@@ -50,6 +50,7 @@ class WomenShoeFeatures(models.Model):
     short_description = models.CharField(max_length=100)
     productName = models.CharField(max_length=255)
     InStock = models.IntegerField()
+    product_idName = models.CharField(max_length=255)
 
 class M_Cart(models.Model):
     product_id = models.IntegerField(primary_key=True)
@@ -63,5 +64,29 @@ class M_Cart(models.Model):
     product_size = models.IntegerField()
     def __str__(self):
         return str(self.productName)
-
     
+class W_Cart(models.Model):
+    product_id = models.IntegerField(primary_key=True)
+    username = models.CharField(max_length=100)
+    productName = models.CharField(max_length=255)
+    product_price = models.DecimalField(max_digits=10, decimal_places=2)
+    product_quantity = models.PositiveIntegerField(default=1)
+    product_image = models.URLField(max_length=255)
+    main_color = models.CharField(max_length=255)
+    sub_color = models.CharField(max_length=255)
+    product_size = models.IntegerField()
+    def __str__(self):
+        return str(self.productName)
+
+class OrderTracker(models.Model):
+    product_id = models.IntegerField(primary_key=True)
+    product_idName = models.CharField(max_length=255)
+    productName = models.CharField(max_length=255)
+    productStatus = models.CharField(max_length=255, default="Paid")
+    product_quantity = models.IntegerField
+    created_by = models.DateTimeField
+    delivery_status = models.CharField(max_length=255, default="Ongoing")
+
+
+
+

@@ -7,9 +7,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage, send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Q
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 import os
-from .models import UserProfile, ShoeFeatures, WomenShoeFeatures, M_Cart, User
+from .models import UserProfile, ShoeFeatures, WomenShoeFeatures, M_Cart, User, W_Cart, OrderTracker
 from django.conf import settings
 from decimal import Decimal, ROUND_HALF_UP
 
@@ -126,8 +127,10 @@ def user_dashboard(request):
     return render(request, "user_dashboard.html", {'user': request.user})
 
 
+@login_required
 def user_settings(request):
     return render(request, 'user_settings.html')
+
 
 def menshoes(request):
     shoefeatures = ShoeFeatures.objects.all()
@@ -144,10 +147,12 @@ def womenshoes(request):
     }
     return render(request, 'womenshoes.html', context)
 
+
 def product_page(request, product_id):
     shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
     context = {
         'shoefeatures': [shoefeature],
+       
 
     }
     return render(request, 'product_page.html', context)
@@ -266,13 +271,19 @@ def edit_account_success(request):
 
 
 @login_required
-def cart_view(request, product_id=None):   
+def cart_view(request, product_id=None):
+    
     products_in_cart = M_Cart.objects.filter(username=request.user.username)
+    women_products_in_cart = W_Cart.objects.filter(username=request.user.username)
 
     total_amount = Decimal(0)
-    vat_rate = Decimal('0.07')  
+    vat_rate = Decimal('0.07')
 
     for cart_item in products_in_cart:
+        subtotal = Decimal(cart_item.product_quantity) * Decimal(cart_item.product_price)
+        total_amount += subtotal
+
+    for cart_item in women_products_in_cart:
         subtotal = Decimal(cart_item.product_quantity) * Decimal(cart_item.product_price)
         total_amount += subtotal
 
@@ -282,15 +293,17 @@ def cart_view(request, product_id=None):
     total_amount = total_amount.quantize(Decimal('0.00'), rounding=ROUND_HALF_UP)
     vat_amount = vat_amount.quantize(Decimal('0.00'), rounding=ROUND_HALF_UP)
     total_amount_vat = total_amount_vat.quantize(Decimal('0.00'), rounding=ROUND_HALF_UP)
-
     total_amount_before_vat = total_amount
+    total_items = len(women_products_in_cart) + len(products_in_cart)
 
     context = {
         'products_in_cart': products_in_cart,
+        'women_products_in_cart': women_products_in_cart,
         'total_amount': total_amount,
         'vat_amount': vat_amount,
         'total_amount_vat': total_amount_vat,
         'total_amount_before_vat': total_amount_before_vat,
+        'total_items': total_items,
     }
     return render(request, "cart_view.html", context)
 
@@ -321,14 +334,40 @@ def add_to_cart(request, product_id):
     return render(request, 'product_page.html', context)
 
 @login_required
+def w_add_to_cart(request, product_id):
+    shoefeature = get_object_or_404(WomenShoeFeatures, product_id=product_id)
+    if request.method == 'POST':
+        product_quantity = request.POST.get('quantity', 1)
+        main_color = request.POST.get('main_color')
+        sub_color = request.POST.get('sub_color')
+        product_size = request.POST.get('product_size') 
+        cart = W_Cart(
+            product_price=shoefeature.price,
+            productName=shoefeature.productName,
+            username=request.user.username,
+            product_image=shoefeature.productImage,
+            product_quantity=product_quantity,
+            main_color =main_color,
+            sub_color=sub_color,
+            product_size=product_size,
+        )
+        cart.save()
+        return redirect('women_product_page', product_id=product_id)
+
+    context = {
+        'womenshoefeatures': shoefeature,
+    }
+    return render(request, 'women_product_page.html', context)
+
+@login_required
 def buy_this(request, product_id):
     shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
     if request.method == 'POST':
     
         product_quantity = request.POST.get('quantity', 1)
-        main_color = request.POST.get('main_color', 'Black')
-        sub_color = request.POST.get('sub_color' ,'Black')
-        product_size = request.POST.get('product_size', 7) 
+        main_color = request.POST.get('main_color')
+        sub_color = request.POST.get('sub_color')
+        product_size = request.POST.get('product_size') 
         cart = M_Cart(
             product_price=shoefeature.price,
             productName=shoefeature.productName,
@@ -345,20 +384,51 @@ def buy_this(request, product_id):
     context = {
         'shoefeatures': shoefeature,
     }
-    return render(request, 'product_page.html', context)
+    return render(request, 'cart_view.html', context)
 
 @login_required
-def remove_from_cart(request, product_id):
-    product = get_object_or_404(M_Cart, product_id=product_id, username=request.user.username)
-    
+def W_buy_this(request, product_id):
+    womenshoefeature = get_object_or_404(WomenShoeFeatures, product_id=product_id)
     if request.method == 'POST':
-        product.delete()
-        return redirect('cart_view')
     
+        product_quantity = request.POST.get('quantity', 1)
+        main_color = request.POST.get('main_color')
+        sub_color = request.POST.get('sub_color')
+        product_size = request.POST.get('product_size') 
+        cart = W_Cart(
+            product_price=womenshoefeature.price,
+            productName=womenshoefeature.productName,
+            username=request.user.username,
+            product_image=womenshoefeature.productImage,
+            product_quantity=product_quantity,
+            main_color =main_color,
+            sub_color=sub_color,
+            product_size=product_size,
+        )
+        cart.save()
+        return redirect('cart_view', product_id=product_id)
+
     context = {
-        'product': product
+        'womenshoefeatures': womenshoefeature,
     }
     return render(request, 'cart_view.html', context)
+
+def remove_from_cart(request, product_id):
+    try:
+        product = M_Cart.objects.get(product_id=product_id, username=request.user.username)
+        product.delete()
+    except M_Cart.DoesNotExist:
+        pass
+    
+    try:
+        w_product = W_Cart.objects.get(product_id=product_id, username=request.user.username)
+        w_product.delete()
+    except W_Cart.DoesNotExist:
+        pass
+
+    return redirect('cart_view')
+
+
 
 def edit_quantity(request, product_id):
     cart_item = get_object_or_404(M_Cart, id=product_id)
@@ -380,8 +450,7 @@ def thank_you_for_purchase(request):
     context = {
         'products_in_cart': products_in_cart,
         'total_amount': total_amount,
-        'vat_amount': vat_amount,
-        'total_amount_vat': total_amount_vat.quantize(Decimal('0.00'), rounding=ROUND_HALF_UP),
+        'vat_amount': vat_amount
     }
     return render(request, "thank_you_for_purchase.html", context)
 
@@ -400,13 +469,19 @@ def calculate_total_amount_vat(products_in_cart):
         total_amount += subtotal + vat_amount
     return total_amount
 
-
 def checkout(request):
     if request.method == "POST":
-        order = M_Cart.objects.filter(username=request.user.username)
-        if order.exists():
-            order.delete()
+        if M_Cart.objects.filter(username=request.user.username).exists() or W_Cart.objects.filter(username=request.user.username).exists():
+            username = request.user.username
+            M_Cart.objects.filter(username=username).delete()
+            W_Cart.objects.filter(username=username).delete()
             return redirect('thank_you_for_purchase')
-        else:
-           return redirect('cart_view')
-    return render(request, 'cart_view.html')
+
+    return redirect('cart_view')
+
+#def save_paid_order(request):
+    #if M_Cart.objects.filter(username=request.user.username).exists():
+        #username = request.user.username
+        #OrderTracker
+        
+        

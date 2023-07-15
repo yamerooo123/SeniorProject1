@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'web_project',
         'USER': 'root',
         'PASSWORD': '19752518M',
-        'HOST': '/var/run/mysqld/mysqld.sock',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }

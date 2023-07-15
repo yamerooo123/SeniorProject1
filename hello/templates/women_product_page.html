@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        {% for womenshoefeature in womenshoefeatures %}
-        <title>{{womenshoefeature.productName}}</title>
+        {% for shoefeature in shoefeatures %}
+        <title>{{shoefeature.productName}}</title>
         {% endfor %}
         {% load static %}
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -158,71 +158,84 @@
                                 {% for womenshoefeature in womenshoefeatures %}
                                 <p class="about">{{ womenshoefeature.description }}</p>
                                 {% endfor %}
+                                {% for womenshoefeature in womenshoefeatures %}
+                                <form action="{% url 'w_add_to_cart' womenshoefeature.product_id %}" method="post" onsubmit="alert('{{ womenshoefeature.productName }} added to shopping cart')">
+                                    {% csrf_token %}
                                 <div class="sizes mt-3">
                                     <h6 class="text-uppercase">Size</h6> 
-                                    <label class="radio"> <input type="radio" name="size" value="7" checked> <span>7</span> </label> 
-                                    <label class="radio"> <input type="radio" name="size" value="8"> <span>8</span> </label> 
-                                    <label class="radio"> <input type="radio" name="size" value="9"> <span>9</span> </label> 
-                                    <label class="radio"> <input type="radio" name="size" value="10"> <span>10</span> </label>
-                                    <label class="radio"> <input type="radio" name="size" value="11"> <span>11</span> </label>
-                                    <label class="radio"> <input type="radio" name="size" value="12"> <span>12</span> </label>
-                                    <label class="radio"> <input type="radio" name="size" value="13"> <span>13</span> </label>
-                                    <label class="radio"> <input type="radio" name="size" value="14"> <span>14</span> </label>
+                                    <label class="radio"> <input type="radio" name="product_size" value="7" checked> <span>7</span> </label> 
+                                    <label class="radio"> <input type="radio" name="product_size" value="8"> <span>8</span> </label> 
+                                    <label class="radio"> <input type="radio" name="product_size" value="9"> <span>9</span> </label> 
+                                    <label class="radio"> <input type="radio" name="product_size" value="10"> <span>10</span> </label>
+                                    <label class="radio"> <input type="radio" name="product_size" value="11"> <span>11</span> </label>
+                                    <label class="radio"> <input type="radio" name="product_size" value="12"> <span>12</span> </label>
+                                    <label class="radio"> <input type="radio" name="product_size" value="13"> <span>13</span> </label>
+                                    <label class="radio"> <input type="radio" name="product_size" value="14"> <span>14</span> </label>
                                 </div>
+                                {% endfor %}
+                                {% for womenshoefeature in womenshoefeatures %}
                                 <div class="MainColor mt-3">
                                     <h6 class="text-uppercase">Main Color</h6> 
-                                    <label class="radio"> <input type="radio" name="MainColor" value="black" checked> <span>Black</span> </label> 
-                                    <label class="radio"> <input type="radio" name="MainColor" value="white"> <span>White</span></label> 
-                                    <label class="radio"> <input type="radio" name="MainColor" value="grey"> <span>Grey</span></label> 
-                                    <label class="radio"> <input type="radio" name="MainColor" value="blue"> <span>Blue</span></label>
-                                    <label class="radio"> <input type="radio" name="MainColor" value="red"> <span>Red</span></label>
+                                    <label class="radio"> <input type="radio" name="main_color" value="Black" checked> <span>Black</span> </label> 
+                                    <label class="radio"> <input type="radio" name="main_color" value="White"> <span>White</span></label> 
+                                    <label class="radio"> <input type="radio" name="main_color" value="Grey"> <span>Grey</span></label> 
+                                    <label class="radio"> <input type="radio" name="main_color" value="Blue"> <span>Blue</span></label>
+                                    <label class="radio"> <input type="radio" name="main_color" value="Red"> <span>Red</span></label>
                                 </div>
+                                {% endfor %}
+                                {% for womenshoefeature in womenshoefeatures %}
                                 <div class="SubColor mt-3">
                                     <h6 class="text-uppercase">Sub Color</h6> 
-                                    <label class="radio"> <input type="radio" name="SubColor" value="black" checked> <span>Black</span> </label> 
-                                    <label class="radio"> <input type="radio" name="SubColor" value="white"> <span>White</span></label> 
-                                    <label class="radio"> <input type="radio" name="SubColor" value="grey"> <span>Grey</span></label> 
-                                    <label class="radio"> <input type="radio" name="SubColor" value="blue"> <span>Blue</span></label>
-                                    <label class="radio"> <input type="radio" name="SubColor" value="red"> <span>Red</span></label>
+                                    <label class="radio"> <input type="radio" name="sub_color" value="Black" checked> <span>Black</span> </label> 
+                                    <label class="radio"> <input type="radio" name="sub_color" value="White"> <span>White</span></label> 
+                                    <label class="radio"> <input type="radio" name="sub_color" value="Grey"> <span>Grey</span></label> 
+                                    <label class="radio"> <input type="radio" name="sub_color" value="Blue"> <span>Blue</span></label>
+                                    <label class="radio"> <input type="radio" name="sub_color" value="Red"> <span>Red</span></label>
                                 </div>
+                                {% endfor %}
                                 {% for womenshoefeature in womenshoefeatures %}
                                 <div class="row">
                                     <div class="col-md-6">
                                       <div class="Quantity mt-3">
                                         <h6 class="text-uppercase">In stock</h6>
-                                        <h6 class="rounded bg-light d-inline-block p-2">{{ womenshoefeature.InStock }}</h6>
+                                        <h6 class="rounded bg-light d-inline-block p-2">{{ shoefeature.InStock }}</h6>
                                       </div>
                                     </div>
                                     {% endfor %}
+                                    {% for womenshoefeature in womenshoefeatures %}
                                     <div class="col-md-6">
                                       <div class="OrderQuantity mt-3">
                                         <h6 class="text-uppercase">Quantity</h6>
-                                        <select class="form-select">
-                                          <option value="option1">1</option>
-                                          <option value="option2">2</option>
-                                          <option value="option3">3</option>
-                                          <option value="option3">4</option>
-                                          <option value="option3">5</option>
-                                          <option value="option3">6</option>
-                                          <option value="option3">7</option>
-                                          <option value="option3">8</option>
-                                          <option value="option3">9</option>
-                                          <option value="option3">10</option>
+                                        <select class="form-select" name="quantity">
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                          <option value="6">6</option>
+                                          <option value="7">7</option>
+                                          <option value="8">8</option>
+                                          <option value="9">9</option>
+                                          <option value="10">10</option>
                                         </select>
+                                        <div class="cart mt-3 align-items-center d-inline-flex">
+                                            <button type="submit" class="btn btn-danger text-uppercase px-4">Add to cart</button>
+                                            <i class="fa fa-heart text-muted"></i>
+                                            <i class="fa fa-share-alt text-muted"></i>
+                                        </div>
+                                        </form> 
+                                        <div class="cart mt-3 align-items-center d-inline-flex">
+                                            <form action="{% url 'W_buy_this' womenshoefeature.product_id %}" method="POST" >
+                                             {% csrf_token %}
+                                            <button type="submit" class="btn btn-success text-uppercase px-4">Buy this</button>                                        
+                                            <i class="fa fa-heart text-muted"></i>
+                                            <i class="fa fa-share-alt text-muted"></i>
+                                            </form>
+                                          </div>     
                                       </div>
                                     </div>
-                                  </div>
-                                <div class="cart mt-3 align-items-center d-inline-flex">
-                                    <button class="btn btn-success text-uppercase  px-4">Buy this</button>
-                                    <i class="fa fa-heart text-muted"></i>
-                                    <i class="fa fa-share-alt text-muted"></i>
-                                  </div>
-                                <div class="cart mt-3 align-items-center d-inline-flex">
-                                    <button class="btn btn-danger text-uppercase px-4">Add to cart</button>
-                                    
-                                    <i class="fa fa-heart text-muted"></i>
-                                    <i class="fa fa-share-alt text-muted"></i>
-                                  </div>
+                                  </div>                                         
+                                {% endfor %}                                                                                                                      
                             </div>
                         </div>
                     </div>
@@ -296,6 +309,7 @@
             </section>
         </div>
     </footer>
+    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
     <script>
