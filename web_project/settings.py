@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os.path
 import os
+import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -79,18 +80,22 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+#
+#DATABASES = {
+'default'#:
+#{
+        #'ENGINE': 'django.db.backends.mysql', 
+        #'NAME': 'web_project',
+        #'USER': 'root',
+        #'PASSWORD': '19752518M',
+        #'HOST': 'localhost',
+        #'PORT': '3306',
+    #}
+#}
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'web_project',
-        'USER': 'root',
-        'PASSWORD': '19752518M',
-        'HOST': '127.0.0.1',
-        'PORT': '33060',
-    }
+    'default': dj_database_url.config(conn_max_age=600)
 }
-
 
 
 
