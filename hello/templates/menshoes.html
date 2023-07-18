@@ -459,8 +459,6 @@
               </div>
             </div>
           </div>
-          
-            
             <nav aria-label="pagination" class="d-flex justify-content-center mt-3">
               <ul class="pagination">
                 <li class="page-item disabled">
@@ -553,12 +551,9 @@
   
     <script>
       $(document).ready(function() {
-        // Toggle collapse-sidebar when Show filter button is clicked
         $('[data-mdb-toggle="collapse-sidebar"]').on('click', function() {
           $('#navbarSupportedContent').collapse('toggle');
         });
-    
-        // Toggle accordion collapse when accordion button is clicked
         $('[data-mdb-toggle="collapse"]').on('click', function() {
           var target = $(this).attr('data-mdb-target');
           $(target).collapse('toggle');

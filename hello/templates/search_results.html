@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Homepage</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/Style2.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background-color: white; 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        footer {
+            background-color: #45526e;
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 2rem 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        .img-cover {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-logo" id="navbar-logo">Happy Feet</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
+                aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="{% url 'homepage' %}">Home</a>
+                            <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
+                            <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
+                            <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
+                            <a class="dropdown-item" href="{% url 'faqpage' %}">FAQ</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashions</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
+                            <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                    </li>
+                </ul>
+                <form class="d-flex my-2 my-lg-0" action="{% url 'search_view' %}" method="POST">
+                    {% csrf_token %}
+                        <input class="form-control me-sm-2" type="text" placeholder="Search">
+                        <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
+                    {% if user.is_authenticated %}
+                    <a class="btn btn-outline-dark ms-2" href="{% url 'cart_view' %}">
+                      Cart
+                    </a>
+                      <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
+                        Welcome,&nbsp;{{ user.username }}
+                      </a>
+                      <a class="btn btn-outline-dark ms-2" href="{% url 'signout' %}">
+                        Log&nbsp;Out
+                      </a>
+                    {% else %}
+                      <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                        Login
+                       </a>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+		<div class="col-md-12">
+            <h1>Found</h1>
+		</div>
+	</div>
+            
+
+
+<script>
+    $(document).ready(function () {
+        $('[data-mdb-toggle="collapse-sidebar"]').on('click', function () {
+            $('#navbarSupportedContent').collapse('toggle');
+        });
+        $('[data-mdb-toggle="collapse"]').on('click', function () {
+            const target = $(this).data('target');
+            $(target).collapse('toggle');
+        });
+    });
+</script>
+</body>
+</html>

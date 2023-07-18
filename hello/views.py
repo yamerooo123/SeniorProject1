@@ -10,9 +10,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 import os
-from .models import UserProfile, ShoeFeatures, WomenShoeFeatures, M_Cart, User, W_Cart, OrderTracker
+from .models import UserProfile, ShoeFeatures, WomenShoeFeatures, M_Cart, User, W_Cart, OrderTransaction
 from django.conf import settings
 from decimal import Decimal, ROUND_HALF_UP
+from django.utils import timezone
 
 def welcome(request):
     return render(request, 'welcomepage.html')
@@ -127,11 +128,6 @@ def user_dashboard(request):
     return render(request, "user_dashboard.html", {'user': request.user})
 
 
-@login_required
-def user_settings(request):
-    return render(request, 'user_settings.html')
-
-
 def menshoes(request):
     shoefeatures = ShoeFeatures.objects.all()
     context = {
@@ -244,8 +240,8 @@ def user_public_info_change(request):
         return render(request, "edit_account_success.html")
     return render(request, "user_settings.html")
 
+
 @login_required
-@csrf_protect
 def user_settings(request):
     if request.method == 'POST':
         form = PasswordChangeForm(user=request.user, data=request.POST)
@@ -257,11 +253,43 @@ def user_settings(request):
             messages.error(request, 'Please correct the errors below.')
     else:
         form = PasswordChangeForm(user=request.user)
-    
+
+    order_transactions = OrderTransaction.objects.filter(username=request.user.username, delivery_status='Ongoing')
+    order_history = OrderTransaction.objects.filter(username=request.user.username, delivery_status='Delivered')
+
+    if order_transactions.exists() and order_history.exists():
+        for transaction in order_transactions:
+            if transaction.delivery_status == "Delivered":
+                order_history.create(
+                    product_id=transaction.product_id,
+                    username=transaction.username,
+                    productName=transaction.productName,
+                    product_price=transaction.product_price,
+                    product_quantity=transaction.product_quantity,
+                    product_image=transaction.product_image,
+                    main_color=transaction.main_color,
+                    sub_color=transaction.sub_color,
+                    product_size=transaction.product_size,
+                    status=transaction.status,
+                    delivery_status=transaction.delivery_status,
+                    total_amount_vat=transaction.total_amount_vat,
+                )
+                transaction.delete()
+
+        order_transactions = OrderTransaction.objects.filter(username=request.user.username, delivery_status='Ongoing')
+        order_history = OrderTransaction.objects.filter(username=request.user.username, delivery_status='Delivered')
+
     context = {
-        'form': form
+        'form': form,
+        'order_transactions': order_transactions,
+        'order_history': order_history,
     }
+
     return render(request, 'user_settings.html', context)
+
+
+
+
 
 def password_change_done(request):
     return render(request, 'password_change_done.html')
@@ -365,9 +393,9 @@ def buy_this(request, product_id):
     if request.method == 'POST':
     
         product_quantity = request.POST.get('quantity', 1)
-        main_color = request.POST.get('main_color')
-        sub_color = request.POST.get('sub_color')
-        product_size = request.POST.get('product_size') 
+        main_color = request.POST.get('main_color', 'Black')
+        sub_color = request.POST.get('sub_color', 'Black')
+        product_size = request.POST.get('product_size', 7) 
         cart = M_Cart(
             product_price=shoefeature.price,
             productName=shoefeature.productName,
@@ -392,9 +420,9 @@ def W_buy_this(request, product_id):
     if request.method == 'POST':
     
         product_quantity = request.POST.get('quantity', 1)
-        main_color = request.POST.get('main_color')
-        sub_color = request.POST.get('sub_color')
-        product_size = request.POST.get('product_size') 
+        main_color = request.POST.get('main_color', 'Black')
+        sub_color = request.POST.get('sub_color', 'Black')
+        product_size = request.POST.get('product_size', 7) 
         cart = W_Cart(
             product_price=womenshoefeature.price,
             productName=womenshoefeature.productName,
@@ -431,13 +459,21 @@ def remove_from_cart(request, product_id):
 
 
 def edit_quantity(request, product_id):
-    cart_item = get_object_or_404(M_Cart, id=product_id)
+    cart_item = get_object_or_404(M_Cart, product_id=product_id)
 
     if request.method == 'POST':
         quantity = int(request.POST.get('quantity', 1))
         cart_item.product_quantity = quantity
         cart_item.save()
+        return redirect('cart_view')
 
+def w_edit_quantity(request, product_id):
+    cart_item = get_object_or_404(W_Cart, product_id=product_id)
+
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
+        cart_item.product_quantity = quantity
+        cart_item.save()
         return redirect('cart_view')
 
 def thank_you_for_purchase(request):
@@ -469,19 +505,106 @@ def calculate_total_amount_vat(products_in_cart):
         total_amount += subtotal + vat_amount
     return total_amount
 
+@login_required
 def checkout(request):
     if request.method == "POST":
-        if M_Cart.objects.filter(username=request.user.username).exists() or W_Cart.objects.filter(username=request.user.username).exists():
-            username = request.user.username
-            M_Cart.objects.filter(username=username).delete()
-            W_Cart.objects.filter(username=username).delete()
+        username = request.user.username
+
+        if M_Cart.objects.filter(username=username).exists() or W_Cart.objects.filter(username=username).exists():        
+            m_cart_entries = M_Cart.objects.filter(username=username)
+            w_cart_entries = W_Cart.objects.filter(username=username)
+
+            total_amount = Decimal(0)
+            vat_rate = Decimal('0.07')
+
+            for m_cart_entry in m_cart_entries:
+                subtotal = Decimal(m_cart_entry.product_quantity) * Decimal(m_cart_entry.product_price)
+                total_amount += subtotal
+
+            for w_cart_entry in w_cart_entries:
+                subtotal = Decimal(w_cart_entry.product_quantity) * Decimal(w_cart_entry.product_price)
+                total_amount += subtotal
+
+            vat_amount = total_amount * vat_rate
+            total_amount_vat = total_amount + vat_amount
+
+            total_amount_vat = total_amount_vat.quantize(Decimal('0.00'), rounding=ROUND_HALF_UP)
+
+            for m_cart_entry in m_cart_entries:
+                OrderTransaction.objects.create(
+                    product_price=m_cart_entry.product_price,
+                    productName=m_cart_entry.productName,
+                    username=username,
+                    product_image=m_cart_entry.product_image,
+                    product_quantity=m_cart_entry.product_quantity,
+                    main_color=m_cart_entry.main_color,  
+                    sub_color=m_cart_entry.sub_color,
+                    product_size=m_cart_entry.product_size,
+                    total_amount_vat=total_amount_vat
+                )
+
+            for w_cart_entry in w_cart_entries:
+                OrderTransaction.objects.create(
+                    product_price=w_cart_entry.product_price,
+                    productName=w_cart_entry.productName,
+                    username=username,
+                    product_image=w_cart_entry.product_image,
+                    product_quantity=w_cart_entry.product_quantity,
+                    main_color=w_cart_entry.main_color,  
+                    sub_color=w_cart_entry.sub_color,
+                    product_size=w_cart_entry.product_size,
+                    total_amount_vat=total_amount_vat
+                )
+
+            m_cart_entries.delete()
+            w_cart_entries.delete()
+
             return redirect('thank_you_for_purchase')
 
     return redirect('cart_view')
 
-#def save_paid_order(request):
-    #if M_Cart.objects.filter(username=request.user.username).exists():
-        #username = request.user.username
-        #OrderTracker
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def search_view(request):
+    search_items = ShoeFeatures.objects.all()
+    if request.method =="POST":
+        show_results = search_items
+
         
+    context = {
+        "show_results": show_results
+    }
+    return render(request, "search_results.html", context)
+
+
         

@@ -133,8 +133,13 @@
                           </div>
                         <div class="d-flex flex-row align-items-center">
                          <div class="input-group">
-                          <input type="number" name="quantity" value="{{ products_in_cart.product_quantity }}" min="1" step="1" max="10" class="form-control" style="width: 60px;">
-                          <button type="submit" class="btn btn-outline-primary">Update</button>
+                          <form action="{% url 'edit_quantity' product_id=products_in_cart.product_id %}" method="POST">
+                            {% csrf_token %}
+                          <input type="number" name="quantity" value="{{ products_in_cart.product_quantity }}" min="1" step="1" max="10" class="form-control" style="width: 77px;">
+                          <div class="d-flex flex-row align-items-center">
+                          <button type="submit" class="btn btn-outline-primary mt-1">Update</button>
+                          </div>
+                        </form>
                         </div>
                         <div class="ms-3">
                         <div class="mb-0">
@@ -164,11 +169,16 @@
                        <p class="small mb-0">Size:{{  women_products_in_cart.product_size}} {{  women_products_in_cart.main_color}},{{  women_products_in_cart.sub_color}}</p>
                      </div>
                      </div>
-                   <div class="d-flex flex-row align-items-center">
-                    <div class="input-group">
-                     <input type="number" name="quantity" value="{{  women_products_in_cart.product_quantity }}" min="1" step="1" max="10" class="form-control" style="width: 60px;">
-                     <button type="submit" class="btn btn-outline-primary">Update</button>
-                   </div>
+                     <div class="d-flex flex-row align-items-center">
+                      <div class="input-group">
+                       <form action="{% url 'w_edit_quantity' product_id=women_products_in_cart.product_id %}" method="POST">
+                         {% csrf_token %}
+                       <input type="number" name="quantity" value="{{ women_products_in_cart.product_quantity }}" min="1" step="1" max="10" class="form-control" style="width: 77px;">
+                       <div class="d-flex flex-row align-items-center">
+                       <button type="submit" class="btn btn-outline-primary mt-1">Update</button>
+                       </div>
+                     </form>
+                     </div>
                    <div class="ms-3">
                    <div class="mb-0">
                     <h5 class="mb-0" style="margin-left: 10px;">${{ women_products_in_cart.product_price }}</h5>

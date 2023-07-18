@@ -1,100 +1,96 @@
 <!DOCTYPE html>
-{%load static%}
+{% load static %}
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{% static 'css/Style2.css' %}">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <title>Account Settings</title>
-        <style>
-           body {
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/Style2.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Account Settings</title>
+    <style>
+        body {
             background-image: url('/Static/css/aboutus.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            }
-            footer {
+        }
+        footer {
             background-color: #45526e;
             color: white;
         }
-
         .footer-links {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             padding: 2rem 0;
         }
-
         .footer-links a {
             color: white;
             text-decoration: none;
         }
-
         .footer-links a:hover {
             text-decoration: underline;
         }
     </style>
-       </style>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
-            <div class="container">
-                <a class="navbar-logo"id="navbar-logo">Happy Feet</a>
-                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavId">
-                    <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="{% url 'homepage' %}" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="{% url 'homepage' %}">Home</a>
-                                <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
-                                <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
-                                <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
-                                <a class="dropdown-item" href="{% url 'faqpage' %}">FAQ</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashions</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
-                              <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
-                        </li>
-                    </ul>
-                    
-                    <form class="d-flex my-2 my-lg-0">
-                        <input class="form-control me-sm-2" type="text" placeholder="Search">
-                        <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
-                        {% if user.is_authenticated %}
-                        <a class="btn btn-outline-dark ms-2" href="{% url 'cart_view' %}">
-                          Cart
-                        </a>
-                          <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
-                            Welcome,&nbsp;{{ user.username }}
-                          </a>
-                          <a class="btn btn-outline-dark ms-2" href="{% url 'signout' %}">
-                            Log&nbsp;Out
-                          </a>
-                        {% else %}
-                          <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
-                            Login
-                           </a>
-                        {% endif %}
-                    </form>
-                </div>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-logo" id="navbar-logo">Happy Feet</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{% url 'homepage' %}" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="{% url 'homepage' %}">Home</a>
+                            <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
+                            <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
+                            <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
+                            <a class="dropdown-item" href="{% url 'faqpage' %}">FAQ</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashions</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
+                            <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                    </li>
+                </ul>
+
+                <form class="d-flex my-2 my-lg-0">
+                    <input class="form-control me-sm-2" type="text" placeholder="Search">
+                    <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
+                    {% if user.is_authenticated %}
+                    <a class="btn btn-outline-dark ms-2" href="{% url 'cart_view' %}">
+                        Cart
+                    </a>
+                    <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
+                        Welcome,&nbsp;{{ user.username }}
+                    </a>
+                    <a class="btn btn-outline-dark ms-2" href="{% url 'signout' %}">
+                        Log&nbsp;Out
+                    </a>
+                    {% else %}
+                    <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                        Login
+                    </a>
+                    {% endif %}
+                </form>
             </div>
-        </nav>
-        <div class="background">
+        </div>
+    </nav>
+    <div class="background">
         <div class="container p-0">
             <h1 class="h3 mb-3">Settings</h1>
             <div class="row">
@@ -103,22 +99,22 @@
                         <div class="card-header">
                             <h5 class="card-title mb-0">Account Settings</h5>
                         </div>
-        
+
                         <div class="list-group list-group-flush" role="tablist">
                             <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account" role="tab">
-                              Account
+                                Account
                             </a>
                             <a class="list-group-item list-group-item-action" data-toggle="list" href="#password" role="tab">
-                              Change Password
+                                Change Password
                             </a>
                             <a class="list-group-item list-group-item-action" data-toggle="list" href="#order_tracker" role="tab">
-                              Order Tracker
+                                Order Tracker
                             </a>
-                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#" role="tab">
-                              History
+                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#history" role="tab">
+                                History
                             </a>
                             <a class="list-group-item list-group-item-action" data-toggle="list" href="{% url 'signout' %}" role="tab">
-                              Logout
+                                Logout
                             </a>
                         </div>
                     </div>
@@ -145,8 +141,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="text-center">       
-                                                        <img alt="Default Profile" src="{% static 'css/logo.jpg' %}" class="rounded-circle img-responsive mt-2" width="128" height="128">
+                                                <div class="text-center">
+                                                    <img alt="Default Profile" src="{% static 'css/logo.jpg' %}" class="rounded-circle img-responsive mt-2" width="128" height="128">
                                                     <h6><small>Welcome back, {{request.user.username}}!</small></h6>
                                                 </div>
                                             </div>
@@ -154,8 +150,8 @@
                                         <button type="submit" class="btn btn-dark">Save changes</button>
                                     </form>
                                 </div>
-                                </div>
-        
+                            </div>
+
                             <div class="card">
                                 <div class="card-header">
                                     <h5 class="card-title mb-0">Private info</h5>
@@ -204,14 +200,14 @@
                                             </div>
                                         </div>
                                         <div class="SPACEOUTBITCH mt-3">
-                                        <button type="submit" class="btn btn-dark">Save changes</button>
+                                            <button type="submit" class="btn btn-dark">Save changes</button>
                                         </div>
                                     </form>
                                     {% if message %}
-                                        <div class="alert alert-danger">{{ message }}</div>
+                                    <div class="alert alert-danger">{{ message }}</div>
                                     {% endif %}
                                 </div>
-                            </div>      
+                            </div>
                         </div>
                         <div class="tab-pane fade mb-0" id="password" role="tabpanel">
                             <div class="card">
@@ -237,97 +233,135 @@
                         <div class="tab-pane fade mb-0" id="order_tracker" role="tabpanel">
                             <div class="container-fluid">
                                 <div class="card">
-                                <div class="card-body">
-                                <div class=" row">
-                                    <div class="col-md-12">                                 
-                                            <div class="table-responsive table-borderless">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="text-center">
-                                                                <div class="toggle-btn">
-                                                                    <div class="inner-circle"></div>
-                                                                </div>
-                                                            </th>
-                                                            <th>Order&nbsp;#</th>
-                                                            <th>Name</th>
-                                                            <th>Status</th>
-                                                            
-                                                            <th>Total</th>
-                                                            <th>Created</th>
-                                                            <th>Delivery&nbsp;status</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="table-body">
-                                                        <tr class="cell-1">
-                                                            <td class="text-center">
-                                                                <div class="toggle-btn">
-                                                                    <div class="inner-circle"></div>
-                                                                </div>
-                                                            </td>
-                                                            <td>#</td>
-                                                            <td>Sneakers</td>
-                                                            <td><span class="badge badge-success">Fullfilled</span></td>
-                                                            <td>$</td>
-                                                            <td>Today</td>
-                                                            <td><i class="fa fa-ellipsis-h text-black-50"></i></td>
-                                                        </tr>
-                                                        <tr class="cell-1">
-                                                            <td class="text-center">
-                                                                <div class="toggle-btn">
-                                                                    <div class="inner-circle"></div>
-                                                                </div>
-                                                            </td>
-                                                            <td>#</td>
-                                                            <td>flip flop</td>
-                                                            <td><span class="badge badge-info">Confirmed</span></td>
-                                                            <td>$</td>
-                                                            <td>Yesterday</td>
-                                                            <td><i class="fa fa-ellipsis-h text-black-50"></i></td>
-                                                        </tr>
-                                                        <tr class="cell-1">
-                                                            <td class="text-center">
-                                                                <div class="toggle-btn">
-                                                                    <div class="inner-circle"></div>
-                                                                </div>
-                                                            </td>
-                                                            <td>#</td>
-                                                            <td>Slippers</td>
-                                                            <td><span class="badge badge-danger">Partially shipped</span></td>
-                                                            <td>$</td>
-                                                            <td>May 12,2020</td>
-                                                            <td><i class="fa fa-ellipsis-h text-black-50"></i></td>
-                                                        </tr>
-                                                        <tr class="cell-1">
-                                                            <td class="text-center">
-                                                                <div class="toggle-btn">
-                                                                    <div class="inner-circle"></div>
-                                                                </div>
-                                                            </td>
-                                                            <td>#</td>
-                                                            <td>Boots</td>
-                                                            <td><span class="badge badge-success">Fullfilled</span></td>
-                                                            <td>$</td>
-                                                            <td>May 11,2020</td>
-                                                            <td><i class="fa fa-ellipsis-h text-black-50"></i></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive table-borderless">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center">
+                                                                    <div class="toggle-btn">
+                                                                        <div class="inner-circle"></div>
+                                                                    </div>
+                                                                </th>
+                                                                <th>Order</th>
+                                                                <th>Name</th>
+                                                                <th>Status</th>
+                                                                <th>Quantity</th>
+                                                                <th>Total</th>
+                                                                <th>Created</th>
+                                                                <th>Delivery&nbsp;status</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="table-body">
+                                                            {% for order in order_transactions %}
+                                                            <tr class="cell-1">
+                                                                <td class="text-center">
+                                                                    <div class="toggle-btn">
+                                                                        <div class="inner-circle"></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>{{ order.product_id }}</td>
+                                                                <td>{{ order.productName }}</td>
+                                                                <td>{{ order.status }}</td>
+                                                                <td>{{ order.product_quantity }}</td>
+                                                                <td>${{ order.total_amount_vat }}</td>
+                                                                <td>{{ order.created_by }}</td>
+                                                                <td>{{ order.delivery_status }}</td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                    <nav aria-label="pagination" class="d-flex justify-content-center mt-3">
+                                                        <ul class="pagination">
+                                                            <li class="page-item disabled">
+                                                                <a class="page-link" href="#" aria-label="Previous">
+                                                                    <span aria-hidden="true">&laquo;</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                                            <li class="page-item">
+                                                                <a class="page-link" href="#" aria-label="Next">
+                                                                    <span aria-hidden="true">&raquo;</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
-                                </div>
-                                </div>
-                            </div>
-                            
-                             
-                        </div>
                             </div>
                         </div>
+                        <div class="tab-pane fade mb-0" id="history" role="tabpanel">
+                            <div class="container-fluid">
+                              <div class="card">
+                                <div class="card-body">
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div class="table-responsive table-borderless">
+                                        <table class="table">
+                                          <thead>
+                                            <tr>
+                                              <th>Order</th>
+                                              <th>Name</th>
+                                              <th>Status</th>
+                                              <th>Quantity</th>
+                                              <th>Total</th>
+                                              <th>Created</th>
+                                              <th>Delivery Status</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {% for history in order_history %}
+                                            <tr>
+                                                <td>{{ history.product_id }}</td>
+                                                <td>{{ history.productName }}</td>
+                                                <td>{{ history.status }}</td>
+                                                <td>{{ history.product_quantity }}</td>
+                                                <td>${{ history.total_amount_vat }}</td>
+                                                <td>{{ history.created_by }}</td>
+                                                <td>{{ history.delivery_status }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                          </tbody>
+                                        </table>
+                                        <nav aria-label="pagination" class="d-flex justify-content-center mt-3">
+                                            <ul class="pagination">
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="#" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
                     </div>
                 </div>
-            </div>
             </div>
             <footer>
                 <div class="container">
@@ -392,11 +426,10 @@
             </footer>
             <script>
                 $(document).ready(function () {
-                   
                     $('[data-mdb-toggle="collapse-sidebar"]').on('click', function () {
                         $('#navbarSupportedContent').collapse('toggle');
                     });
-                   
+
                     $('[data-mdb-toggle="collapse"]').on('click', function () {
                         const target = $(this).data('target');
                         $(target).collapse('toggle');
@@ -404,14 +437,14 @@
                 });
 
                 $(document).ready(function() {
-                $('.list-group-item-action').on('click', function() {
-                    $('.list-group-item-action').removeClass('active');
-                    $(this).addClass('active');
-                    var target = $(this).attr('href');
-                    $('.tab-pane').removeClass('show active');
-                    $(target).addClass('show active');
+                    $('.list-group-item-action').on('click', function() {
+                        $('.list-group-item-action').removeClass('active');
+                        $(this).addClass('active');
+                        var target = $(this).attr('href');
+                        $('.tab-pane').removeClass('show active');
+                        $(target).addClass('show active');
+                    });
                 });
-            });
             </script>
-    </body>
-</html>
+        </body>
+    </html>
