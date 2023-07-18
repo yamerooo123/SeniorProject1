@@ -1,4 +1,5 @@
 ﻿# SeniorProject1
+# ------------Web application part------------
 # 12/06/66 update signup(fully functional) and signin(not yet)
 # 13/06/66 add womenshoes.html and menshoes.html
 # 15/06/66 update womenshoes and menshoes html(not complete yet), update login authentication(still have minor bugs)
@@ -10,3 +11,12 @@
 # 27/06/66 switch from SQLite to MySQL
 # 05/07/66 successfully retrieving data from the database and displayed on the Product Page( only menshoes.html )
 # 12/07/66 Cart function completed
+# 18/07/66 Check order history completed
+# ------------18/07/66 all main functions are completed------------
+# additional functions that will be added later: search bar function, filter function, ratings function, pagination function
+
+# ------------Recommendation part------------
+# Objectives:
+# -recommendation
+# -recommendation tabs
+
