@@ -82,14 +82,26 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DB_PORT = int(os.environ.get('DATABASE_PORT', '3306'))
+ON_HEROKU = 'DYNO' in os.environ
 
-DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('CLEARDB_DATABASE_URL')),
-    'OPTIONS': {
-        'sql_mode': 'traditional',  
+if ON_HEROKU:
+    DATABASES = {
+        'default': dj_database_url.config(default=os.environ.get('CLEARDB_DATABASE_URL')),
+        'OPTIONS': {
+            'sql_mode': 'traditional', 
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'web_project',
+            'USER': 'root',
+            'PASSWORD': '19752518M',
+            'HOST': 'localhost',
+            'PORT': '3306',
+        }
+    }
 
 #s
 
