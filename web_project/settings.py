@@ -81,15 +81,16 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+DB_PORT = int(os.environ.get('DATABASE_PORT', '3306'))
+
 DATABASES = {
-'default':
-{
+    'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': os.environ.get('web_project'),
-        'USER': os.environ.get('root'),
-        'PASSWORD': os.environ.get('19752518M'),
-        'HOST': os.environ.get('localhost'),
-        'PORT': os.environ.get('3306'),
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': 'localhost',  
+        'PORT': DB_PORT,
     }
 }
 
