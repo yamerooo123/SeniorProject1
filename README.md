@@ -12,6 +12,7 @@
 # 05/07/66 successfully retrieving data from the database and displayed on the Product Page( only menshoes.html )
 # 12/07/66 Cart function completed
 # 18/07/66 Check order history completed
+# 20/07/66 Search bar completed
 # ------------18/07/66 all main functions are completed------------
 # additional functions that will be added later: search bar function, filter function, ratings function, pagination function
 
