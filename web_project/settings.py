@@ -86,7 +86,7 @@ ON_HEROKU = 'DYNO' in os.environ
 
 if ON_HEROKU:
     DATABASES = {
-        'default': dj_database_url.config(default=os.environ.get('CLEARDB_DATABASE_URL')),
+        'default': dj_database_url.config(default=os.environ.get('JAWSDB_URL')),
         'OPTIONS': {
             'sql_mode': 'traditional', 
         }
