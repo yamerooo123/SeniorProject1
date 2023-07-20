@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os.path
 import os
+import dj_database_url
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -84,13 +85,9 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 DB_PORT = int(os.environ.get('DATABASE_PORT', '3306'))
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': os.environ.get('DATABASE_NAME'),
-        'USER': os.environ.get('DATABASE_USER'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': 'localhost',  
-        'PORT': DB_PORT,
+    'default': dj_database_url.config(default=os.environ.get('CLEARDB_DATABASE_URL')),
+    'OPTIONS': {
+        'sql_mode': 'traditional',  
     }
 }
 
