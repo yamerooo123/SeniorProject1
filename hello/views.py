@@ -13,7 +13,8 @@ import os
 from .models import UserProfile, ShoeFeatures, WomenShoeFeatures, M_Cart, User, W_Cart, OrderTransaction
 from django.conf import settings
 from decimal import Decimal, ROUND_HALF_UP
-from django.utils import timezone
+from itertools import chain
+
 
 def welcome(request):
     return render(request, 'welcomepage.html')
@@ -323,6 +324,8 @@ def cart_view(request, product_id=None):
     total_amount_vat = total_amount_vat.quantize(Decimal('0.00'), rounding=ROUND_HALF_UP)
     total_amount_before_vat = total_amount
     total_items = len(women_products_in_cart) + len(products_in_cart)
+    shoefeature = ShoeFeatures.objects.filter(product_id__in=[cart_item.product_id for cart_item in products_in_cart])
+    w_shoefeature = ShoeFeatures.objects.filter(product_id__in=[cart_item.product_id for cart_item in women_products_in_cart])
 
     context = {
         'products_in_cart': products_in_cart,
@@ -332,6 +335,8 @@ def cart_view(request, product_id=None):
         'total_amount_vat': total_amount_vat,
         'total_amount_before_vat': total_amount_before_vat,
         'total_items': total_items,
+        'shoefeature': shoefeature,
+        'w_shoefeature': w_shoefeature,
     }
     return render(request, "cart_view.html", context)
 
@@ -490,6 +495,9 @@ def thank_you_for_purchase(request):
     }
     return render(request, "thank_you_for_purchase.html", context)
 
+def out_of_stock(request):
+    return render(request, "out_of_stock.html")
+
 def calculate_total_amount(products_in_cart):
     total_amount = 0
     for cart_item in products_in_cart:
@@ -513,17 +521,27 @@ def checkout(request):
         if M_Cart.objects.filter(username=username).exists() or W_Cart.objects.filter(username=username).exists():        
             m_cart_entries = M_Cart.objects.filter(username=username)
             w_cart_entries = W_Cart.objects.filter(username=username)
-
             total_amount = Decimal(0)
             vat_rate = Decimal('0.07')
-
             for m_cart_entry in m_cart_entries:
                 subtotal = Decimal(m_cart_entry.product_quantity) * Decimal(m_cart_entry.product_price)
                 total_amount += subtotal
-
+                m_product = ShoeFeatures.objects.get(productName=m_cart_entry.productName)
+                if m_product.InStock >= m_cart_entry.product_quantity:
+                    m_product.InStock -= m_cart_entry.product_quantity
+                    m_product.save()
+                else:
+                    return redirect('out_of_stock')
             for w_cart_entry in w_cart_entries:
                 subtotal = Decimal(w_cart_entry.product_quantity) * Decimal(w_cart_entry.product_price)
                 total_amount += subtotal
+                w_product = WomenShoeFeatures.objects.get(productName=w_cart_entry.productName)
+                if w_product.InStock >= w_cart_entry.product_quantity:
+                    w_product.InStock -= w_cart_entry.product_quantity
+                    w_product.save()
+                else:
+                    return HttpResponse('out_of_stock')
+
 
             vat_amount = total_amount * vat_rate
             total_amount_vat = total_amount + vat_amount
@@ -563,47 +581,24 @@ def checkout(request):
 
     return redirect('cart_view')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def search_view(request):
-    search_items = ShoeFeatures.objects.all()
-    if request.method =="POST":
-        show_results = search_items
+    shoefeatures = ShoeFeatures.objects.all()
+    womenshoefeatures = WomenShoeFeatures.objects.all() 
+    search_items = request.POST.get('Search')
+    if search_items:
+        shoefeatures = shoefeatures.filter(productName__icontains=search_items)
+        womenshoefeatures = womenshoefeatures.filter(productName__icontains=search_items)
+        products = list(chain(shoefeatures, womenshoefeatures))
+    else:
+        products = list(chain(shoefeatures, womenshoefeatures))
+        products.sort(key=lambda x: x.product_id, reverse=True)
 
-        
     context = {
-        "show_results": show_results
+        'shoefeatures': shoefeatures,
+        'womenshoefeatures': womenshoefeatures,
+        'products': products,
     }
+
     return render(request, "search_results.html", context)
 
 

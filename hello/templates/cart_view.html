@@ -76,9 +76,10 @@
                         <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
                     </li>
                 </ul>
-                <form class="d-flex my-2 my-lg-0">
-                  <input class="form-control me-sm-2" type="text" placeholder="Search">
-                  <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
+                <form class="d-flex my-2 my-lg-0" action="{% url 'search_view' %}" method="POST">
+                  {% csrf_token %}
+                      <input class="form-control me-sm-2" type="text" placeholder="Search">
+                      <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
                   {% if user.is_authenticated %}
                   <a class="btn btn-outline-dark ms-2" href="{% url 'cart_view' %}">
                     Cart
@@ -103,6 +104,7 @@
               <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col">
                   <div class="card">
+                    
                     <div class="card-body p-4">
           
                       <div class="row">
@@ -117,7 +119,7 @@
                               <p class="mb-1">Shopping cart</p>
                               <p class="mb-0">You have {{ total_items }} items in your cart</p>
                             </div>                         
-                          </div>                        
+                          </div>   
                           {% for products_in_cart in products_in_cart %}
                          <div class="card mb-3">
                           <div class="card-body">
@@ -128,7 +130,8 @@
                           </div>
                           <div class="ms-3">
                             <h5>{{ products_in_cart.productName}}</h5>
-                            <p class="small mb-0">Size:{{ products_in_cart.product_size}} {{ products_in_cart.main_color}},{{ products_in_cart.sub_color}}</p>
+                            <p class="small mb-0">Size:{{ products_in_cart.product_size}} {{ products_in_cart.main_color}},{{ products_in_cart.sub_color}}</p>                          
+                            <p class="small mb-0">In Stock: {{  products_in_cart.InStock }}</p> 
                           </div>
                           </div>
                         <div class="d-flex flex-row align-items-center">
@@ -150,7 +153,6 @@
                           {% csrf_token %}
                           <button type="submit" class="btn btn-danger">Remove</button>
                           </form>
-                            <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
                         </div>
                       </div>
                      </div>
@@ -263,7 +265,7 @@
                                 <span></span>
                                 <span>
                                     {% csrf_token %}                                   
-                                    <form action="{% url 'checkout' %}" method="post">
+                                    <form action="{% url 'checkout'  %}" method="post">
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-outline-light btn-lg">
                                             <h4 class="m-0">Checkout</h4>

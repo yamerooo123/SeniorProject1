@@ -75,11 +75,14 @@
                       <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
                   </li>
               </ul>
-              <form class="d-flex my-2 my-lg-0">
-                  <input class="form-control me-sm-2" type="text" placeholder="Search">
-                  <button class="btn btn-outline-dark ms-2 type="submit">Search</button>
-                  <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">Login</a>
-              </form>
+              <form class="d-flex my-2 my-lg-0" action="{% url 'search_view' %}" method="POST">
+                    {% csrf_token %}
+                    <input class="form-control me-sm-2" type="text" name="Search" placeholder="Search">
+                    <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
+                    <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                        Login
+                       </a>
+                </form>
           </div>
       </div>
   </nav>

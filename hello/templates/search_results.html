@@ -15,16 +15,16 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
-            background-color: white; 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
+                background-image: url('/Static/css/aboutus.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
 
         footer {
             background-color: #45526e;
             color: white;
+            padding: 45px; 
         }
 
         .footer-links {
@@ -47,11 +47,15 @@
             width: 100%;
             height: 100%;
         }
+
+      
+        
+        
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="container">
             <a class="navbar-logo" id="navbar-logo">Happy Feet</a>
             <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
@@ -88,8 +92,10 @@
                 </ul>
                 <form class="d-flex my-2 my-lg-0" action="{% url 'search_view' %}" method="POST">
                     {% csrf_token %}
-                        <input class="form-control me-sm-2" type="text" placeholder="Search">
-                        <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
+                    <input class="form-control me-sm-2" type="text" name="Search" placeholder="Search">
+                    <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
+                </form>
+                <form>
                     {% if user.is_authenticated %}
                     <a class="btn btn-outline-dark ms-2" href="{% url 'cart_view' %}">
                       Cart
@@ -109,11 +115,60 @@
             </div>
         </div>
     </nav>
-    <div class="row">
-		<div class="col-md-12">
-            <h1>Found</h1>
-		</div>
-	</div>
+    <div class="container mt-5 mb-5">
+        <div class="container mt-0">
+            <h3>Results:</h3>
+        </div>
+        <div class="d-flex justify-content-center row">
+          <div class="col-md-10">
+            {% for item  in products %}
+            <div class="row p-2 bg-white border rounded">
+              <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="{{ item.productImage }}"></div>
+              <div class="col-md-6 mt-1">
+                <h5>{{ item.productName }}</h5>
+                <div class="d-flex flex-row">
+                  <span class="text-uppercase text-muted brand">{{item.brand }}</span>
+                </div>
+                <div class="mt-1 mb-1 spec-1"><span>{{ item.short_description }}</span></div>
+              </div>
+              <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                <div class="d-flex flex-row align-items-center">
+                  <h4 class="mr-1">${{ item.price }}</h4>
+                </div>
+                <h6 class="text-success">Free shipping</h6>
+                <div class="d-flex flex-column mt-4">
+                
+                  <a href=# class="btn btn-primary btn-sm">Details</a>
+                  <form action=# method="post" onsubmit="alert('{{ item.productName }} added to shopping cart')">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-primary btn-sm mt-2 w-100" type="submit">Add to wishlist</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <nav aria-label="pagination" class="d-flex justify-content-center mt-3">
+        <ul class="pagination">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">4</a></li>
+          <li class="page-item"><a class="page-link" href="#">5</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
             
 
 
@@ -128,5 +183,71 @@
         });
     });
 </script>
+<footer>
+    <div class="container">
+        <div class="footer-links">
+            <div class="col-md-3 col-lg-3 col-xl-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Happy Team</h6>
+                <p>
+                   <a href="{% url 'homepage' %}" >Michael Grey</a>
+                </p>
+                <p>
+                  <a href="{% url 'homepage' %}" >Ezio Auditore da Firenze</a>
+               </p>
+               <p>
+                <a href="{% url 'homepage' %}" >Billy Russo</a>
+             </p>
+            </div>
+
+            <div class="col-md-2 col-lg-2 col-xl-2">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                <p>
+                    <a href="{% url 'menshoes' %}" class="text-white">Men Shoes</a>
+                </p>
+                <p>
+                    <a href="{% url 'womenshoes' %}" class="text-white">Women Shoes</a>
+                </p>
+                <p>
+                    <a href="#" class="text-white">Best Selling</a>
+                </p>
+            </div>
+
+            <div class="col-md-4 col-lg-3 col-xl-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                <p><i class="fas fa-home mr-3"></i> Bangkok, Bang Pho 10012, TH</p>
+                <p><i class="fas fa-envelope mr-3"></i> happyfeet_cs@gmail.com</p>
+                <p><i class="fas fa-phone mr-3"></i> + 092 496 5301 </p>
+                <p><i class="fas fa-print mr-3"></i> + 092 496 5302</p>
+            </div>
+        </div>
+
+        <hr class="my-3">
+
+        <section class="p-3 pt-0">
+            <div class="row d-flex align-items-center">
+                <div class="col-md-7 col-lg-8 text-center text-md-start">
+                    <div class="p-3">
+                        &copy; 2023 Happy Feet. All rights reserved.
+                    </div>
+                </div>
+
+                <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+                    <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+</footer>
 </body>
 </html>

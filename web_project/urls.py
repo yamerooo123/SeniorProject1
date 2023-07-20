@@ -4,7 +4,7 @@ from django.contrib import admin
 from hello.views import (
     welcome, homepage, signup, signin, aboutus, howtobuy, partnerships, contact, contact_view, user_settings, menshoes, womenshoes, signout, filtered_products, filter_products, product_page, faqpage, user_private_info_change, user_public_info_change, 
     password_change_done, edit_account_success, cart_view, women_product_page, add_to_cart, remove_from_cart, edit_quantity, thank_you_for_purchase, checkout, buy_this,  w_add_to_cart, W_buy_this
-    ,w_edit_quantity, search_view)
+    ,w_edit_quantity, search_view, out_of_stock)
 
 urlpatterns = [
     path('', welcome, name='welcome'),
@@ -38,6 +38,7 @@ urlpatterns = [
     path('remove-from-cart/<int:product_id>/', remove_from_cart, name='remove_from_cart'),
     path('edit_quantity/<int:product_id>/', edit_quantity, name='edit_quantity'),
     path('thank_you_for_purchase/', thank_you_for_purchase, name='thank_you_for_purchase'),
+    path('out-of-stock/', out_of_stock, name='out_of_stock'),
     path('checkout/',checkout, name='checkout'),
     path('buy-this/<int:product_id>/', buy_this, name="buy_this"),
     path('w-buy-this/<int:product_id>/', W_buy_this, name="W_buy_this"),

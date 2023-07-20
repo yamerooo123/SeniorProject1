@@ -20,7 +20,7 @@ class UserProfile(models.Model):
 
 
 class ShoeFeatures(models.Model):
-    product_id = models.IntegerField(primary_key=True)
+    product_id = models.BigIntegerField(primary_key=True)
     type1 = models.CharField(max_length=255)
     type2 = models.CharField(max_length=255)
     maincolor = models.CharField(max_length=255, default="Black")
