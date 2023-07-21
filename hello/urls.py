@@ -2,6 +2,9 @@ from django.urls import path
 from hello import views
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.welcome, name="welcome"),
@@ -38,3 +41,6 @@ urlpatterns = [
     path('out-of-stock/', views.out_of_stock, name='out_of_stock'),
     path('search-view/', views.search_view, name="search_view"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
