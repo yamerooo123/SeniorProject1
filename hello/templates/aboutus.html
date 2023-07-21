@@ -85,7 +85,7 @@
                     <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
                 {% if user.is_authenticated %}
                 <a class="btn btn-outline-dark ms-2" href="{% url 'cart_view' %}">
-                  Cart
+                  Cart({{total_items}})
                 </a>
                   <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
                     Welcome,&nbsp;{{ user.username }}

@@ -85,7 +85,7 @@
                             <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
                         {% if user.is_authenticated %}
                         <a class="btn btn-outline-dark ms-2" href="{% url 'cart_view' %}">
-                          Cart
+                          Cart({{ total_items }})
                         </a>
                           <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
                             Welcome,&nbsp;{{ user.username }}
@@ -160,7 +160,7 @@
                                 <p class="about">{{ shoefeature.description }}</p>
                                 {% endfor %}
                                 {% for shoefeature in shoefeatures %}
-                                <form action="{% url 'add_to_cart' shoefeature.product_id %}" method="post" onsubmit="return validateForm">
+                                <form action="{% url 'add_to_cart' shoefeature.product_id %}" method="post">
                                     {% csrf_token %}
                                 <div class="sizes mt-3">
                                     <h6 class="text-uppercase">Size</h6> 
@@ -224,15 +224,7 @@
                                             <i class="fa fa-heart text-muted"></i>
                                             <i class="fa fa-share-alt text-muted"></i>
                                         </div>
-                                        </form> 
-                                        <script>
-                                            function validateForm() {
-                                                if (!{{ user.is_authenticated }}) {
-                                                    return false;
-                                                }
-                                                return true;
-                                            }
-                                            </script>
+                                       
                                             
                                         <div class="cart mt-3 align-items-center d-inline-flex">
                                             <form action="{% url 'buy_this' shoefeature.product_id %}" method="POST" >
@@ -326,10 +318,7 @@
     function change_image(image){
         var container = document.getElementById("main-image");
        container.src = image.src;
-   }
-   document.addEventListener("DOMContentLoaded", function(event) {
-   });
+   }       
     </script>   
     </body>
-    
 </html>

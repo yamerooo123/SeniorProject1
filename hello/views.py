@@ -21,7 +21,11 @@ def welcome(request):
 
 
 def homepage(request):
-    return render(request, 'homepage.html')
+    total_items = calculate_total_items(request.user.username)
+    context = {
+        'total_items':total_items
+    }
+    return render(request, 'homepage.html', context)
 
 
 
@@ -86,16 +90,33 @@ def signout(request):
     logout(request)
     return redirect('homepage')
 def aboutus(request):
-    return render(request, 'aboutus.html')
+    total_items = calculate_total_items(request.user.username)
+    context = {
+        'total_items': total_items,
+    }
+
+    return render(request, 'aboutus.html', context)
 
 def howtobuy(request):
-    return render(request, 'howtobuy.html')
+    total_items = calculate_total_items(request.user.username)
+    context = {
+        'total_items': total_items,
+    }
+    return render(request, 'howtobuy.html', context)
 
 def partnerships(request):
-    return render(request, 'partnerships.html')
+    total_items = calculate_total_items(request.user.username)
+    context = {
+        'total_items': total_items,
+    }
+    return render(request, 'partnerships.html', context)
 
 def contact(request):
-    return render(request, 'contact.html')
+    total_items = calculate_total_items(request.user.username)
+    context = {
+        'total_items': total_items
+    }
+    return render(request, 'contact.html', context)
 
 def contact_view(request):
     if request.method == 'POST':
@@ -130,34 +151,41 @@ def user_dashboard(request):
 
 
 def menshoes(request):
+    total_items = calculate_total_items(request.user.username)
     shoefeatures = ShoeFeatures.objects.all()
     context = {
         'shoefeatures': shoefeatures,
+        'total_items': total_items,
     }
     return render(request, 'menshoes.html', context)
 
 
 def womenshoes(request):
+    total_items = calculate_total_items(request.user.username)
     womenshoefeature = WomenShoeFeatures.objects.all()
     context = {
         'womenshoefeatures': womenshoefeature,
+        'total_items': total_items,
     }
     return render(request, 'womenshoes.html', context)
 
 
 def product_page(request, product_id):
+    total_items = calculate_total_items(request.user.username)
     shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
     context = {
         'shoefeatures': [shoefeature],
-       
+        'total_items': total_items,
 
     }
     return render(request, 'product_page.html', context)
 
 def women_product_page(request, product_id):
+    total_items = calculate_total_items(request.user.username)
     womenshoefeature = get_object_or_404(WomenShoeFeatures, product_id=product_id)
     context = {
         'womenshoefeatures': [womenshoefeature],
+        'total_items': total_items,
     }
     return render(request, 'women_product_page.html', context)
 
@@ -199,7 +227,11 @@ def filter_products(request):
     return render(request, 'filtered_products.html', context)
 
 def faqpage(request):
-    return render(request, 'faqpage.html')
+    total_items = calculate_total_items(request.user.username)
+    context = {
+        'total_items': total_items,
+    }
+    return render(request, 'faqpage.html', context)
 
 @login_required
 @csrf_protect
@@ -244,6 +276,7 @@ def user_public_info_change(request):
 
 @login_required
 def user_settings(request):
+    total_items = calculate_total_items(request.user.username)
     if request.method == 'POST':
         form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
@@ -284,6 +317,7 @@ def user_settings(request):
         'form': form,
         'order_transactions': order_transactions,
         'order_history': order_history,
+        'total_items':total_items,
     }
 
     return render(request, 'user_settings.html', context)
@@ -301,7 +335,6 @@ def edit_account_success(request):
 
 @login_required
 def cart_view(request, product_id=None):
-    
     products_in_cart = M_Cart.objects.filter(username=request.user.username)
     women_products_in_cart = W_Cart.objects.filter(username=request.user.username)
 
@@ -339,6 +372,12 @@ def cart_view(request, product_id=None):
         'w_shoefeature': w_shoefeature,
     }
     return render(request, "cart_view.html", context)
+
+def calculate_total_items(username):
+    products_in_cart = M_Cart.objects.filter(username=username)
+    women_products_in_cart = W_Cart.objects.filter(username=username)
+    total_items = len(women_products_in_cart) + len(products_in_cart)
+    return total_items
 
 @login_required(login_url='/signin/')
 def add_to_cart(request, product_id):
@@ -583,6 +622,7 @@ def checkout(request):
     return redirect('cart_view')
 
 def search_view(request):
+    total_items = calculate_total_items(request.user.username)
     shoefeatures = ShoeFeatures.objects.all()
     womenshoefeatures = WomenShoeFeatures.objects.all() 
     search_items = request.POST.get('Search')
@@ -598,6 +638,7 @@ def search_view(request):
         'shoefeatures': shoefeatures,
         'womenshoefeatures': womenshoefeatures,
         'products': products,
+        'total_items':total_items,
     }
 
     return render(request, "search_results.html", context)
