@@ -340,9 +340,10 @@ def cart_view(request, product_id=None):
     }
     return render(request, "cart_view.html", context)
 
-@login_required
+@login_required(login_url='/signin/')
 def add_to_cart(request, product_id):
     shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
+    
     if request.method == 'POST':
         product_quantity = request.POST.get('quantity', 1)
         main_color = request.POST.get('main_color')
@@ -366,7 +367,7 @@ def add_to_cart(request, product_id):
     }
     return render(request, 'product_page.html', context)
 
-@login_required
+@login_required(login_url='/signin/')
 def w_add_to_cart(request, product_id):
     shoefeature = get_object_or_404(WomenShoeFeatures, product_id=product_id)
     if request.method == 'POST':
@@ -392,7 +393,7 @@ def w_add_to_cart(request, product_id):
     }
     return render(request, 'women_product_page.html', context)
 
-@login_required
+@login_required(login_url='/signin/')
 def buy_this(request, product_id):
     shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
     if request.method == 'POST':
@@ -419,7 +420,7 @@ def buy_this(request, product_id):
     }
     return render(request, 'cart_view.html', context)
 
-@login_required
+@login_required(login_url='/signin/')
 def W_buy_this(request, product_id):
     womenshoefeature = get_object_or_404(WomenShoeFeatures, product_id=product_id)
     if request.method == 'POST':
