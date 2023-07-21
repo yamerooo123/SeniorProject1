@@ -1,0 +1,285 @@
+/*globe*/
+
+
+
+.dropdown-menu a {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+#navbar-logo {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 23px;
+  letter-spacing: -1px;
+  word-spacing: -0.6px;
+  color: #4B79A4;
+  font-weight: 700;
+  text-decoration: none solid rgb(68, 68, 68);
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: capitalize;
+  margin-right: 20px;
+  }
+  
+  .body {
+    height: auto;
+    overflow-y: scroll;
+  }
+
+/*advertisement*/
+#menshoes a {
+  animation: myAnim 2s ease 0s 1 normal forwards;
+  border: 2px solid #f4f4f4;
+  padding: 10px;
+  color: rgb(247, 247, 247);
+}
+
+@keyframes myAnim {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.menshoes {
+  animation: slide-in 1s forwards;
+  background-image: url('/Static/css/menshoes.jpg');
+  background-size: cover;
+  background-position: center;
+  border: 1px solid #000000;
+  padding: 150px;
+  margin: 0px;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
+.womenshoes {
+  background-image: url('/Static/css/womenshoes.jpg');
+  background-size: cover;
+  background-position: center;
+  animation: slide-in 1s forwards;
+  background-color: #fffffffb;
+  border: 1px solid #000000;
+  padding: 150px;
+  margin: 0px;
+
+      }
+.womenshoes a {
+    border: 2px solid #000000;
+    padding: 10px;
+    color: rgb(0, 0, 0);
+      
+      }
+
+#womenshoes a {
+  animation: myAnim 2s ease 0s 1 normal forwards;
+  border: 2px solid #0d0d0d;
+  padding: 10px;
+  color: rgb(4, 4, 4);
+      }
+  
+
+/*women product filter*/
+.card.card-sm {
+  width: 50%; 
+  height: 100%; 
+}
+
+
+.recommendation {
+  background-image: url('/Static/css/recommendation.jpg');
+  background-size: cover;
+  background-position: center;
+  animation: slide-in 1s forwards;
+  background-color: #000000;
+  border: 1px solid #000000;
+  padding: 150px;
+  margin: 0px;
+
+      }
+
+
+#recommendation a {
+  animation: myAnim 2s ease 0s 1 normal forwards;
+  border: 2px solid #f5f1f1;
+  padding: 10px;
+  color: rgb(250, 244, 244);
+}    
+
+.recommendation h3 {
+  color:rgb(255, 255, 255)
+}
+
+.recommendation p {
+  color:rgb(255, 255, 255)
+}
+
+.recommendation a {
+  border: 2px solid #ffffff;
+  padding: 10px;
+  color: rgb(255, 255, 255);
+          
+      }
+
+      a { text-decoration: none; }
+
+
+
+
+
+
+
+
+
+
+/*h1*/
+h1 a {
+    color: rgb(110, 111, 111);
+}
+h1::before {  
+    transform: scaleX(0);
+    transform-origin: bottom right;
+  }
+  
+  h1:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  h1::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    inset: 0 0 0 0;
+    background: hsl(0, 0%, 100%);
+    z-index: -1;
+    transition: transform .3s ease;
+  }
+  
+  h1 {
+    position: relative;
+    font-size: 5rem;
+  }
+  
+  html {
+    block-size: 100%;
+    inline-size: 100%;
+  }
+  
+  body {
+    min-block-size: 100%;
+    min-inline-size: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    display: grid;
+    place-content: center;
+    font-family: system-ui, sans-serif;
+    background-size: cover;
+  }
+  
+  @media (orientation: landscape) {
+    body {
+      grid-auto-flow: column;
+    }
+  }
+
+ 
+/*container*/
+#container2 {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+    padding: 20px;
+    margin-top: 0px;
+    animation: slide-up 1s forwards;
+    
+  }
+  @keyframes slide-up {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateY(0%);
+    }
+  }
+
+
+
+
+
+
+/*footer*/
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #45526e;
+  color: white;
+}
+
+
+.card {
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);
+}
+.card {
+  position: relative;
+  display: -ms-flexbox;
+  
+
+ 
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #e5e9f2;
+  border-radius: .2rem;
+}
+.card-header:first-child {
+  border-radius: calc(.2rem - 1px) calc(.2rem - 1px) 0 0;
+}
+.card-header {
+  border-bottom-width: 1px;
+}
+.card-header {
+  padding: .75rem 1.25rem;
+  margin-bottom: 0;
+  color: inherit;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e9f2;
+}
+
+
+
+/*about us*/
+
+.aboutus-content {
+  text-align: right;
+  margin-right: 20px;
+}
+
+.aboutus-image {
+  max-width: 50%;
+  height: auto;
+  margin-left: 20px;
+}
+
+.small-logo {
+  max-width: 200px;
+  height: auto;
+}
