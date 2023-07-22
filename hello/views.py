@@ -633,12 +633,17 @@ def search_view(request):
     else:
         products = list(chain(shoefeatures, womenshoefeatures))
         products.sort(key=lambda x: x.product_id, reverse=True)
+    if not products:
+        message = "Sorry, we coulnd't find the product that you want."
+    else:
+        message = None
 
     context = {
         'shoefeatures': shoefeatures,
         'womenshoefeatures': womenshoefeatures,
         'products': products,
         'total_items':total_items,
+        'message': message,
     }
 
     return render(request, "search_results.html", context)

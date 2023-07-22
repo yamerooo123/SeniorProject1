@@ -57,7 +57,7 @@
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
                       <div class="dropdown-menu" aria-labelledby="dropdownId">
-                        <a class="dropdown-item" href="{% url 'homepage' %}">Home</a>
+                        <a class="dropdown-item" href="{% url 'homepage' %}">Homepage</a>
                         <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
                         <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
                         <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
@@ -77,7 +77,7 @@
               </ul>
               <form class="d-flex my-2 my-lg-0" action="{% url 'search_view' %}" method="POST">
                     {% csrf_token %}
-                    <input class="form-control me-sm-2" type="text" name="Search" placeholder="Search">
+                    <input class="form-control me-sm-2" type="text" name="Search" placeholder="Search" name="Search">
                     <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
                     <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
                         Login
