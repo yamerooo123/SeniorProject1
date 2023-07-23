@@ -35,6 +35,7 @@ class ShoeFeatures(models.Model):
     productName = models.CharField(max_length=255, unique=True)
     InStock = models.IntegerField()
     product_idName = models.CharField(max_length=255)
+    material = models.CharField(max_length=255)
 
 class WomenShoeFeatures(models.Model):
     product_id = models.IntegerField(primary_key=True)
@@ -52,6 +53,7 @@ class WomenShoeFeatures(models.Model):
     productName = models.CharField(max_length=255)
     InStock = models.IntegerField()
     product_idName = models.CharField(max_length=255)
+    material = models.CharField(max_length=255)
 
 class M_Cart(models.Model):
     product_id = models.IntegerField(primary_key=True)
