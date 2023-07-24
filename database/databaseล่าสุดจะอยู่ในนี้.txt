@@ -1,2 +1,2 @@
 ทุกครั้งที่กุ git commit database ตัวล่าสุดจะstoreไว้ในไฟล์นี้
-เวลาอัพเข้า MySQL > web_project db > Server > Data Import > Import from Self-Contained File > start import
+เวลาอัพเข้าอัพทีละไฟล์
