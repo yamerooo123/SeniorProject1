@@ -14,7 +14,7 @@ from .models import UserProfile, ShoeFeatures, WomenShoeFeatures, M_Cart, User, 
 from django.conf import settings
 from decimal import Decimal, ROUND_HALF_UP
 from itertools import chain
-
+from recommendation import *
 
 def welcome(request):
     return render(request, 'welcomepage.html')
@@ -183,9 +183,15 @@ def product_page(request, product_id):
 def women_product_page(request, product_id):
     total_items = calculate_total_items(request.user.username)
     womenshoefeature = get_object_or_404(WomenShoeFeatures, product_id=product_id)
+
+    shoes_input = womenshoefeature.productName
+   
+    similar_shoes_list = get_similar_shoes(shoes_input, cosine_sim, shoes_dataset)
+
     context = {
         'womenshoefeatures': [womenshoefeature],
         'total_items': total_items,
+        'similar_shoes_list': similar_shoes_list,  
     }
     return render(request, 'women_product_page.html', context)
 
