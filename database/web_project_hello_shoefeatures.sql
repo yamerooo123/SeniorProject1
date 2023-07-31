@@ -38,6 +38,7 @@ CREATE TABLE `hello_shoefeatures` (
   `InStock` int DEFAULT NULL,
   `short_description` varchar(100) NOT NULL,
   `product_idName` varchar(255) DEFAULT NULL,
+  `material` varchar(255) NOT NULL,
   PRIMARY KEY (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -48,7 +49,7 @@ CREATE TABLE `hello_shoefeatures` (
 
 LOCK TABLES `hello_shoefeatures` WRITE;
 /*!40000 ALTER TABLE `hello_shoefeatures` DISABLE KEYS */;
-INSERT INTO `hello_shoefeatures` VALUES ('men','sports','white','red','black',12,500.00,'ASIAN','https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/ASIAN_OX01.jpg','Sports Running,Walking & Gym Shoes with Oxygen Technology Lightweight Casual Sneaker Shoes for Men\'s & Boy\'s','Oxygen-01',1,15,'Sports Running,Walking & Gym Shoes with Oxygen Technology Lightweight Casual Sneaker Shoes for Men\'s','AS001'),('men','sports','black','black','black',10,250.00,'Reebok','https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/MenExpress.png','Men\'s Velocity Runner Lp Running Shoe','Verocity Runner Lp',2,95,'Men\'s Velocity Runner Lp Running Shoe','RK001'),('men','sports','black','black','black',9,100.00,'Generic','https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/generic_mesh.jpg','Men\'s Mesh Lace-Ups Running/Walking/Gym/Sports Fashion Shoes','Mesh Lace-Ups',3,0,'Men\'s Mesh Lace-Ups Running/Walking/Gym/Sports Fashion Shoes','GNR001');
+INSERT INTO `hello_shoefeatures` VALUES ('men','sports','white','red','black',12,500.00,'ASIAN','https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/ASIAN_OX01.jpg','Sports Running,Walking & Gym Shoes with Oxygen Technology Lightweight Casual Sneaker Shoes for Men\'s & Boy\'s','Oxygen-01',1,7,'Sports Running,Walking & Gym Shoes with Oxygen Technology Lightweight Casual Sneaker Shoes for Men\'s','AS001','leather'),('men','sports','black','black','black',10,250.00,'Reebok','https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/MenExpress.png','Men\'s Velocity Runner Lp Running Shoe','Verocity Runner Lp',2,90,'Men\'s Velocity Runner Lp Running Shoe','RK001','Leather'),('men','sports','black','black','black',9,100.00,'Generic','https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/generic_mesh.jpg','Men\'s Mesh Lace-Ups Running/Walking/Gym/Sports Fashion Shoes','Mesh Lace-Ups',3,0,'Men\'s Mesh Lace-Ups Running/Walking/Gym/Sports Fashion Shoes','GNR001','Mesh');
 /*!40000 ALTER TABLE `hello_shoefeatures` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-21 14:32:42
+-- Dump completed on 2023-07-31 11:25:13

@@ -16,37 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `hello_history`
+-- Table structure for table `additional_shoefeatures`
 --
 
-DROP TABLE IF EXISTS `hello_history`;
+DROP TABLE IF EXISTS `additional_shoefeatures`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `hello_history` (
-  `product_id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) DEFAULT NULL,
-  `productName` varchar(255) DEFAULT NULL,
-  `product_price` float DEFAULT NULL,
-  `product_quantity` int DEFAULT NULL,
-  `product_image` varchar(255) DEFAULT NULL,
-  `main_color` varchar(255) DEFAULT NULL,
-  `sub_color` varchar(255) DEFAULT NULL,
-  `product_size` int DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
-  `created_by` datetime DEFAULT NULL,
-  `delivery_status` varchar(255) DEFAULT NULL,
-  `total_amount_vat` decimal(10,2) DEFAULT NULL,
-  PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `additional_shoefeatures` (
+  `season` varchar(150) DEFAULT NULL,
+  `material_type` varchar(150) DEFAULT NULL,
+  `on_trend` tinyint(1) DEFAULT NULL,
+  `new_coming` tinyint(1) DEFAULT NULL,
+  `latest` tinyint(1) DEFAULT NULL,
+  `bestselling` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `hello_history`
+-- Dumping data for table `additional_shoefeatures`
 --
 
-LOCK TABLES `hello_history` WRITE;
-/*!40000 ALTER TABLE `hello_history` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hello_history` ENABLE KEYS */;
+LOCK TABLES `additional_shoefeatures` WRITE;
+/*!40000 ALTER TABLE `additional_shoefeatures` DISABLE KEYS */;
+/*!40000 ALTER TABLE `additional_shoefeatures` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-21 14:32:42
+-- Dump completed on 2023-07-31 11:25:12
