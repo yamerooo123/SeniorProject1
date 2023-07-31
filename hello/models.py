@@ -65,7 +65,7 @@ class M_Cart(models.Model):
     main_color = models.CharField(max_length=255)
     sub_color = models.CharField(max_length=255)
     product_size = models.IntegerField()
-    payment_method = models.CharField(max_length=255)
+
     def __str__(self):
         return str(self.productName)
     
@@ -79,7 +79,7 @@ class W_Cart(models.Model):
     main_color = models.CharField(max_length=255)
     sub_color = models.CharField(max_length=255)
     product_size = models.IntegerField()
-    payment_method = models.CharField(max_length=255)
+
     def __str__(self):
         return str(self.productName)
     
