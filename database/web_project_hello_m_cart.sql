@@ -34,7 +34,7 @@ CREATE TABLE `hello_m_cart` (
   `product_size` int DEFAULT NULL,
   PRIMARY KEY (`product_id`),
   CONSTRAINT `hello_m_cart_chk_1` CHECK ((`product_quantity` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `hello_m_cart` (
 
 LOCK TABLES `hello_m_cart` WRITE;
 /*!40000 ALTER TABLE `hello_m_cart` DISABLE KEYS */;
+INSERT INTO `hello_m_cart` VALUES (34,'Oxygen-01',500.00,1,'monaliza','https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/ASIAN_OX01.jpg','Black','Black',7);
 /*!40000 ALTER TABLE `hello_m_cart` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-21 14:32:42
+-- Dump completed on 2023-07-31 11:25:13

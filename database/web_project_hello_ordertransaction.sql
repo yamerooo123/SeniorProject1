@@ -34,10 +34,10 @@ CREATE TABLE `hello_ordertransaction` (
   `product_size` int DEFAULT NULL,
   `created_by` datetime DEFAULT NULL,
   `delivery_status` varchar(255) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
+  `payment_method` varchar(255) DEFAULT NULL,
   `total_amount_vat` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `hello_ordertransaction` (
 
 LOCK TABLES `hello_ordertransaction` WRITE;
 /*!40000 ALTER TABLE `hello_ordertransaction` DISABLE KEYS */;
-INSERT INTO `hello_ordertransaction` VALUES (1,'monaliza','Oxygen-01',500,1,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/ASIAN_OX01.jpg','Black','Black',7,'2023-07-19 09:44:10','Delivered','Paid',535.00),(2,'monaliza','Oxygen-01',500,1,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/ASIAN_OX01.jpg','Black','Black',7,'2023-07-19 09:44:55','Ongoing','Paid',535.00),(3,'monaliza','Verocity Runner Lp',250,1,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/MenExpress.png','Black','Black',7,'2023-07-19 09:45:21','Ongoing','Paid',267.50),(4,'monaliza','Mesh Lace-Ups',100,5,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/generic_mesh.jpg','Black','Black',7,'2023-07-19 09:59:58','Ongoing','Paid',535.00),(5,'monaliza','Mesh Lace-Ups',100,9,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/generic_mesh.jpg','Black','Black',7,'2023-07-19 10:00:29','Ongoing','Paid',963.00),(6,'monaliza','Mesh Lace-Ups',100,1,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/generic_mesh.jpg','Black','Black',7,'2023-07-19 10:04:48','Ongoing','Paid',107.00),(7,'monaliza','Mesh Lace-Ups',100,1,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/generic_mesh.jpg','Black','Black',7,'2023-07-19 10:14:10','Ongoing','Paid',107.00),(8,'monaliza','Oxygen-01',500,1,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/ASIAN_OX01.jpg','Black','Black',7,'2023-07-19 10:20:59','Ongoing','Paid',535.00),(9,'monaliza','Future Rider',240,9,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/puma_futurerider.jpg','Black','Black',7,'2023-07-19 11:00:45','Ongoing','Paid',2311.20),(10,'monaliza','Verocity Runner Lp',250,1,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/MenExpress.png','Red','Black',7,'2023-07-20 09:55:02','Ongoing','Paid',524.30),(11,'monaliza','Future Rider',240,1,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/puma_futurerider.jpg','Black','Black',7,'2023-07-20 09:55:03','Ongoing','Paid',524.30);
+INSERT INTO `hello_ordertransaction` VALUES (1,'monaliza','Future Rider',240,5,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/puma_futurerider.jpg','Black','Black',7,'2023-07-31 03:56:40','Cancelled','Unpaid',1284.00),(2,'monaliza','Oxygen-01',500,1,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/ASIAN_OX01.jpg','Black','Black',7,'2023-07-31 03:58:10','Ongoing','CashOnDelivery',535.00),(3,'monaliza','Verocity Runner Lp',250,3,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/MenExpress.png','Black','Black',7,'2023-07-31 04:09:41','','CreditCard',802.50),(4,'monaliza','Future Rider',240,1,'https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/puma_futurerider.jpg','Black','Black',7,'2023-07-31 04:10:39','Ongoing','CreditCard',256.80);
 /*!40000 ALTER TABLE `hello_ordertransaction` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-21 14:32:41
+-- Dump completed on 2023-07-31 11:25:13

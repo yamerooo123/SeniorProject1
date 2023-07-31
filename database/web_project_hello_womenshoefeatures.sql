@@ -38,6 +38,7 @@ CREATE TABLE `hello_womenshoefeatures` (
   `InStock` int NOT NULL,
   `short_description` varchar(255) DEFAULT NULL,
   `product_idName` varchar(255) DEFAULT NULL,
+  `material` varchar(255) NOT NULL,
   PRIMARY KEY (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -48,7 +49,7 @@ CREATE TABLE `hello_womenshoefeatures` (
 
 LOCK TABLES `hello_womenshoefeatures` WRITE;
 /*!40000 ALTER TABLE `hello_womenshoefeatures` DISABLE KEYS */;
-INSERT INTO `hello_womenshoefeatures` VALUES (1,'women','sports','white','red','blue',11,240.00,'PUMA','https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/puma_futurerider.jpg','Born in 1980, the Fast Rider launched when the sport of running started to move from the track to the street. One of our most comfortable yet simplistic icons, it featured super-light, padded nylon, suede and leather reinforcements.','Future Rider',20,'One foot in the past, one foot in the future.','PU001'),(2,'women','sneakers','White','Black','White',8,850.00,'PUMA','https://pub-daade8be66534196acbb7b7841b2222f.r2.dev/RS-Fast-Sneakers.jpg','Faster and fresher than any of our RS kicks yet. The RS-Fast is reinventing street style with a progressive design that combines early 2000s cues and futuristic vibes. This version boasts a trend-forward color palette.','RS Fast',38,'Running System (RS): PUMA\'s retro running technology that offers cushioning from the forefoot .','PU002');
+INSERT INTO `hello_womenshoefeatures` VALUES (1,'women','sports','white','red','blue',11,240.00,'PUMA','https://pub-a34a11f1aa7046858b984569cff0925a.r2.dev/puma_futurerider.jpg','Born in 1980, the Fast Rider launched when the sport of running started to move from the track to the street. One of our most comfortable yet simplistic icons, it featured super-light, padded nylon, suede and leather reinforcements.','Future Rider',10,'One foot in the past, one foot in the future.','PU001','Mesh'),(2,'women','sneakers','White','Black','White',8,850.00,'PUMA','https://pub-daade8be66534196acbb7b7841b2222f.r2.dev/RS-Fast-Sneakers.jpg','Faster and fresher than any of our RS kicks yet. The RS-Fast is reinventing street style with a progressive design that combines early 2000s cues and futuristic vibes. This version boasts a trend-forward color palette.','RS Fast',34,'Running System (RS): PUMA\'s retro running technology that offers cushioning from the forefoot .','PU002','Leather');
 /*!40000 ALTER TABLE `hello_womenshoefeatures` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-21 14:32:41
+-- Dump completed on 2023-07-31 11:25:13

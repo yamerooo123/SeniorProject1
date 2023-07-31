@@ -45,7 +45,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$600000$pTctVNvVwk5dfURzZGoXRq$j6HyRCe+rfXR0Jglq1zCXYJ5VZ7DmJa5OP3E/ImS0UQ=','2023-07-20 09:50:28.505870',1,'monaliza','','','',1,1,'2023-06-27 04:12:21.287791'),(2,'pbkdf2_sha256$600000$RGFea9ySXhVkislP2dG1Ye$UXRLU/jEnJ6+lYkayLBM9pIvrMGEUQDErc2pECp7DDg=','2023-07-20 12:14:49.884433',0,'resurrect20','suphawith','phusanbai','suprawitch123@gmail.com',0,1,'2023-06-27 04:14:21.689040');
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$600000$pTctVNvVwk5dfURzZGoXRq$j6HyRCe+rfXR0Jglq1zCXYJ5VZ7DmJa5OP3E/ImS0UQ=','2023-07-23 10:29:34.770187',1,'monaliza','','','',1,1,'2023-06-27 04:12:21.287791'),(2,'pbkdf2_sha256$600000$RGFea9ySXhVkislP2dG1Ye$UXRLU/jEnJ6+lYkayLBM9pIvrMGEUQDErc2pECp7DDg=','2023-07-21 13:39:43.971477',0,'resurrect20','suphawith','phusanbai','suprawitch123@gmail.com',0,1,'2023-06-27 04:14:21.689040');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-21 14:32:42
+-- Dump completed on 2023-07-31 11:25:14
