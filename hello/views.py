@@ -295,11 +295,11 @@ def user_settings(request):
         form = PasswordChangeForm(user=request.user)
 
     order_transactions = OrderTransaction.objects.filter(username=request.user.username, delivery_status='Ongoing')
-    order_history = OrderTransaction.objects.filter(username=request.user.username, delivery_status='Delivered')
+    order_history = OrderTransaction.objects.filter(username=request.user.username, delivery_status__in=['Delivered', 'Cancelled'])
 
     if order_transactions.exists() and order_history.exists():
         for transaction in order_transactions:
-            if transaction.delivery_status == "Delivered":
+            if transaction.delivery_status in ['Delivered', 'Cancelled']:
                 order_history.create(
                     product_id=transaction.product_id,
                     username=transaction.username,
@@ -310,24 +310,23 @@ def user_settings(request):
                     main_color=transaction.main_color,
                     sub_color=transaction.sub_color,
                     product_size=transaction.product_size,
-                    status=transaction.status,
+                    payment_method=transaction.payment_method,
                     delivery_status=transaction.delivery_status,
                     total_amount_vat=transaction.total_amount_vat,
                 )
                 transaction.delete()
 
         order_transactions = OrderTransaction.objects.filter(username=request.user.username, delivery_status='Ongoing')
-        order_history = OrderTransaction.objects.filter(username=request.user.username, delivery_status='Delivered')
+        order_history = OrderTransaction.objects.filter(username=request.user.username, delivery_status__in=['Delivered', 'Cancelled'])
 
     context = {
         'form': form,
         'order_transactions': order_transactions,
         'order_history': order_history,
-        'total_items':total_items,
+        'total_items': total_items,
     }
 
     return render(request, 'user_settings.html', context)
-
 
 
 
@@ -563,6 +562,7 @@ def calculate_total_amount_vat(products_in_cart):
 def checkout(request):
     if request.method == "POST":
         username = request.user.username
+        payment_method = request.POST.get('paymentMethod')
 
         if M_Cart.objects.filter(username=username).exists() or W_Cart.objects.filter(username=username).exists():        
             m_cart_entries = M_Cart.objects.filter(username=username)
@@ -586,7 +586,7 @@ def checkout(request):
                     w_product.InStock -= w_cart_entry.product_quantity
                     w_product.save()
                 else:
-                    return HttpResponse('out_of_stock')
+                    return redirect('out_of_stock')
 
 
             vat_amount = total_amount * vat_rate
@@ -604,7 +604,8 @@ def checkout(request):
                     main_color=m_cart_entry.main_color,  
                     sub_color=m_cart_entry.sub_color,
                     product_size=m_cart_entry.product_size,
-                    total_amount_vat=total_amount_vat
+                    total_amount_vat=total_amount_vat,
+                    payment_method=payment_method,
                 )
 
             for w_cart_entry in w_cart_entries:
@@ -617,7 +618,8 @@ def checkout(request):
                     main_color=w_cart_entry.main_color,  
                     sub_color=w_cart_entry.sub_color,
                     product_size=w_cart_entry.product_size,
-                    total_amount_vat=total_amount_vat
+                    total_amount_vat=total_amount_vat,
+                    payment_method=payment_method,
                 )
 
             m_cart_entries.delete()

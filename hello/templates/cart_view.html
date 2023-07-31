@@ -200,19 +200,29 @@
                         <div class="col-lg-5">          
                           <div class="card bg-dark text-white rounded-3">
                             <div class="card-body">
+                              <div class="d-flex justify-content-between mb-4">
+                                <h5 class="mb-0">Payment Options</h5>
+                              </div>
+                              <form action="{% url 'checkout'  %}" method="post">
+                                {% csrf_token %}
+                              <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" value="CreditCard" checked>
+                                <label class="form-check-label" for="creditCard">
+                                  Credit Card
+                                </label>
+                              </div>
+                              <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="cashOnDelivery" value="CashOnDelivery">
+                                <label class="form-check-label" for="cashOnDelivery">
+                                  Cash on Delivery
+                                </label>
+                              </div>
                               <div class="d-flex justify-content-between align-items-center mb-4">
                                 <h5 class="mb-0">Card details</h5>
                               </div>   
-                              <p class="small mb-2">Card type</p>
-                              <a href="#!" type="submit" class="text-white"><i
-                                  class="fab fa-cc-mastercard fa-2x me-2"></i></a>
-                              <a href="#!" type="submit" class="text-white"><i
-                                  class="fab fa-cc-visa fa-2x me-2"></i></a>
-                              <a href="#!" type="submit" class="text-white"><i
-                                  class="fab fa-cc-amex fa-2x me-2"></i></a>
-                              <a href="#!" type="submit" class="text-white"><i class="fab fa-cc-paypal fa-2x"></i></a>
+                              <center><h6><p>"If you choose Cash on Delivery, no need to enter card details. We'll handle it during the delivery!"</p></h6></center>
           
-                              <form class="mt-4">
+                              
                                 <div class="form-outline form-white mb-4">
                                   <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
                                     placeholder="Cardholder's Name" />
@@ -242,7 +252,7 @@
                                   </div>
                                 </div>
           
-                              </form>
+                              
           
                               <hr class="my-4">
                               
@@ -263,17 +273,14 @@
                               
                               <div class="d-flex justify-content-between">
                                 <span></span>
-                                <span>
-                                    {% csrf_token %}                                   
-                                    <form action="{% url 'checkout'  %}" method="post">
-                                        {% csrf_token %}
+                                <span>                                
+                            
                                         <button type="submit" class="btn btn-outline-light btn-lg">
                                             <h4 class="m-0">Checkout</h4>
                                         </button>
                                     </form>
                                 </span>
-                            </div>
-                            
+                            </div>                           
                             <script>
                                 document.getElementById("checkout-button").style.display = "none";
                             </script>

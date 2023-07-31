@@ -65,6 +65,7 @@ class M_Cart(models.Model):
     main_color = models.CharField(max_length=255)
     sub_color = models.CharField(max_length=255)
     product_size = models.IntegerField()
+    payment_method = models.CharField(max_length=255)
     def __str__(self):
         return str(self.productName)
     
@@ -78,6 +79,7 @@ class W_Cart(models.Model):
     main_color = models.CharField(max_length=255)
     sub_color = models.CharField(max_length=255)
     product_size = models.IntegerField()
+    payment_method = models.CharField(max_length=255)
     def __str__(self):
         return str(self.productName)
     
@@ -85,7 +87,14 @@ class OrderTransaction(models.Model):
     STATUS_CHOICES = (
         ('Ongoing', 'Ongoing'),
         ('Delivered', 'Delivered'),
+        ('Cancelled', 'Cancelled'),
     )
+    PAYMENT_CHOICES = (
+        ('CreditCard', 'CreditCard'),
+        ('CashOnDelivery','CashOnDelivery'),
+        ('Unpaid','Unpaid'),
+    )
+
     product_id = models.IntegerField(primary_key=True)
     username = models.CharField(max_length=100)
     productName = models.CharField(max_length=255)
@@ -95,9 +104,9 @@ class OrderTransaction(models.Model):
     main_color = models.CharField(max_length=255,  default="Black")
     sub_color = models.CharField(max_length=255, default="Black")
     product_size = models.IntegerField()
-    status = models.CharField(max_length=255, default="Paid")
+    payment_method = models.CharField(max_length=255, choices=PAYMENT_CHOICES)
     created_by = models.DateTimeField(default=timezone.now)
-    delivery_status = models.CharField(max_length=255, choices=STATUS_CHOICES, default="Ongoing")
+    delivery_status = models.CharField(max_length=255, default="Ongoing", choices=STATUS_CHOICES)
     total_amount_vat = models.DecimalField(max_digits=10, decimal_places=2)
 
 

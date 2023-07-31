@@ -1,0 +1,7 @@
+27/07/2566 3rd advisor consult
+-admin page = bad interface
+done -status = paid status isnt acceptable (replace with smth else ex. datetime)
+-create a sample bank payment (no need to be real)
+done -delivery status ongoing, complete(delivered), incomplete(cancelled)
+-recommendation = need to create slides for clear explanation when presentation(ex what recommendation techniques that we applied how does it work. etc)
+-choose 2 committees after midterm
