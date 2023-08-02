@@ -15,8 +15,9 @@ class UserProfile(models.Model):
     
     def __str__(self):
         return self.user.username
-
-
+    class Meta:
+        verbose_name = "User account"
+        verbose_name_plural = "User account"
 
 
 class ShoeFeatures(models.Model):
@@ -28,17 +29,23 @@ class ShoeFeatures(models.Model):
     subcolor2 = models.CharField(max_length=255, default="Black")
     size = models.IntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    brand = models.CharField(max_length=255)
+    brand = models.CharField(max_length=255, verbose_name="Brand")
     productImage = models.URLField(max_length=200)
     description = models.CharField(max_length=255)
     short_description = models.CharField(max_length=100)
-    productName = models.CharField(max_length=255, unique=True)
-    InStock = models.IntegerField()
-    product_idName = models.CharField(max_length=255)
-    material = models.CharField(max_length=255)
+    productName = models.CharField(max_length=255, verbose_name="Model", unique=True)
+    InStock = models.IntegerField(verbose_name="In stock")
+    product_idName = models.CharField(max_length=255, verbose_name="Product ID")
+    material = models.CharField(max_length=255,  verbose_name="Material")
+    class Meta:
+        verbose_name = "Men product"
+        verbose_name_plural = "Men products"
+        
+    def __str__(self):
+        return f"{self.product_idName} {self.productName}"
 
 class WomenShoeFeatures(models.Model):
-    product_id = models.IntegerField(primary_key=True)
+    product_id = models.BigIntegerField(primary_key=True)
     type1 = models.CharField(max_length=255)
     type2 = models.CharField(max_length=255)
     maincolor = models.CharField(max_length=255, default="Black")
@@ -46,14 +53,20 @@ class WomenShoeFeatures(models.Model):
     subcolor2 = models.CharField(max_length=255, default="Black")
     size = models.IntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    brand = models.CharField(max_length=255)
+    brand = models.CharField(max_length=255, verbose_name="Brand")
     productImage = models.URLField(max_length=200)
     description = models.CharField(max_length=255)
     short_description = models.CharField(max_length=100)
-    productName = models.CharField(max_length=255)
-    InStock = models.IntegerField()
-    product_idName = models.CharField(max_length=255)
-    material = models.CharField(max_length=255)
+    productName = models.CharField(max_length=255, verbose_name="Model", unique=True)
+    InStock = models.IntegerField(verbose_name="In stock")
+    product_idName = models.CharField(max_length=255, verbose_name="Product ID")
+    material = models.CharField(max_length=255,  verbose_name="Material")
+    class Meta:
+        verbose_name = "Women product"
+        verbose_name_plural = "Women products"
+    
+    def __str__(self):
+        return f"{self.product_idName} {self.productName}"
 
 class M_Cart(models.Model):
     product_id = models.IntegerField(primary_key=True)
@@ -94,6 +107,9 @@ class OrderTransaction(models.Model):
         ('CashOnDelivery','CashOnDelivery'),
         ('Unpaid','Unpaid'),
     )
+    class Meta:
+        verbose_name = "Order"
+        verbose_name_plural = "Orders"
 
     product_id = models.IntegerField(primary_key=True)
     username = models.CharField(max_length=100)
@@ -105,9 +121,9 @@ class OrderTransaction(models.Model):
     sub_color = models.CharField(max_length=255, default="Black")
     product_size = models.IntegerField()
     payment_method = models.CharField(max_length=255, choices=PAYMENT_CHOICES)
-    created_by = models.DateTimeField(default=timezone.now)
+    created_by = models.DateTimeField(default=timezone.now, verbose_name="Order date")
     delivery_status = models.CharField(max_length=255, default="Ongoing", choices=STATUS_CHOICES)
-    total_amount_vat = models.DecimalField(max_digits=10, decimal_places=2)
+    total_amount_vat = models.DecimalField(max_digits=10, decimal_places=2,  verbose_name="Total amount")
 
 
     

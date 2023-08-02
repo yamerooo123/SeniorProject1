@@ -44,5 +44,8 @@ urlpatterns = [
     path('w-buy-this/<int:product_id>/', W_buy_this, name="W_buy_this"),
     path('w-add-to-cart/<int:product_id>/', w_add_to_cart, name='w_add_to_cart'),
     path('w_edit_quantity/<int:product_id>/', w_edit_quantity, name='w_edit_quantity'),
+    
     ]
-
+admin.site.site_header = "Happy Feet Management System"
+admin.site.site_title = "Happy Feet Management System"
+admin.site.index_title = "Welcome to admin dashboard"

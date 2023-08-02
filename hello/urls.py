@@ -1,8 +1,7 @@
-from django.urls import path
+from django.urls import path, include
 from hello import views
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -42,5 +41,8 @@ urlpatterns = [
     path('search-view/', views.search_view, name="search_view"),
 ]
 
+admin.site.site_header = "Happy Feet Management System"
+admin.site.site_title = "Happy Feet Management System"
+admin.site.index_title = "Welcome to admin dashboard"
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
