@@ -9,7 +9,14 @@ OrderTransaction._meta.verbose_name = "Received order"
 
 class ShoeFeaturesAdmin(admin.ModelAdmin):
     search_fields = ['product_id','type1' ,'type2', 'maincolor','subcolor', 'subcolor2','size', 'price','brand','productImage','description','short_description','productName','InStock', 'product_idName','material']
-    list_display = ('product_idName', 'brand', 'productName', 'material', 'InStock')
+    def get_instock_status(self, obj):
+        if obj.InStock:
+            return '✅'  
+        else:
+            return '❌' 
+
+    get_instock_status.short_description = 'In Stock'
+    list_display = ('product_idName', 'brand', 'productName', 'material', 'get_instock_status')
 
 class WomenShoeFeaturesAdmin(admin.ModelAdmin):
     search_fields = ['product_id','type1' ,'type2', 'maincolor','subcolor', 'subcolor2','size', 'price','brand','productImage','description','short_description','productName','InStock', 'product_idName','material']

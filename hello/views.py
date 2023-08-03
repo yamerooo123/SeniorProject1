@@ -1,15 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage, send_mail
-from django.http import HttpResponse
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
-from django.views.decorators.csrf import csrf_protect, csrf_exempt
-import os
+from django.views.decorators.csrf import csrf_protect
 from .models import UserProfile, ShoeFeatures, WomenShoeFeatures, M_Cart, User, W_Cart, OrderTransaction
 from django.conf import settings
 from decimal import Decimal, ROUND_HALF_UP
@@ -153,8 +151,14 @@ def user_dashboard(request):
 def menshoes(request):
     total_items = calculate_total_items(request.user.username)
     shoefeatures = ShoeFeatures.objects.all()
+
+    items_per_page = 10
+    paginator = Paginator(shoefeatures, items_per_page)
+    page_number = request.GET.get('page')
+    shoefeatures_page = paginator.get_page(page_number)
+
     context = {
-        'shoefeatures': shoefeatures,
+        'shoefeatures': shoefeatures_page, 
         'total_items': total_items,
     }
     return render(request, 'menshoes.html', context)
