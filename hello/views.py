@@ -13,6 +13,7 @@ from django.conf import settings
 from decimal import Decimal, ROUND_HALF_UP
 from itertools import chain
 from recommendation import *
+import os
 
 def welcome(request):
     return render(request, 'welcomepage.html')
@@ -177,10 +178,15 @@ def womenshoes(request):
 def product_page(request, product_id):
     total_items = calculate_total_items(request.user.username)
     shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
+
+    shoes_input = [shoefeature.brand]
+
+    similar_shoes_list = get_similar_shoes(shoes_input, cosine_sim, shoes_dataset)
+
     context = {
         'shoefeatures': [shoefeature],
         'total_items': total_items,
-
+        'similar_shoes_list': similar_shoes_list,  
     }
     return render(request, 'product_page.html', context)
 

@@ -1,0 +1,4 @@
+recommendation comparison
+brand,Type,Gender,Material
+
+features = ['Brand', 'Type', 'Gender', 'Color', 'Material']

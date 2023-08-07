@@ -245,6 +245,22 @@
             </div>
         </div>
     </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    {% for menshoes in shoefeatures %}
+                    <h5>Similar products to {{ menshoes.productName }}</h5>
+                    {% endfor %}
+                </div>
+                <div class="card-body">
+                    <ul>
+                        {% for shoe in similar_shoes_list %}
+                            <li>{{ shoe }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
     <footer>
         <div class="container">
             <div class="footer-links">
