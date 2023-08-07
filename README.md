@@ -13,6 +13,7 @@
 # 12/07/66 Cart function completed
 # 18/07/66 Check order history completed
 # 20/07/66 Search bar completed
+# 03/08/66 Add products to database, create pagination for menshoes page
 # ------------18/07/66 all main functions are completed------------
 # additional functions that will be added later: search bar function, filter function, ratings function, pagination function
 
