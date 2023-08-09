@@ -16,6 +16,8 @@ import os
 import dj_database_url
 
 
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hello.settings')
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -35,8 +37,10 @@ ALLOWED_HOSTS = ['127.0.0.1','localhost', 'happyfeetteam-070ff2b4cfea.herokuapp.
 
 # Application definition
 
+
 INSTALLED_APPS = [
-    'hello',   
+    'hello',
+    'jazzmin',   
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -12,8 +12,9 @@ from .models import UserProfile, ShoeFeatures, WomenShoeFeatures, M_Cart, User, 
 from django.conf import settings
 from decimal import Decimal, ROUND_HALF_UP
 from itertools import chain
-from recommendation import *
+from recommendation import get_similar_products
 import os
+
 
 def welcome(request):
     return render(request, 'welcomepage.html')
@@ -176,30 +177,34 @@ def womenshoes(request):
 
 
 def product_page(request, product_id):
+    
     total_items = calculate_total_items(request.user.username)
     shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
-
-    shoes_input = [shoefeature.brand]
-
-    similar_shoes_list = get_similar_shoes(shoes_input, cosine_sim, shoes_dataset)
+    
+    input_brand = shoefeature.brand
+    input_material = shoefeature.material
+    
+    similar_products = get_similar_products(input_brand, input_material)
 
     context = {
         'shoefeatures': [shoefeature],
         'total_items': total_items,
-        'similar_shoes_list': similar_shoes_list,  
+        'similar_products': similar_products,  
     }
     return render(request, 'product_page.html', context)
 
 def women_product_page(request, product_id):
     total_items = calculate_total_items(request.user.username)
-    womenshoefeature = get_object_or_404(WomenShoeFeatures, product_id=product_id)
+    shoefeature = get_object_or_404(WomenShoeFeatures, product_id=product_id)
 
-    shoes_input = womenshoefeature.productName
-   
-    similar_shoes_list = get_similar_shoes(shoes_input, cosine_sim, shoes_dataset)
+    # Get the brand of the input shoe
+    input_brand = shoefeature.brand
+
+    # Call the recommendation function to get similar products
+    similar_shoes_list = get_similar_products(input_brand)  # Pass the input brand
 
     context = {
-        'womenshoefeatures': [womenshoefeature],
+        'shoefeatures': [shoefeature],
         'total_items': total_items,
         'similar_shoes_list': similar_shoes_list,  
     }
