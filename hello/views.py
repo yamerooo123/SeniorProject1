@@ -177,7 +177,8 @@ def womenshoes(request):
 
 
 def product_page(request, product_id):
-    
+    page_number = request.GET.get('page')
+    product = ShoeFeatures.objects.get(product_id=product_id)
     total_items = calculate_total_items(request.user.username)
     shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
     
@@ -190,6 +191,8 @@ def product_page(request, product_id):
         'shoefeatures': [shoefeature],
         'total_items': total_items,
         'similar_products': similar_products,  
+        'product': product,
+        'page_number': page_number,
     }
     return render(request, 'product_page.html', context)
 

@@ -5,13 +5,24 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 #generate recommendation using product brand
 def get_similar_products(input_brand, input_material):
+    is_jawsdb = True
     #connect to mysql
-    db_connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="19752518M",
-        database="web_project"  
-    )
+    if is_jawsdb:
+        # Connect to JawsDB
+        db_connection = mysql.connector.connect(
+            host="dt3bgg3gu6nqye5f.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+            user="nxniqxcq5s01amgv",
+            password="i0wsjo662673p490",
+            database="oy8070wbdpo6vn6u"
+        )
+    else:
+        # Connect to local database
+        db_connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="19752518M",
+            database="web_project"  
+        )
     cursor = db_connection.cursor()
     #use SQL commeand to find gender(type1), category(type2), brand, material and description based on the input brand from views.py
     query = f"SELECT type1, type2, brand, material, description, productName, productImage FROM hello_shoefeatures WHERE brand = '{input_brand}' AND material = '{input_material}'"
