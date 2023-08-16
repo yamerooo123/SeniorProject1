@@ -45,6 +45,16 @@
         .footer-links a:hover {
             text-decoration: underline;
         }
+        .btn-outline-yellow {
+          color: #ffc107; 
+          background-color: transparent;
+          border-color: #ffc107; 
+        }
+        .btn-outline-yellow:hover {
+          background-color: #ffc107; 
+          border-color: #ffc107; 
+          color: #fff; 
+        }
     </style>
 </head>
 
@@ -449,7 +459,7 @@
                       <a href="{% url 'product_page' product_id=shoefeature.product_id %}" class="btn btn-primary btn-sm">Details</a>
                       <form action=# method="post" onsubmit="alert('{{ shoefeature.productName }} added to shopping cart')">
                         {% csrf_token %}
-                        <button class="btn btn-outline-primary btn-sm mt-2 w-100" type="submit">Add to wishlist</button>
+                        <button class="btn btn-outline-yellow btn-sm mt-2 w-100" type="submit">Add to wishlist</button>
                       </form>
                     </div>
                   </div>
@@ -592,3 +602,6 @@
     </script>
 </body>
 </html>
+
+
+

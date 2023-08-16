@@ -14,7 +14,7 @@ def get_similar_products(input_brand, input_material):
     )
     cursor = db_connection.cursor()
     #use SQL commeand to find gender(type1), category(type2), brand, material and description based on the input brand from views.py
-    query = f"SELECT type1, type2, brand, material, description FROM hello_shoefeatures WHERE brand = '{input_brand}' AND material = '{input_material}'"
+    query = f"SELECT type1, type2, brand, material, description, productName FROM hello_shoefeatures WHERE brand = '{input_brand}' AND material = '{input_material}'"
     #execute the SQL command
     cursor.execute(query)
     #show the quert table using fetchall
@@ -52,7 +52,10 @@ def recommend_products(input_brand,input_material,shoe_data):
         type1 = shoe_features_column[0]
         type2 = shoe_features_column[1]
         brand = shoe_features_column[2]
-        material = shoe_features_column[3]
+        product_image = shoe_features_column[3]  # Adjusted index for productImage
+        material = shoe_features_column[4]  # Adjusted index for material
+        description = shoe_features_column[5]  # Adjusted index for description
+
 
         similarity_score = calculate_similarity_score(tfidf_matrix.getrow(input_idx), tfidf_matrix.getrow(i))
         similarity_scores.append((shoe_features_column, similarity_score))
@@ -60,9 +63,9 @@ def recommend_products(input_brand,input_material,shoe_data):
     # Sort the recommendations by similarity score in descending order
     sorted_recommendations = sorted(similarity_scores, key=lambda x: x[1], reverse=True)
     
-    top_5_recommendations = [rec[0] for rec in sorted_recommendations[:5]]
+    top_4_recommendations = [rec[0] for rec in sorted_recommendations[:4]]
     
-    return top_5_recommendations
+    return top_4_recommendations
 
 def calculate_similarity_score(input_vector, product_vector):
     dot_product = np.dot(input_vector.toarray(), product_vector.toarray().T)

@@ -42,6 +42,16 @@
         .footer-links a:hover {
             text-decoration: underline;
         }
+        .btn-outline-yellow {
+          color: #ffc107; 
+          background-color: transparent;
+          border-color: #ffc107; 
+        }
+        .btn-outline-yellow:hover {
+          background-color: #ffc107; 
+          border-color: #ffc107; 
+          color: #fff; 
+        }
         </style>
     </head>
     <body>
@@ -121,14 +131,14 @@
           </div>
     <div class="container mt-5 mb-5">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="images p-3">
                                 {% for shoefeature in shoefeatures %}
                                 <div class="text-center p-4"> 
-                                    <img id="main-image" src="{{ shoefeature.productImage }}" width="250" />
+                                    <img id="main-image" src="{{ shoefeature.productImage }}" width="400" />
                                 </div>
                                 
                                 <div class="thumbnail text-center"> <img onclick="change_image(this)" src="{{ shoefeature.productImage }}" width="70"> <img onclick="change_image(this)" src="{{ shoefeature.productImage }}" width="70"> </div>
@@ -139,7 +149,7 @@
                             <div class="product p-4">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
-                                        <a href="{% url 'menshoes' %}" class="text-decoration-none text-dark">
+                                        <a href="{% url 'menshoes' %}?page={{ num }}" class="text-decoration-none text-dark">
                                             <i class="fa fa-long-arrow-left"></i>
                                             <span class="ml-1">Back</span>
                                           </a>
@@ -147,7 +157,7 @@
                                 </div>
                                 {% for shoefeature in shoefeatures %}
                                 <div class="mt-4 mb-3">
-                                    <span class="text-uppercase text-muted brand">{{ shoefeature.brand }}</span>
+                                    <span class="text-uppercase text-muted brand">{{ shoefeature.brand }} {{ shoefeature.type2 }} {{ shoefeature.material }}</span>
                                     <h5 class="text-uppercase">{{ shoefeature.productName }}</h5>
                                     {% for shoefeature in shoefeatures %}
                                     <div class="price d-flex flex-row align-items-center">
@@ -245,22 +255,74 @@
             </div>
         </div>
     </div>
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    {% for menshoes in shoefeatures %}
-                    <h5>Similar products to {{ menshoes.productName }}</h5>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                {% for menshoes in shoefeatures %}
+                <h4>Similar products to {{ menshoes.productName }}</h4>
+                {% endfor %}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for shoe_tuple in similar_products %}
+                    {% with type1=shoe_tuple.0 type2=shoe_tuple.1 brand=shoe_tuple.2 material=shoe_tuple.3 description=shoe_tuple.4 model=shoe_tuple.5 productImage=shoe_tuple.6 %}
+                        <div class="col-md-3 mb-3">
+                             <div class="card">
+                                {% for productimage in shoefeatures %}
+                                <img src="{{ productImage }}" class="card-img-top img-fluid" >
+                                {% endfor %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ model }}</h5>
+                                    <p class="card-text">Category: {{ type1 }}</p>
+                                    <p class="card-text">Style: {{ type2 }}</p>
+                                    <p class="card-text">Material: {{ material }}</p>
+                                </div>
+                                <div class="cart ml-3 mt-3 mb-3 align-items-center d-inline-flex">
+                                    <div class="row">
+                                        <div class="col-6">
+                                    <form action=# method="POST" >
+                                     {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-success text-uppercase px-4">Price</button>                                        
+                                    <i class="fa fa-heart text-muted"></i>
+                                    <i class="fa fa-share-alt text-muted"></i>
+                                    </form>
+                                  </div>   
+                                <div class="col-6">
+                                <div class="cart mr-3 mb-3">
+                                    <form action=# method="POST" >
+                                     {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-danger text-uppercase px-4">Add to cart</button>                                                                           
+                                    </form>
+                                </div> 
+                                </div>
+                                <div class="col-6">
+                                    <div class="cart mr-3 mb-3">
+                                        <form action=# method="POST" >
+                                         {% csrf_token %}
+                                        <button type="submit" class="btn btn-outline-yellow text-uppercase px-4">Add to Wishlist</button>                                                                           
+                                        </form>
+                                    </div> 
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="cart mr-3 mb-3">
+                                            <form action=# method="POST" >
+                                             {% csrf_token %}
+                                             <button type="submit" class="btn btn-outline-primary text-uppercase px-4">Rate this</button>                                                                       
+                                            </form>
+                                        </div> 
+                                        </div>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                    {% endwith %}
                     {% endfor %}
-                </div>
-                <div class="card-body">
-                    <ul>
-                        {% for shoe in similar_products %}
-                            <li>{{ shoe }}</li>
-                        {% endfor %}
-                    </ul>
                 </div>
             </div>
         </div>
+    </div>
+    
+    
     <footer>
         <div class="container">
             <div class="footer-links">
