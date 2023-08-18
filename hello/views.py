@@ -301,6 +301,7 @@ def user_public_info_change(request):
 @login_required
 def user_settings(request):
     total_items = calculate_total_items(request.user.username)
+    items_per_page = 10
     if request.method == 'POST':
         form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
@@ -314,7 +315,9 @@ def user_settings(request):
 
     order_transactions = OrderTransaction.objects.filter(username=request.user.username, delivery_status='Ongoing')
     order_history = OrderTransaction.objects.filter(username=request.user.username, delivery_status__in=['Delivered', 'Cancelled'])
-
+    paginator = Paginator(order_history, items_per_page)
+    page_number = request.GET.get('page') 
+    page_obj = paginator.get_page(page_number)
     if order_transactions.exists() and order_history.exists():
         for transaction in order_transactions:
             if transaction.delivery_status in ['Delivered', 'Cancelled']:
@@ -340,7 +343,7 @@ def user_settings(request):
     context = {
         'form': form,
         'order_transactions': order_transactions,
-        'order_history': order_history,
+        'order_history': page_obj,  
         'total_items': total_items,
     }
 
@@ -650,28 +653,27 @@ def checkout(request):
 def search_view(request):
     total_items = calculate_total_items(request.user.username)
     shoefeatures = ShoeFeatures.objects.all()
-    womenshoefeatures = WomenShoeFeatures.objects.all() 
+    womenshoefeatures = WomenShoeFeatures.objects.all()
     search_items = request.POST.get('Search')
+
     if search_items:
         shoefeatures = shoefeatures.filter(productName__icontains=search_items)
         womenshoefeatures = womenshoefeatures.filter(productName__icontains=search_items)
         products = list(chain(shoefeatures, womenshoefeatures))
+        message = None 
+        products = products[:10]
     else:
-        products = list(chain(shoefeatures, womenshoefeatures))
-        products.sort(key=lambda x: x.product_id, reverse=True)
-    if not products:
-        message = "Sorry, we coulnd't find the product that you want."
-    else:
-        message = None
-
+        products = [] 
+        message = "Sorry, we couldn't find the product that you want."
+    
     context = {
         'shoefeatures': shoefeatures,
         'womenshoefeatures': womenshoefeatures,
         'products': products,
-        'total_items':total_items,
+        'total_items': total_items,
         'message': message,
     }
-
+    
     return render(request, "search_results.html", context)
 
 

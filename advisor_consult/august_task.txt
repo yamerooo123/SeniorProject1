@@ -1,0 +1,19 @@
+front end & back end tasks:
+**search bar**
+-search bar - remove pagination when the search couldnt find the matching - done
+-search bar - set pagination. 10 products each - done
+-search bar - make Details and other functions work - done
+-search bar - change text color to white - done
+**product page(men & women)**
+-product page - add best seller and Random
+-product page - make filters work
+-product page - add wishlist function
+**single product page**
+-single product page - make Back function to return to the previous pagination page
+-single product page  - Buy this function makes it redirect to Cart
+-recommendation - make it complete
+
+database & front end tasks:
+**men product**
+-add all men products
+-complete About us

@@ -457,6 +457,7 @@
                     <h6 class="text-success">Free shipping</h6>
                     <div class="d-flex flex-column mt-4">
                       <a href="{% url 'product_page' product_id=shoefeature.product_id %}" class="btn btn-primary btn-sm">Details</a>
+    
                       <form action=# method="post" onsubmit="alert('{{ shoefeature.productName }} added to shopping cart')">
                         {% csrf_token %}
                         <button class="btn btn-outline-yellow btn-sm mt-2 w-100" type="submit">Add to wishlist</button>

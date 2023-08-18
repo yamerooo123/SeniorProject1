@@ -15,7 +15,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
-                background-color: #575555;
+                background-color: #ffffff;
         }
 
         footer {
@@ -45,10 +45,16 @@
             width: 100%;
             height: 100%;
         }
-
-      
-        
-        
+        .btn-outline-yellow {
+          color: #ffc107; 
+          background-color: transparent;
+          border-color: #ffc107; 
+        }
+        .btn-outline-yellow:hover {
+          background-color: #ffc107; 
+          border-color: #ffc107; 
+          color: #fff; 
+        }   
     </style>
 </head>
 
@@ -113,64 +119,40 @@
             </div>
         </div>
     </nav>
-    <div class="container mt-5 mb-5">
-        <div class="container mt-0">
-            <h3>Search results:</h3>
-        </div>
-          <div class="col-md-10">
-            {% for item  in products %}
-            <div class="row p-2 bg-white border rounded">
-              <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="{{ item.productImage }}"></div>
-              <div class="col-md-6 mt-1">
-                <h5>{{ item.productName }}</h5>
-                <div class="d-flex flex-row">
-                  <span class="text-uppercase text-muted brand">{{item.brand }}</span>
+    <div class="container">
+        <div class="col-md-10">
+            {% for item in products %}
+                <div class="row p-2 bg-white border rounded">
+                    <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="{{ item.productImage }}"></div>
+                    <div class="col-md-6 mt-1">
+                        <h5>{{ item.productName }}</h5>
+                        <div class="d-flex flex-row">
+                            <span class="text-uppercase text-muted brand">{{ item.brand }}</span>
+                        </div>
+                        <div class="mt-1 mb-1 spec-1"><span>{{ item.short_description }}</span></div>
+                    </div>
+                    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                        <div class="d-flex flex-row align-items-center">
+                            <h4 class="mr-1">${{ item.price }}</h4>
+                        </div>
+                        <h6 class="text-success">Free shipping</h6>
+                        <div class="d-flex flex-column mt-4">
+                            <a href="{% url 'product_page' product_id=item.product_id %}" class="btn btn-primary btn-sm">Details</a>
+                            <form action=# method="post" onsubmit="alert('{{ item.productName }} added to shopping cart')">
+                                {% csrf_token %}
+                                <button class="btn btn-outline-yellow btn-sm mt-2 w-100" type="submit">Add to wishlist</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="mt-1 mb-1 spec-1"><span>{{ item.short_description }}</span></div>
-              </div>
-              <div class="align-items-center align-content-center col-md-3 border-left mt-1">
-                <div class="d-flex flex-row align-items-center">
-                  <h4 class="mr-1">${{ item.price }}</h4>
-                </div>
-                <h6 class="text-success">Free shipping</h6>
-                <div class="d-flex flex-column mt-4">
-                
-                  <a href=# class="btn btn-primary btn-sm">Details</a>
-                  <form action=# method="post" onsubmit="alert('{{ item.productName }} added to shopping cart')">
-                    {% csrf_token %}
-                    <button class="btn btn-outline-primary btn-sm mt-2 w-100" type="submit">Add to wishlist</button>
-                  </form>
-                </div>
-              </div>
-            </div>
             {% endfor %}
-          </div>
         </div>
-        {% if message %}
-        <div class="d-flex justify-content-center">
-            <h1> {{message}}</h1>
-            {% endif %}
-      </div>
-      <nav aria-label="pagination" class="d-flex justify-content-center mt-3">
-        <ul class="pagination">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">4</a></li>
-          <li class="page-item"><a class="page-link" href="#">5</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-            
+    </div>
+    {% if message %}
+    <div class="d-flex justify-content-center">
+        <img src="{% static 'css/PRODUCT_NOT_FOUND.jpg' %}" class="img-fluid" alt="image desc">
+    </div>
+    {% endif %}
 
 
 <script>
