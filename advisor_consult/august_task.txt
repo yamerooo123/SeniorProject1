@@ -4,6 +4,7 @@ front end & back end tasks:
 -search bar - set pagination. 10 products each - done
 -search bar - make Details and other functions work - done
 -search bar - change text color to white - done
+-search bar - add wishlist function
 **product page(men & women)**
 -product page - add best seller and Random
 -product page - make filters work

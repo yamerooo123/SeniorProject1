@@ -90,7 +90,7 @@
                 <a class="btn btn-outline-dark ms-2" href="{% url 'cart_view' %}">
                   Cart({{total_items}})
                 </a>
-                <a class="btn btn-outline-dark ms-2" href="{% url 'wishlist' %}">
+                <a class="btn btn-outline-dark ms-2" href=#>
                     <i class="fas fa-tasks"></i>
                   </a>
                   <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
@@ -108,15 +108,35 @@
         </div>
     </div>
 </nav>
+<section class="h-100 h-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col">
+          <div class="card">
+            
+            <div class="card-body p-4">
+  
+              <div class="row">
+  
+                <div class="col-lg-7">
+                  <h5 class="mb-3"><a href="{% url 'homepage' %}" class="text-body"><i
+                        class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
+                  <hr>
+                 
+                    
+    
+                </div>
+              </div>
+             </div>
+          </div>
+          
+          
+     </div>
+      </div>
+    </div> 
+              
 
-    <div class="aboutus" id="aboutus">
-        <img src="{% static 'css/store.jpg' %}" class="aboutus-image">
-        <h2>ABOUT US</h2>
-        <center><p>Happy Feet takes pride in providing a broad selection of premium shoes that are made to make both men and women
-            look amazing while providing the utmost comfort. We understand the value of having footwear that not only matches
-            your style but also supports your feet all day long.</p></center>
-    </div>
-
+  </section>
     <footer>
         <div class="container">
             <div class="footer-links">

@@ -159,9 +159,13 @@ def menshoes(request):
     page_number = request.GET.get('page')
     shoefeatures_page = paginator.get_page(page_number)
 
+    max_page_links = 10
+    page_range = paginator.page_range[:max_page_links]
+
     context = {
         'shoefeatures': shoefeatures_page, 
         'total_items': total_items,
+        'page_range': page_range,
     }
     return render(request, 'menshoes.html', context)
 
@@ -676,5 +680,12 @@ def search_view(request):
     
     return render(request, "search_results.html", context)
 
+@login_required
+def wishlist(request):
+    total_items = calculate_total_items(request.user.username)
+    context = {
+        'total_items': total_items,
+    }
+    return render(request, "wishlist.html", context)
 
         

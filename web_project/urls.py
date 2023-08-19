@@ -4,7 +4,7 @@ from django.contrib import admin
 from hello.views import (
     welcome, homepage, signup, signin, aboutus, howtobuy, partnerships, contact, contact_view, user_settings, menshoes, womenshoes, signout, filtered_products, filter_products, product_page, faqpage, user_private_info_change, user_public_info_change, 
     password_change_done, edit_account_success, cart_view, women_product_page, add_to_cart, remove_from_cart, edit_quantity, thank_you_for_purchase, checkout, buy_this,  w_add_to_cart, W_buy_this
-    ,w_edit_quantity, search_view, out_of_stock)
+    ,w_edit_quantity, search_view, out_of_stock, wishlist)
 
 urlpatterns = [
     path('', welcome, name='welcome'),
@@ -44,6 +44,7 @@ urlpatterns = [
     path('w-buy-this/<int:product_id>/', W_buy_this, name="W_buy_this"),
     path('w-add-to-cart/<int:product_id>/', w_add_to_cart, name='w_add_to_cart'),
     path('w_edit_quantity/<int:product_id>/', w_edit_quantity, name='w_edit_quantity'),
+    path('wishlist/', wishlist, name='wishlist'),
     
     ]
 admin.site.site_header = "Happy Feet Management System"

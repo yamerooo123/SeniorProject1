@@ -39,6 +39,7 @@ urlpatterns = [
     path('w-add-to-cart/<int:product_id>/', views.w_add_to_cart, name='w_add_to_cart'),
     path('out-of-stock/', views.out_of_stock, name='out_of_stock'),
     path('search-view/', views.search_view, name="search_view"),
+    path('wishlist/', views.wishlist, name='wishlist'),
 ]
 
 admin.site.site_header = "Happy Feet Management System"
