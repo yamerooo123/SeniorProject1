@@ -2,6 +2,12 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
+class Wishlist(models.Model):
+    productName = models.CharField(max_length=255)
+    price = models.IntegerField()
+    available_quantity = models.IntegerField()
+
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_image = models.ImageField(upload_to='profile_images', default='default_user_icon.jpg')
@@ -124,6 +130,8 @@ class OrderTransaction(models.Model):
     created_by = models.DateTimeField(default=timezone.now, verbose_name="Order date")
     delivery_status = models.CharField(max_length=255, default="Ongoing", choices=STATUS_CHOICES)
     total_amount_vat = models.DecimalField(max_digits=10, decimal_places=2,  verbose_name="Total amount")
+
+
 
 
     

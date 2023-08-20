@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_protect
-from .models import UserProfile, ShoeFeatures, WomenShoeFeatures, M_Cart, User, W_Cart, OrderTransaction
+from .models import UserProfile, ShoeFeatures, WomenShoeFeatures, M_Cart, User, W_Cart, OrderTransaction, Wishlist
 from django.conf import settings
 from decimal import Decimal, ROUND_HALF_UP
 from itertools import chain
@@ -684,8 +684,27 @@ def search_view(request):
 def wishlist(request):
     total_items = calculate_total_items(request.user.username)
     context = {
-        'total_items': total_items,
+        "total_items":total_items,
     }
-    return render(request, "wishlist.html", context)
+
+    return render(request, 'wishlist.html', context)
+
+@login_required
+def add_to_wishlist(request, product_id):
+    shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
+    
+    if request.method == 'POST':
+        product = Wishlist(
+            productName=shoefeature.productName,
+            price=shoefeature.price,
+            available_quantity=shoefeature.InStock,
+        )
+        product.save()
+    
+    context = {
+        'shoefeature': shoefeature,
+    }   
+    return render(request, 'wishlist.html', context)
+    
 
         
