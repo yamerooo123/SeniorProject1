@@ -113,32 +113,32 @@
             </div>
         </div>
     </nav>
-    <div class="carousel slide" id="carousel-933127">
-        <ol class="carousel-indicators">
-            <li data-slide-to="0" data-target="#carousel-933127" class="active"></li>
-            <li data-slide-to="1" data-target="#carousel-933127"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <video class="d-block w-100" controls>
-                    <source src="{% static 'css/HappyFeet.mp4' %}" type="video/mp4">
-                </video>
-            </div>
-            <div class="carousel-item">
-                <video class="d-block w-100" controls>
-                    <source src="{% static 'css/HappyFeet2.mp4' %}" type="video/mp4">
-                </video>
-            </div>
+    <div class="carousel slide" id="carousel">
+    <ol class="carousel-indicators">
+        <li data-bs-target="#carousel" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#carousel" data-bs-slide-to="1"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <video class="d-block w-100" controls>
+                <source src="{% static 'css/HappyFeet.mp4' %}" type="video/mp4">
+            </video>
         </div>
-        <a class="carousel-control-prev" href="#carousel-933127" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carousel-933127" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-            <span class="sr-only">Next</span>
-        </a>
+        <div class="carousel-item">
+            <video class="d-block w-100" controls>
+                <source src="{% static 'css/HappyFeet2.mp4' %}" type="video/mp4">
+            </video>
+        </div>
     </div>
+    <a class="carousel-control-prev" href="#carousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+        <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+        <span class="visually-hidden">Next</span>
+    </a>
+</div>
     <div class=" p-5 bg-dark text-white">
         {% if request.user.username %}
         <h1>Hello, {{request.user.username}}!</h1>
@@ -252,11 +252,9 @@
 </footer>
 <script>
     $(document).ready(function () {
-        // Toggle collapse-sidebar when Show filter button is clicked
         $('[data-mdb-toggle="collapse-sidebar"]').on('click', function () {
             $('#navbarSupportedContent').collapse('toggle');
         });
-        // Toggle accordion collapse when accordion button is clicked
         $('[data-mdb-toggle="collapse"]').on('click', function () {
             const target = $(this).data('target');
             $(target).collapse('toggle');
