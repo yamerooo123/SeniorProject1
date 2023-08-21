@@ -6,6 +6,10 @@ class Wishlist(models.Model):
     productName = models.CharField(max_length=255)
     price = models.IntegerField()
     available_quantity = models.IntegerField()
+    productImage = models.URLField(max_length=255)
+    type2 = models.CharField(max_length=255)
+    brand = models.CharField(max_length=255, verbose_name="Brand")
+    material = models.CharField(max_length=255,  verbose_name="Material")
 
 
 class UserProfile(models.Model):
@@ -84,6 +88,7 @@ class M_Cart(models.Model):
     main_color = models.CharField(max_length=255)
     sub_color = models.CharField(max_length=255)
     product_size = models.IntegerField()
+    InStock = models.IntegerField()
 
     def __str__(self):
         return str(self.productName)

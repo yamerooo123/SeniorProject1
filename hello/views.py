@@ -427,6 +427,7 @@ def add_to_cart(request, product_id):
             main_color =main_color,
             sub_color=sub_color,
             product_size=product_size,
+            InStock=shoefeature.InStock,
         )
         cart.save()
         return redirect('product_page', product_id=product_id)
@@ -700,6 +701,10 @@ def add_to_wishlist(request, product_id):
             productName=shoefeature.productName,
             price=shoefeature.price,
             available_quantity=shoefeature.InStock,
+            productImage=shoefeature.productImage,
+            type2=shoefeature.type2,
+            brand=shoefeature.brand,
+            material=shoefeature.material,
         )
         product.save()
     
@@ -708,5 +713,12 @@ def add_to_wishlist(request, product_id):
     }   
     return render(request, 'wishlist.html', context)
     
-
-        
+@login_required
+def remove_from_wishlist(request, id):
+    try:
+        product = Wishlist.objects.get(id=id)
+        product.delete()
+    except Wishlist.DoesNotExist:
+        pass
+    return redirect('wishlist')
+    
