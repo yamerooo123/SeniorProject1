@@ -119,6 +119,13 @@
                         <div class="card-title">
                             <center><div id="demoFont">Wishlist</div></center>
                         </div>
+                        {% for product in wishlist_product%}
+                        <div class="card mt-3">
+                            <div class="col-md-3">
+                            <h2>{{ product.productName }}</h2>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

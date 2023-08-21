@@ -682,9 +682,11 @@ def search_view(request):
 
 @login_required
 def wishlist(request):
+    wishlist_product = Wishlist.objects.all()
     total_items = calculate_total_items(request.user.username)
     context = {
         "total_items":total_items,
+        "wishlist_product":wishlist_product,
     }
 
     return render(request, 'wishlist.html', context)
