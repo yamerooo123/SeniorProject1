@@ -2,7 +2,7 @@
 {% load static %}
 <html>
 <head>
-    <title>Homepage</title>
+    <title>Search Result</title>
     {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -48,6 +48,7 @@
           color: #ffc107; 
           background-color: transparent;
           border-color: #ffc107; 
+          width: 240px;
         }
         .btn-outline-yellow:hover {
           background-color: #ffc107; 
@@ -149,12 +150,62 @@
                         </div>
                         <h6 class="text-success">Free shipping</h6>
                         <div class="d-flex flex-column mt-4">
-                            <a href="{% url 'product_page' product_id=item.product_id %}" class="btn btn-primary btn-sm">Details</a>
-                            <form action="{% url 'add_to_wishlist' item.product_id %}" method="post" onsubmit="alert('{{ item.productName }} added to Wishlist')">
+                            <a href="{% url 'product_page' product_id=item.product_id %}" class="btn btn-primary btn-sm">Buy this</a>
+                            <form id="add-to-wishlist-form-{{ item.product_id }}" data-product-id="{{ item.product_id }}" method="post"  >
                                 {% csrf_token %}
-                                <button class="btn btn-outline-yellow btn-sm mt-2 w-100" type="submit">Add to wishlist</button>
+                                <button class="btn btn-outline-yellow btn-sm add-to-wishlist-button mt-3" type="button">Add to Wishlist</button>
                             </form>
-                        </div>
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
+                                    //Add to Wishlist button
+                                    $('.add-to-wishlist-button').click(function() {
+                                        var button = $(this);
+                                        if (button.hasClass('disabled')) {
+                                            return; 
+                                        }                              
+                                        button.addClass('disabled'); 
+                                
+                                        var productId = button.closest('form').data('product-id');
+                                        var url = '{% url "add_to_wishlist" product_id=0 %}'.replace('0', productId);
+                                        
+                                        //Get CSRF token from the cookie
+                                        var csrftoken = getCookie('csrftoken');
+                                
+                                        //Send an AJAX POST request to add the product to the wishlist
+                                        $.ajax({
+                                            url: url,
+                                            method: 'POST',
+                                            headers: {
+                                                'X-CSRFToken': csrftoken
+                                            },
+                                            success: function(data) {
+                                                //Handle the JSON response here
+                                                console.log(data.message);
+                                            },
+                                            complete: function() {
+                                                button.removeClass('disabled');  //Re-enable the button
+                                            }
+                                        });
+                                    });                              
+                                    //Function to get CSRF cookie
+                                    function getCookie(name) {
+                                        var cookieValue = null;
+                                        if (document.cookie && document.cookie !== '') {
+                                            var cookies = document.cookie.split(';');
+                                            for (var i = 0; i < cookies.length; i++) {
+                                                var cookie = cookies[i].trim();
+                                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        return cookieValue;
+                                    }
+                                });
+                                </script>
+                            </div>
                     </div>
                 </div>
             {% endfor %}
@@ -166,20 +217,8 @@
         </div>
         {% endif %}
         </div>
-    
 
 
-<script>
-    $(document).ready(function () {
-        $('[data-mdb-toggle="collapse-sidebar"]').on('click', function () {
-            $('#navbarSupportedContent').collapse('toggle');
-        });
-        $('[data-mdb-toggle="collapse"]').on('click', function () {
-            const target = $(this).data('target');
-            $(target).collapse('toggle');
-        });
-    });
-</script>
 <footer>
     <div class="container">
         <div class="footer-links">

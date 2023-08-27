@@ -237,9 +237,12 @@
                                           <option value="10">10</option>
                                         </select>
                                         <div class="cart mt-3 align-items-center d-inline-flex">
+                                            <form action="{% url 'add_to_cart' shoefeature.product_id %}" method="POST" >
+                                            {% csrf_token %}
                                             <button type="submit" class="btn btn-danger text-uppercase px-4">Add to cart</button>
+                                        </form>
                                         </div>                                  
-                                        <div class="cart mt-3 align-items-center d-inline-flex">
+                                        <div class="cart mt-3 align-items-center d-inline-flex ">
                                             <form action="{% url 'buy_this' shoefeature.product_id %}" method="POST" >
                                              {% csrf_token %}
                                             <button type="submit" class="btn btn-success text-uppercase px-4">Buy this</button>                                        
@@ -266,7 +269,7 @@
             <div class="card-body">
                 <div class="row">
                     {% for shoe_tuple in similar_products %}
-                    {% with type1=shoe_tuple.0 type2=shoe_tuple.1 brand=shoe_tuple.2 material=shoe_tuple.3 description=shoe_tuple.4 model=shoe_tuple.5 productImage=shoe_tuple.6 %}
+                    {% with type1=shoe_tuple.0 type2=shoe_tuple.1 brand=shoe_tuple.2 material=shoe_tuple.3 description=shoe_tuple.4 model=shoe_tuple.5 productImage=shoe_tuple.6 price=shoe_tuple.7 %}
                         <div class="col-md-3 mb-3">
                              <div class="card">
                                 {% for productimage in shoefeatures %}
@@ -291,25 +294,26 @@
                                 <div class="cart ml-3 mt-3 mb-3 align-items-center d-inline-flex">
                                     <div class="row">
                                         <div class="col-6">
-                                    <form action=# method="POST" >
-                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-outline-success text-uppercase px-4">Price</button>                                        
-                                    </form>
+                                    <button type="button" class="btn btn-outline-success text-uppercase px-4">{{price}}$</button>
                                   </div>   
                                 <div class="col-6">
                                 <div class="cart mr-3 mb-3">
-                                    <form action=# method="POST" >
+                                    {% for shoefeature in shoefeatures %}
+                                    <form action="{% url 'add_to_cart' shoefeature.product_id %}" method="POST" >
                                      {% csrf_token %}
-                                    <button type="submit" class="btn btn-outline-danger text-uppercase px-4">Add to cart</button>                                                                           
+                                    <button type="submit" class="btn btn-outline-danger text-uppercase px-4">Cart</button>                                                                           
                                     </form>
+                                    {% endfor %}
                                 </div> 
                                 </div>
                                 <div class="col-6">
                                     <div class="cart mr-3 mb-3">
-                                        <form action=# method="POST" >
+                                        {% for shoefeature in shoefeatures %}
+                                        <form action="{% url 'add_to_wishlist' shoefeature.product_id %}" method="POST" >
                                          {% csrf_token %}
-                                        <button type="submit" class="btn btn-outline-yellow text-uppercase px-4">Add to Wishlist</button>                                                                           
+                                        <button type="submit" class="btn btn-outline-yellow text-uppercase px-4">Wishlist</button>                                                                           
                                         </form>
+                                        {% endfor %}
                                     </div> 
                                     </div>
                                     <div class="col-6">

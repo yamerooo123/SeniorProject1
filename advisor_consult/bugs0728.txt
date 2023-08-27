@@ -1,0 +1,7 @@
+Bugs:
+Search page: Add to Wishlist button AJAX not work properly, button size is too small
+Wishlist: Visit Page button - make it connects to product page
+Homepage: Buttom carousel isn't working
+Menshoes page: Carousel isnt working, Add to Wishlist button AJAX not work properly
+Product pag: recommended shoes shouldnt recommend itself, Back button should return to the previous page
+

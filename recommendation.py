@@ -5,7 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 #generate recommendation using product brand
 def get_similar_products(input_brand, input_material):
-    is_jawsdb = True
+    is_jawsdb = False
     #connect to mysql
     if is_jawsdb:
         # Connect to JawsDB
@@ -25,7 +25,7 @@ def get_similar_products(input_brand, input_material):
         )
     cursor = db_connection.cursor()
     #use SQL commeand to find gender(type1), category(type2), brand, material and description based on the input brand from views.py
-    query = f"SELECT type1, type2, brand, material, description, productName, productImage FROM hello_shoefeatures WHERE brand = '{input_brand}' AND material = '{input_material}'"
+    query = f"SELECT type1, type2, brand, material, description, productName, productImage, price FROM hello_shoefeatures WHERE brand = '{input_brand}' AND material = '{input_material}'"
     #execute the SQL command
     cursor.execute(query)
     #show the quert table using fetchall
@@ -66,7 +66,8 @@ def recommend_products(input_brand,input_material,shoe_data):
         product_image = shoe_features_column[3]  # Adjusted index for productImage
         material = shoe_features_column[4]  # Adjusted index for material
         description = shoe_features_column[5]
-        product_image = shoe_features_column[6]  # Adjusted index for description
+        product_image = shoe_features_column[6]
+        price = shoe_features_column[7]
 
 
         similarity_score = calculate_similarity_score(tfidf_matrix.getrow(input_idx), tfidf_matrix.getrow(i))

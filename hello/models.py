@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 
 class Wishlist(models.Model):
+    username = models.CharField(max_length=255)
     productName = models.CharField(max_length=255)
     price = models.IntegerField()
     available_quantity = models.IntegerField()
@@ -26,8 +27,8 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
     class Meta:
-        verbose_name = "User account"
-        verbose_name_plural = "User account"
+        verbose_name = "Profile Management"
+        verbose_name_plural = "Profile Management"
 
 
 class ShoeFeatures(models.Model):
@@ -48,7 +49,7 @@ class ShoeFeatures(models.Model):
     product_idName = models.CharField(max_length=255, verbose_name="Product ID")
     material = models.CharField(max_length=255,  verbose_name="Material")
     class Meta:
-        verbose_name = "Men product"
+        verbose_name = "Men product "
         verbose_name_plural = "Men products"
         
     def __str__(self):
@@ -116,11 +117,11 @@ class OrderTransaction(models.Model):
     PAYMENT_CHOICES = (
         ('CreditCard', 'CreditCard'),
         ('CashOnDelivery','CashOnDelivery'),
-        ('Unpaid','Unpaid'),
+        ('Cancelled','Cancelled'),
     )
     class Meta:
-        verbose_name = "Order"
-        verbose_name_plural = "Orders"
+        verbose_name = "Sales Management"
+        verbose_name_plural = "Sales Management"
 
     product_id = models.IntegerField(primary_key=True)
     username = models.CharField(max_length=100)

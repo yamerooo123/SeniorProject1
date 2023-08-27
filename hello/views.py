@@ -14,6 +14,7 @@ from decimal import Decimal, ROUND_HALF_UP
 from itertools import chain
 from recommendation import get_similar_products
 import os
+from django.http import JsonResponse
 
 
 def welcome(request):
@@ -481,6 +482,7 @@ def buy_this(request, product_id):
             main_color =main_color,
             sub_color=sub_color,
             product_size=product_size,
+            InStock=shoefeature.InStock,
         )
         cart.save()
         return redirect('cart_view', product_id=product_id)
@@ -660,7 +662,13 @@ def search_view(request):
     shoefeatures = ShoeFeatures.objects.all()
     womenshoefeatures = WomenShoeFeatures.objects.all()
     search_items = request.POST.get('Search')
-
+    
+    context = {
+        'shoefeatures': shoefeatures,
+        'womenshoefeatures': womenshoefeatures,
+        'total_items': total_items,
+    }
+    
     if search_items:
         shoefeatures = shoefeatures.filter(productName__icontains=search_items)
         womenshoefeatures = womenshoefeatures.filter(productName__icontains=search_items)
@@ -671,24 +679,25 @@ def search_view(request):
         products = [] 
         message = "Sorry, we couldn't find the product that you want."
     
-    context = {
-        'shoefeatures': shoefeatures,
-        'womenshoefeatures': womenshoefeatures,
+    context.update({
         'products': products,
-        'total_items': total_items,
         'message': message,
-    }
+    })
     
     return render(request, "search_results.html", context)
 
+
 @login_required
 def wishlist(request):
+    shoefeatures = ShoeFeatures.objects.all()
+    total_products_in_wishlist = calculate_total_wishlist(request.user.username)
     wishlist_product = Wishlist.objects.all()
     total_items = calculate_total_items(request.user.username)
     context = {
         "total_items":total_items,
         "wishlist_product":wishlist_product,
-    }
+        'total_products_in_wishlist':total_products_in_wishlist,
+        'shoefeatures':shoefeatures,    }
 
     return render(request, 'wishlist.html', context)
 
@@ -705,13 +714,13 @@ def add_to_wishlist(request, product_id):
             type2=shoefeature.type2,
             brand=shoefeature.brand,
             material=shoefeature.material,
+            username=request.user.username,
         )
         product.save()
+        
+        return JsonResponse({'message': 'Item added to wishlist successfully'})
     
-    context = {
-        'shoefeature': shoefeature,
-    }   
-    return render(request, 'wishlist.html', context)
+    return JsonResponse({'message': 'Invalid request'}, status=400)
     
 @login_required
 def remove_from_wishlist(request, id):
@@ -722,3 +731,7 @@ def remove_from_wishlist(request, id):
         pass
     return redirect('wishlist')
     
+def calculate_total_wishlist(username):
+    products_in_wishlist = Wishlist.objects.filter(username=username)
+    total_products_in_wishlist = len(products_in_wishlist)
+    return total_products_in_wishlist
