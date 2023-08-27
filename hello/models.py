@@ -3,7 +3,6 @@ from django.db import models
 from django.utils import timezone
 
 class Wishlist(models.Model):
-    username = models.CharField(max_length=255)
     productName = models.CharField(max_length=255)
     price = models.IntegerField()
     available_quantity = models.IntegerField()
