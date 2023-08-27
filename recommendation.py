@@ -5,7 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 #generate recommendation using product brand
 def get_similar_products(input_brand, input_material):
-    is_jawsdb = False
+    is_jawsdb = True
     #connect to mysql
     if is_jawsdb:
         # Connect to JawsDB
