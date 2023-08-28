@@ -137,7 +137,6 @@
                                 </div>                     
                                 <div class="col-md-2 col-12 mt-5 mb-2 ml-2 text-center">
                                     <img src="{{ product.productImage }}" class="card-img-top img-fluid" style="max-width: 60%;">
-
                                 </div>
                                 <div class="col-md-2 col-12 mt-5 ml-3 ">
                                     <h5 style="white-space: nowrap;"><b>In stock(s)</b></h5>
@@ -150,12 +149,10 @@
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-outline-danger mt-3 ml-3">Remove</button>
                                     </form>
-                                                                  
-                                    <form action=# method="post">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-outline-primary mt-3 ml-3">Visit page</button>
-                                    </form> 
-                               
+                                    
+                                    {% if product.product_id %}
+                                        <a href="{% url 'product_page' product_id=product.product_id %}" class="btn btn-outline-primary mt-3 ml-3">Visit Page</a>
+                                    {% endif %}
                                 </div>                             
                             </div>
                         </div>

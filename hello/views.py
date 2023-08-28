@@ -715,6 +715,7 @@ def add_to_wishlist(request, product_id):
             brand=shoefeature.brand,
             material=shoefeature.material,
             username=request.user.username,
+            product_id=shoefeature.product_id,
         )
         product.save()
         

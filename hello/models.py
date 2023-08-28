@@ -2,15 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
-class Wishlist(models.Model):
-    username = models.CharField(max_length=255)
-    productName = models.CharField(max_length=255)
-    price = models.IntegerField()
-    available_quantity = models.IntegerField()
-    productImage = models.URLField(max_length=255)
-    type2 = models.CharField(max_length=255)
-    brand = models.CharField(max_length=255, verbose_name="Brand")
-    material = models.CharField(max_length=255,  verbose_name="Material")
+
+
 
 
 class UserProfile(models.Model):
@@ -32,7 +25,7 @@ class UserProfile(models.Model):
 
 
 class ShoeFeatures(models.Model):
-    product_id = models.BigIntegerField(primary_key=True)
+    product_id = models.BigIntegerField(primary_key=True, unique=True)
     type1 = models.CharField(max_length=255)
     type2 = models.CharField(max_length=255)
     maincolor = models.CharField(max_length=255, default="Black")
@@ -54,6 +47,20 @@ class ShoeFeatures(models.Model):
         
     def __str__(self):
         return f"{self.product_idName} {self.productName}"
+
+class Wishlist(models.Model):
+    username = models.CharField(max_length=255)
+    productName = models.CharField(max_length=255)
+    price = models.IntegerField()
+    available_quantity = models.IntegerField()
+    productImage = models.URLField(max_length=255)
+    type2 = models.CharField(max_length=255)
+    brand = models.CharField(max_length=255, verbose_name="Brand")
+    material = models.CharField(max_length=255, verbose_name="Material")
+    product_id = models.BigIntegerField()
+    
+    def __str__(self):
+        return f"Wishlist for {self.username} - Product ID: {self.product_id}"
 
 class WomenShoeFeatures(models.Model):
     product_id = models.BigIntegerField(primary_key=True)
