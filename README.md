@@ -17,6 +17,7 @@
 # 09/08/66 update admin panel
 # 18/08/66 improve search result page
 # 20/08/66 add wishlist function
+# 28/08/66 search bar and wishlist fixed
 # ------------18/07/66 all main functions are completed------------
 # additional functions that will be added later: search bar function, filter function, ratings function, pagination function
 
