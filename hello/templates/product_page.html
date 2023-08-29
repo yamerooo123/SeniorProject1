@@ -175,7 +175,15 @@
                                 {% for shoefeature in shoefeatures %}
                                 <div class="mt-4 mb-3">
                                     <span class="text-uppercase text-muted brand">{{ shoefeature.brand }} {{ shoefeature.type2 }} {{ shoefeature.material }}</span>
-                                    <h5 class="text-uppercase">{{ shoefeature.productName }}</h5>
+                                    <h5 class="text-uppercase">{{ shoefeature.productName }}
+                                        <div class="d-flex flex-row mt-2">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                          </div>
+                                    </h5>
                                     {% for shoefeature in shoefeatures %}
                                     <div class="price d-flex flex-row align-items-center">
                                         <span class="act-price">${{ shoefeature.price }}</span>
@@ -259,12 +267,62 @@
                                             </form>
                                           </div>   
                                           <div class="cart mt-3 align-items-center d-inline-flex ">
-                                            <form action="{% url 'buy_this' shoefeature.product_id %}" method="POST" >
-                                             {% csrf_token %}
-                                             <button type="submit" class="btn btn-yellow text-uppercase px-4">
-                                                <i class="fas fa-star" style="color: #ffffff;"></i>
-                                            </button>                             
+                                            <form id="add-to-wishlist-form-{{ shoefeature.product_id }}" data-product-id="{{ shoefeature.product_id }}" method="post"  >
+                                                {% csrf_token %}
+                                                <button class="btn btn-yellow btn-md add-to-wishlist-button" type="button">
+                                                    <i class="fas fa-star" style="color: #ffffff;"></i>
+                                                </button>
                                             </form>
+                                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                            <script>
+                                                $(document).ready(function() {
+                                                    //Add to Wishlist button
+                                                    $('.add-to-wishlist-button').click(function() {
+                                                        var button = $(this);
+                                                        if (button.hasClass('disabled')) {
+                                                            return; 
+                                                        }                              
+                                                        button.addClass('disabled'); 
+                                                
+                                                        var productId = button.closest('form').data('product-id');
+                                                        var url = '{% url "add_to_wishlist" product_id=0 %}'.replace('0', productId);
+                                                        
+                                                        //Get CSRF token from the cookie
+                                                        var csrftoken = getCookie('csrftoken');
+                                                
+                                                        //Send an AJAX POST request to add the product to the wishlist
+                                                        $.ajax({
+                                                            url: url,
+                                                            method: 'POST',
+                                                            headers: {
+                                                                'X-CSRFToken': csrftoken
+                                                            },
+                                                            success: function(data) {
+                                                                //Handle the JSON response here
+                                                                console.log(data.message);
+                                                            },
+                                                            complete: function() {
+                                                                button.removeClass('disabled');  //Re-enable the button
+                                                            }
+                                                        });
+                                                    });                              
+                                                    //Function to get CSRF cookie
+                                                    function getCookie(name) {
+                                                        var cookieValue = null;
+                                                        if (document.cookie && document.cookie !== '') {
+                                                            var cookies = document.cookie.split(';');
+                                                            for (var i = 0; i < cookies.length; i++) {
+                                                                var cookie = cookies[i].trim();
+                                                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                                    break;
+                                                                }
+                                                            }
+                                                        }
+                                                        return cookieValue;
+                                                    }
+                                                });
+                                                </script>
                                           </div>     
                                       </div>
                                     </div>
@@ -294,7 +352,7 @@
                                 <img src="{{ productImage }}" class="card-img-top img-fluid" >
                                 {% endfor %}
                                 <div class="card-body">
-                                    <button class="btn btn-primary text-uppercase px-4 mb-3">Men</button>                                   
+                                    <button class="btn btn-primary text-uppercase px-4 mb-3">{{ type1 }}</button>                                   
                                     <button class="btn btn-success text-uppercase px-4 mb-3">{{ brand }}</button>
                                     <button class="btn btn-dark text-uppercase px-4 mb-3">{{ material }}</button>
                                     <div class="d-flex flex-row">
@@ -305,9 +363,7 @@
                                         <span class="fa fa-star"></span>
                                       </div>
                                     <h5 class="card-title">{{ model }}</h5>
-                                    <p class="card-text">Category: {{ type1 }}</p>
-                                    <p class="card-text">Style: {{ type2 }}</p>
-                                    <p class="card-text">Material: {{ material }}</p>
+                                    <p class="card-text">{{ description }}</p>
                                 </div>
                                 <div class="cart ml-3 mt-3 mb-3 align-items-center d-inline-flex">
                                     <div class="row">
@@ -327,10 +383,60 @@
                                 <div class="col-6">
                                     <div class="cart mr-3 mb-3">
                                         {% for shoefeature in shoefeatures %}
-                                        <form action="{% url 'add_to_wishlist' shoefeature.product_id %}" method="POST" >
-                                         {% csrf_token %}
-                                        <button type="submit" class="btn btn-outline-yellow text-uppercase px-4">Wishlist</button>                                                                           
+                                        <form id="add-to-wishlist-form-{{ shoefeature.product_id }}" data-product-id="{{ shoefeature.product_id }}" method="post"  >
+                                            {% csrf_token %}
+                                            <button class="btn btn-outline-yellow btn-sm add-to-wishlist-button mt-3" type="button">Add to Wishlist</button>
                                         </form>
+                                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                        <script>
+                                            $(document).ready(function() {
+                                                //Add to Wishlist button
+                                                $('.add-to-wishlist-button').click(function() {
+                                                    var button = $(this);
+                                                    if (button.hasClass('disabled')) {
+                                                        return; 
+                                                    }                              
+                                                    button.addClass('disabled'); 
+                                            
+                                                    var productId = button.closest('form').data('product-id');
+                                                    var url = '{% url "add_to_wishlist" product_id=0 %}'.replace('0', productId);
+                                                    
+                                                    //Get CSRF token from the cookie
+                                                    var csrftoken = getCookie('csrftoken');
+                                            
+                                                    //Send an AJAX POST request to add the product to the wishlist
+                                                    $.ajax({
+                                                        url: url,
+                                                        method: 'POST',
+                                                        headers: {
+                                                            'X-CSRFToken': csrftoken
+                                                        },
+                                                        success: function(data) {
+                                                            //Handle the JSON response here
+                                                            console.log(data.message);
+                                                        },
+                                                        complete: function() {
+                                                            button.removeClass('disabled');  //Re-enable the button
+                                                        }
+                                                    });
+                                                });                              
+                                                //Function to get CSRF cookie
+                                                function getCookie(name) {
+                                                    var cookieValue = null;
+                                                    if (document.cookie && document.cookie !== '') {
+                                                        var cookies = document.cookie.split(';');
+                                                        for (var i = 0; i < cookies.length; i++) {
+                                                            var cookie = cookies[i].trim();
+                                                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                    return cookieValue;
+                                                }
+                                            });
+                                            </script>
                                         {% endfor %}
                                     </div> 
                                     </div>

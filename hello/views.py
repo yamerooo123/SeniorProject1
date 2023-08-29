@@ -686,7 +686,7 @@ def search_view(request):
     
     return render(request, "search_results.html", context)
 
-
+@login_required(login_url='/signin/')
 @login_required
 def wishlist(request):
     shoefeatures = ShoeFeatures.objects.all()
@@ -701,7 +701,7 @@ def wishlist(request):
 
     return render(request, 'wishlist.html', context)
 
-@login_required
+@login_required(login_url='/signin/')
 def add_to_wishlist(request, product_id):
     shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
     

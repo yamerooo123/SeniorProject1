@@ -48,6 +48,7 @@
           color: #ffc107; 
           background-color: transparent;
           border-color: #ffc107; 
+          width: 140px;
         }
         .btn-outline-yellow:hover {
           background-color: #ffc107; 
@@ -56,7 +57,7 @@
         }
         .checked {
           color: orange;
-        }
+        }   
     </style>
 </head>
 
@@ -124,15 +125,7 @@
             </div>
         </div>
     </nav>
-    <div class="carousel slide" id="carousel-933127">
-				<ol class="carousel-indicators">
-					<li data-slide-to="0" data-target="#carousel-933127" class="active">
-					</li>
-					<li data-slide-to="1" data-target="#carousel-933127">
-					</li>
-					<li data-slide-to="2" data-target="#carousel-933127">
-					</li>
-				</ol>
+    <div class="carousel slide" id="carousel"  data-bs-ride="carousel" data-mdb-interval="false">
 				<div class="carousel-inner">
 					<div class="carousel-item active">
 						<img class="d-block w-100" alt="MenProduct1" src='/Static/css/menads1.jpg' style="object-fit: cover; width: 1600px; height: 500px;" />
@@ -167,7 +160,14 @@
 							</p>
 						</div>
 					</div>
-				</div> <a class="carousel-control-prev" href="#carousel-933127" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-933127" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
 			</div>
 		</div>
 	</div>
@@ -468,10 +468,60 @@
                     <h6 class="text-success">Free shipping</h6>
                     <div class="d-flex flex-column mt-4">
                       <a href="{% url 'product_page' product_id=shoefeature.product_id %}" class="btn btn-primary btn-sm">Details</a>
-                      <form action="{% url 'add_to_wishlist' shoefeature.product_id %}" method="POST" onsubmit="alert('{{ shoefeature.productName }} added to Wishlist')">
+                      <form id="add-to-wishlist-form-{{ shoefeature.product_id }}" data-product-id="{{ shoefeature.product_id }}" method="post"  >
                         {% csrf_token %}
-                        <button class="btn btn-outline-yellow btn-sm mt-2 w-100" type="submit">Add to wishlist</button>
-                      </form>
+                        <button class="btn btn-outline-yellow btn-sm add-to-wishlist-button mt-3" type="button">Add to Wishlist</button>
+                    </form>
+                      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
+                                    //Add to Wishlist button
+                                    $('.add-to-wishlist-button').click(function() {
+                                        var button = $(this);
+                                        if (button.hasClass('disabled')) {
+                                            return; 
+                                        }                              
+                                        button.addClass('disabled'); 
+                                
+                                        var productId = button.closest('form').data('product-id');
+                                        var url = '{% url "add_to_wishlist" product_id=0 %}'.replace('0', productId);
+                                        
+                                        //Get CSRF token from the cookie
+                                        var csrftoken = getCookie('csrftoken');
+                                
+                                        //Send an AJAX POST request to add the product to the wishlist
+                                        $.ajax({
+                                            url: url,
+                                            method: 'POST',
+                                            headers: {
+                                                'X-CSRFToken': csrftoken
+                                            },
+                                            success: function(data) {
+                                                //Handle the JSON response here
+                                                console.log(data.message);
+                                            },
+                                            complete: function() {
+                                                button.removeClass('disabled');  //Re-enable the button
+                                            }
+                                        });
+                                    });                              
+                                    //Function to get CSRF cookie
+                                    function getCookie(name) {
+                                        var cookieValue = null;
+                                        if (document.cookie && document.cookie !== '') {
+                                            var cookies = document.cookie.split(';');
+                                            for (var i = 0; i < cookies.length; i++) {
+                                                var cookie = cookies[i].trim();
+                                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        return cookieValue;
+                                    }
+                                });
+                                </script>
                     </div>
                   </div>
                 </div>
