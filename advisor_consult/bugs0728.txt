@@ -1,7 +1,15 @@
 Bugs:
+08/27/66
 Search page: Add to Wishlist button AJAX not work properly, button size is too small **done**
 Wishlist: Visit Page button - make it connects to product page **done**
 Homepage: Buttom carousel isn't working **done**
 Menshoes page: Carousel isnt working, Add to Wishlist button AJAX not work properly **done**
-Product page: recommended shoes shouldnt recommend itself, Back button should return to the previous page
+Product page: recommended shoes shouldnt recommend itself, Back button should return to the previous page **done**
+
+08/29/66
+Product page: make it able to add to cart, add to wishlist, detail for that recommended product page
+Menshoes: Make filter tab works
+Pagination: It won't show the remain page after 10th page.
+Recommendation: create 3 criteria tables for looping for finding product similarity
+
 
