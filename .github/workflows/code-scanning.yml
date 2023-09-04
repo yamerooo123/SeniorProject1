@@ -1,0 +1,17 @@
+name: Code Scanning
+
+on:
+  push:
+    branches:
+      - main  # Replace with your main branch name
+
+jobs:
+  code-scanning:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run Code Scanning
+      uses: github/codeql-action/analyze@v1
