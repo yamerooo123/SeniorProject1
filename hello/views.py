@@ -12,7 +12,8 @@ from .models import UserProfile, ShoeFeatures, WomenShoeFeatures, M_Cart, User, 
 from django.conf import settings
 from decimal import Decimal, ROUND_HALF_UP
 from itertools import chain
-from recommendation import get_similar_products
+from recommendations.recommendation_by_brand import *
+from recommendations.recommendation_by_material import *
 import os
 from django.http import JsonResponse
 
@@ -153,7 +154,8 @@ def user_dashboard(request):
 
 def menshoes(request):
     total_items = calculate_total_items(request.user.username)
-    shoefeatures = ShoeFeatures.objects.all()
+    shoefeatures = ShoeFeatures.objects.get_queryset().order_by('product_id')
+    
 
     items_per_page = 10
     paginator = Paginator(shoefeatures, items_per_page)
@@ -171,9 +173,33 @@ def menshoes(request):
     return render(request, 'menshoes.html', context)
 
 
+def filtered_products(request):
+    if request.method == 'GET':
+        # Get the list of selected categories from the query parameters
+        selected_categories = request.GET.getlist('type2')
+        
+        # Filter ShoeFeatures objects based on the selected categories
+        filtered_shoefeatures1 = ShoeFeatures.objects.filter(type2__in=selected_categories)
+        
+        # Order the queryset by a specific field (e.g., product_id)
+        filtered_shoefeatures2 = filtered_shoefeatures1.order_by('product_id')
+
+        # Print the filtered queryset for debugging
+        print(filtered_shoefeatures2)
+
+        # Pass the selected filter values as context variables
+        context = {
+            'shoefeatures': filtered_shoefeatures2,  # Pass the filtered queryset
+            'selected_categories': selected_categories,  # Pass selected filter values
+        }
+        
+        return render(request, 'filtered_products.html', context)
+
+
+    
 def womenshoes(request):
     total_items = calculate_total_items(request.user.username)
-    womenshoefeature = WomenShoeFeatures.objects.all()
+    womenshoefeature = WomenShoeFeatures.objects.get_queryset().order_by('product_id')
     context = {
         'womenshoefeatures': womenshoefeature,
         'total_items': total_items,
@@ -190,12 +216,14 @@ def product_page(request, product_id):
     input_brand = shoefeature.brand
     input_material = shoefeature.material
     
-    similar_products = get_similar_products(input_brand, input_material)
+    similar_products1 = get_similar_products(input_brand, input_material)
+    similar_products2 = get_similar_products_mats(input_material)
 
     context = {
         'shoefeatures': [shoefeature],
         'total_items': total_items,
-        'similar_products': similar_products,  
+        'similar_products1': similar_products1,  
+        'similar_products2': similar_products2,
         'product': product,
         'page_number': page_number,
     }
@@ -659,8 +687,8 @@ def checkout(request):
 
 def search_view(request):
     total_items = calculate_total_items(request.user.username)
-    shoefeatures = ShoeFeatures.objects.all()
-    womenshoefeatures = WomenShoeFeatures.objects.all()
+    shoefeatures = ShoeFeatures.objects.get_queryset().order_by('product_id')
+    womenshoefeatures = WomenShoeFeatures.objects.get_queryset().order_by('product_id')
     search_items = request.POST.get('Search')
     
     context = {
@@ -689,9 +717,9 @@ def search_view(request):
 @login_required(login_url='/signin/')
 @login_required
 def wishlist(request):
-    shoefeatures = ShoeFeatures.objects.all()
+    shoefeatures = ShoeFeatures.objects.get_queryset().order_by('product_id')
     total_products_in_wishlist = calculate_total_wishlist(request.user.username)
-    wishlist_product = Wishlist.objects.all()
+    wishlist_product = Wishlist.objects.get_queryset().order_by('product_id')
     total_items = calculate_total_items(request.user.username)
     context = {
         "total_items":total_items,
@@ -736,3 +764,5 @@ def calculate_total_wishlist(username):
     products_in_wishlist = Wishlist.objects.filter(username=username)
     total_products_in_wishlist = len(products_in_wishlist)
     return total_products_in_wishlist
+
+
