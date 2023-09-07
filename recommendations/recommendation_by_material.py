@@ -19,7 +19,7 @@ def preprocess_text(text):
 #get similar prod. using material col
 def get_similar_products_mats(input_material):
     #if in development sets False, while deploying sets True
-    is_jawsdb = False
+    is_jawsdb = True
     #connect to JawsDB
     if is_jawsdb:
         db_connection = mysql.connector.connect(
