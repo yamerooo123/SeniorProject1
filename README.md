@@ -1,5 +1,4 @@
 ﻿# SeniorProject1
-# ------------Web application part------------
 # 12/06/66 update signup(fully functional) and signin(not yet)
 # 13/06/66 add womenshoes.html and menshoes.html
 # 15/06/66 update womenshoes and menshoes html(not complete yet), update login authentication(still have minor bugs)
@@ -18,12 +17,6 @@
 # 18/08/66 improve search result page
 # 20/08/66 add wishlist function
 # 28/08/66 search bar and wishlist fixed
-# ------------18/07/66 all main functions are completed------------
-# additional functions that will be added later: search bar function, filter function, ratings function, pagination function
-
-# ------------Recommendation part------------
-# Objectives:
-# 09/08/66 create a simple content-based recommendation
-# -recommendation
-# -recommendation tabs
+# 07/09/66 rating system added and recommendation systems done
+# 
 
