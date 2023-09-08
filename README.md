@@ -18,5 +18,5 @@
 # 20/08/66 add wishlist function
 # 28/08/66 search bar and wishlist fixed
 # 07/09/66 rating system added and recommendation systems done
-# 
+# 08/09/66 about us and how to buy pags added
 
