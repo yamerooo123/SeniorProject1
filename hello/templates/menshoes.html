@@ -474,7 +474,7 @@
                       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                             <script>
                                 $(document).ready(function() {
-                                    //Add to Wishlist button
+                                    //add to Wishlist button
                                     $('.add-to-wishlist-button').click(function() {
                                         var button = $(this);
                                         if (button.hasClass('disabled')) {
@@ -485,10 +485,10 @@
                                         var productId = button.closest('form').data('product-id');
                                         var url = '{% url "add_to_wishlist" product_id=0 %}'.replace('0', productId);
                                         
-                                        //Get CSRF token from the cookie
+                                        //get CSRF token from the cookie
                                         var csrftoken = getCookie('csrftoken');
                                 
-                                        //Send an AJAX POST request to add the product to the wishlist
+                                        //send an AJAX POST request to add the product to the wishlist
                                         $.ajax({
                                             url: url,
                                             method: 'POST',
@@ -496,15 +496,15 @@
                                                 'X-CSRFToken': csrftoken
                                             },
                                             success: function(data) {
-                                                //Handle the JSON response here
+                                                //handle the JSON response here
                                                 console.log(data.message);
                                             },
                                             complete: function() {
-                                                button.removeClass('disabled');  //Re-enable the button
+                                                button.removeClass('disabled');
                                             }
                                         });
                                     });                              
-                                    //Function to get CSRF cookie
+                                    //function to get CSRF cookie
                                     function getCookie(name) {
                                         var cookieValue = null;
                                         if (document.cookie && document.cookie !== '') {
@@ -590,14 +590,14 @@
               <div class="col-md-3 col-lg-3 col-xl-3">
                   <h6 class="text-uppercase mb-4 font-weight-bold">Happy Team</h6>
                   <p>
-                     <a href="{% url 'homepage' %}" >Michael Grey</a>
-                  </p>
-                  <p>
-                    <a href="{% url 'homepage' %}" >Ezio Auditore da Firenze</a>
+                    <a href="{% url 'aboutus' %}" >Jane Doe</a>
                  </p>
                  <p>
-                  <a href="{% url 'homepage' %}" >Billy Russo</a>
-               </p>
+                   <a href="{% url 'aboutus' %}" >Mike Ross</a>
+                </p>
+                <p>
+                 <a href="{% url 'aboutus' %}" >John Doe</a>
+              </p>
               </div>
 
               <div class="col-md-2 col-lg-2 col-xl-2">
@@ -651,54 +651,53 @@
       </div>
   </footer>
   
-  <!-- Ensure you have jQuery included before this script -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
   $(document).ready(function() {
-    // Toggle the collapse of the sidebar
+    //toggle the collapse of the sidebar
     $('[data-mdb-toggle="collapse-sidebar"]').on('click', function() {
       $('#navbarSupportedContent').collapse('toggle');
     });
 
-    // Toggle collapse elements
+    //toggle collapse elements
     $('[data-mdb-toggle="collapse"]').on('click', function() {
       var target = $(this).attr('data-mdb-target');
       $(target).collapse('toggle');
     });
 
-    // Attach a click event listener to checkboxes with the "form-check-input.filter-checkbox" class
+    //attach a click event listener to checkboxes with the "form-check-input.filter-checkbox" class
     $('.form-check-input.filter-checkbox').on('click', function() {
       updateProductDisplay(); // Call the updateProductDisplay function when a checkbox is clicked
     });
   });
 
-  // Function to update the product display based on selected checkboxes
+  //function to update the product display based on selected checkboxes
   function updateProductDisplay() {
     const selectedCategories = [];
 
-    // Loop through checkboxes and check which ones are selected
+    //loop through checkboxes and check which ones are selected
     $('.form-check-input.filter-checkbox').each(function() {
       if ($(this).prop('checked')) {
         selectedCategories.push($(this).val());
       }
     });
 
-    // Loop through product items and hide/show based on selected categories
+    //loop through product items and hide/show based on selected categories
     $('.col-md-10 .row').each(function() {
       const dataCategories = $(this).attr('data-categories');
 
-      // Check if data-categories attribute exists before splitting
+      //check if data-categories attribute exists before splitting
       if (dataCategories) {
         const productCategories = dataCategories.split(' ');
 
         if (
-          selectedCategories.length === 0 || // Show all products if no checkbox is selected
+          selectedCategories.length === 0 ||
           selectedCategories.some((category) => productCategories.includes(category))
         ) {
-          $(this).show(); // Show the product row
+          $(this).show(); 
         } else {
-          $(this).hide(); // Hide the product row
+          $(this).hide(); 
         }
       }
     });

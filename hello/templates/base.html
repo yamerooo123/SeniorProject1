@@ -112,69 +112,7 @@
             </div>
         </div>
     </nav>
-    <div class="carousel slide" id="carousel" data-bs-ride="carousel" data-mdb-interval="false">
-    <ol class="carousel-indicators">
-        <li data-bs-target="#carousel" data-bs-slide-to="0" class="active"></li>
-        <li data-bs-target="#carousel" data-bs-slide-to="1"></li>
-    </ol>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <video class="d-block w-100" controls>
-                <source src="{% static 'css/HappyFeet.mp4' %}" type="video/mp4">
-            </video>
-        </div>
-        <div class="carousel-item">
-            <video class="d-block w-100" controls>
-                <source src="{% static 'css/HappyFeet2.mp4' %}" type="video/mp4">
-            </video>
-        </div>
-    </div>
-    <a class="carousel-control-prev" href="#carousel" role="button" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-        <span class="visually-hidden">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carousel" role="button" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-        <span class="visually-hidden">Next</span>
-    </a>
-</div>
-    <div class=" p-5 bg-dark text-white">
-        {% if request.user.username %}
-        <h1>Hello, {{request.user.username}}!</h1>
-        {% else %}
-        <h1>Hello, Guest!</h1>
-        {% endif %}
-        <p>Feel free to look around our stuff. We've provided the best quality of shoes for many years!</p>
-        <p><a class="btn btn-outline-light btn-large" href="#">Explore</a></p>
-    </div>
-</div>
-</div>
-<div id="carousel" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d-block w-100" src="{% static 'css/womenshoes.jpg' %}" alt="First slide" style="object-fit: cover; width: 1600px; height: 500px;">
-        <div class="carousel-caption">
-            <h1>
-                Women Footwear
-            </h1>
-            <a href="/womenshoes" class="btn btn-outline-light">View Product</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="carousel" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d-block w-100" src="{% static 'css/menshoes.jpg' %}" alt="Second slide" style="object-fit: cover; width: 1600px; height: 500px;">
-        <div class="carousel-caption">
-            <h1>
-                Men Footwear
-            </h1>
-            <a href="/menshoes" class="btn btn-outline-light">View Product</a>
-        </div>
-      </div>
-    </div>
-  </div>
+    
 
 <footer>
     <div class="container">

@@ -6,27 +6,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
-    <link rel="stylesheet" href="{% static 'css/Style3.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Style2.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
+    body {
+        background-image: url('/Static/css/aboutus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+      }
+      
+      html {
+        box-sizing: border-box;
+      }
+      
+      *, *:before, *:after {
+        box-sizing: inherit;
+      }
+      
+      .column {
+        float: left;
+        width: 33.3%;
+        margin-bottom: 16px;
+        padding: 0 8px;
+      }
+      
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        margin: 8px;
+      }
+      
+      .about-section {
+        padding: 50px;
+        text-align: center;
+        background-color: #45526e;
+        color: white;
+      }
+      
+      .container {
+        padding: 0 16px;
+      }
+      
+      .container::after, .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+      
+      .title {
+        color: grey;
+      }
+      
+      .button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+      }
+      
+      .button:hover {
+        background-color: #555;
+      }
+      
+      @media screen and (max-width: 650px) {
+        .column {
+          width: 100%;
+          display: block;
         }
-
-        .aboutus {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        footer {
+      }
+      footer {
             background-color: #45526e;
             color: white;
         }
@@ -108,14 +168,56 @@
         </div>
     </div>
 </nav>
-
-    <div class="aboutus" id="aboutus">
-        <img src="{% static 'css/store.jpg' %}" class="aboutus-image">
-        <h2>ABOUT US</h2>
-        <center><p>Happy Feet takes pride in providing a broad selection of premium shoes that are made to make both men and women
-            look amazing while providing the utmost comfort. We understand the value of having footwear that not only matches
-            your style but also supports your feet all day long.</p></center>
-    </div>
+<div class="container">
+    <div class="about-section">
+        <h1>Happy Feet</h1>
+        <p>"Celebrating the harmony of style and comfort, Happy Feet was founded by passionate shoe enthusiasts on a mission to redefine footwear shopping for everyone."</p>
+        <p>Happy Feet was born out of a passion for footwear and a commitment to customer satisfaction. Our founders, avid shoe enthusiasts, set out on a journey to create an online shopping experience that merges convenience, quality, and affordability.</p>
+      </div>
+      
+      <b><h1><div class="ourteam mt-2" style="text-align:center">Our Team</h1></b>
+      <div class="row">
+        <div class="column">
+          <div class="card">
+            <img src="/Static/css/team1.jpg" alt="Jane" style="width:100%">
+            <div class="container">
+                <h2><div class="CEO mt-2">Jane Doe</div></h2>
+              <p class="title">CEO & Founder</p>
+              <p>Jane Doe is a visionary entrepreneur whose journey is a testament to the power of innovation and determination. With a passion for technology and a relentless drive to make the world a better place, she embarked on a remarkable career that has left an indelible mark on the tech industry.</p>
+              <p>jane@ceo.com</p>
+              <p><a href="{% url 'contact' %}"><button class="button">Contact</button></a></p>
+            </div>
+          </div>
+        </div>
+      
+        <div class="column">
+          <div class="card">
+            <img src="/Static/css/team2.jpg" alt="Mike" style="width:100%">
+            <div class="container">
+                <h2><div class="Rec mt-2">Mike Ross</div></h2>
+              <p class="title">Best Employee</p>
+              <p>Mike Ross is an exceptional professional whose dedication and commitment to excellence have made him an invaluable asset to our organization. With a passion for his work and a proven track record of outstanding performance, Mike consistently goes above and beyond to achieve remarkable results.</p>
+              <p>mike@bestemployee.com</p>
+              <p><a href="{% url 'contact' %}"><button class="button">Contact</button></a></p>
+            </div>
+          </div>
+        </div>
+      
+        <div class="column">
+          <div class="card">
+            <img src="/Static/css/team3.jpg" alt="John" style="width:100%">
+            <div class="container">
+              <h2><div class="HR mt-2">John Doe</div></h2>
+              <p class="title">HR recruiter</p>
+              <p>
+                John Doe is a seasoned HR professional with a passion for connecting talented individuals with exciting career opportunities. With a keen eye for talent and a commitment to fostering growth within organizations, John plays a pivotal role in shaping the future of our workforce.</p>
+              <p>john@hr.com</p>
+              <p><a href="{% url 'contact' %}"><button class="button">Contact</button></a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
 
     <footer>
         <div class="container">
@@ -123,14 +225,14 @@
                 <div class="col-md-3 col-lg-3 col-xl-3">
                     <h6 class="text-uppercase mb-4 font-weight-bold">Happy Team</h6>
                     <p>
-                       <a href="{% url 'homepage' %}" >Michael Grey</a>
-                    </p>
-                    <p>
-                      <a href="{% url 'homepage' %}" >Ezio Auditore da Firenze</a>
+                      <a href="{% url 'aboutus' %}" >Jane Doe</a>
                    </p>
                    <p>
-                    <a href="{% url 'homepage' %}" >Billy Russo</a>
-                 </p>
+                     <a href="{% url 'aboutus' %}" >Mike Ross</a>
+                  </p>
+                  <p>
+                   <a href="{% url 'aboutus' %}" >John Doe</a>
+                </p>
                 </div>
 
                 <div class="col-md-2 col-lg-2 col-xl-2">

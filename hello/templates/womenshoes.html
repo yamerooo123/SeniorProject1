@@ -486,14 +486,14 @@
               <div class="col-md-3 col-lg-3 col-xl-3">
                   <h6 class="text-uppercase mb-4 font-weight-bold">Happy Team</h6>
                   <p>
-                     <a href="{% url 'homepage' %}" >Michael Grey</a>
-                  </p>
-                  <p>
-                    <a href="{% url 'homepage' %}" >Ezio Auditore da Firenze</a>
+                    <a href="{% url 'aboutus' %}" >Jane Doe</a>
                  </p>
                  <p>
-                  <a href="{% url 'homepage' %}" >Billy Russo</a>
-               </p>
+                   <a href="{% url 'aboutus' %}" >Mike Ross</a>
+                </p>
+                <p>
+                 <a href="{% url 'aboutus' %}" >John Doe</a>
+              </p>
               </div>
 
               <div class="col-md-2 col-lg-2 col-xl-2">
@@ -552,12 +552,12 @@
     
     <script>
       $(document).ready(function() {
-        // Toggle collapse-sidebar when Show filter button is clicked
+        //toggle collapse-sidebar when Show filter button is clicked
         $('[data-mdb-toggle="collapse-sidebar"]').on('click', function() {
           $('#navbarSupportedContent').collapse('toggle');
         });
     
-        // Toggle accordion collapse when accordion button is clicked
+        //toggle accordion collapse when accordion button is clicked
         $('[data-mdb-toggle="collapse"]').on('click', function() {
           var target = $(this).attr('data-mdb-target');
           $(target).collapse('toggle');
