@@ -1,26 +1,48 @@
 <!DOCTYPE html>
-{%load static%}
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <style>
-            body {
-                background-image: url('/Static/css/white.jpg');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-            .gray-h3 {
-                color: ghostwhite
-            }
-            footer {
+<head>
+    <title>Our Partners</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/Style2.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-image: url('/Static/css/aboutus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        
+        .square-holder {
+            padding:30px;
+            border: 1px solid #cecece;
+            align-items: center;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom:20px;
+            background-color:#f1f1f1;
+            min-height:200px
+        }
+
+        .square-holder img {
+            max-width:100%;
+            filter: grayscale(100%);
+            transition: all 0.3s;
+        }
+
+        .square-holder:hover img{
+            filter:none;
+        }
+
+        footer {
             background-color: #45526e;
             color: white;
         }
@@ -36,146 +58,199 @@
             color: white;
             text-decoration: none;
         }
-            
-        </style>
-        <title>Partnerships</title>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
-            <div class="container">
-                <a class="navbar-logo"id="navbar-logo">Happy Feet</a>
-                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavId">
-                    <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownId">
-                              <a class="dropdown-item" href="{% url 'homepage' %}">Homepage</a>
-                              <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
-                              <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
-                              <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashions</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownId">
-                              <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
-                              <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex my-2 my-lg-0" action="{% url 'search_view' %}" method="POST">
-                        {% csrf_token %}
-                            <input class="form-control me-sm-2" type="text" placeholder="Search" name="Search">
-                            <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
-                    </form>
-                    <form>
-                        {% if user.is_authenticated %}
-                        <a class="btn btn-outline-dark ms-2" href="{% url 'cart_view' %}">
-                          Cart({{total_items}})
-                        </a>
-                        <a class="btn btn-outline-dark ms-2" href="{% url 'wishlist' %}">
-                            <i class="fas fa-tasks"></i>
-                          </a>
-                          <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
-                            Welcome,&nbsp;{{ user.username }}
-                          </a>
-                          <a class="btn btn-outline-dark ms-2" href="{% url 'signout' %}">
-                            Log&nbsp;Out
-                          </a>
-                        {% else %}
-                          <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
-                            Login
-                           </a>
-                        {% endif %}
-                    </form>
-                </div>
-            </div>
-        </nav>
-       
-        <div>
-            <h2>PARTNERSHIPS</h2>
-            <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <img src="{% static 'css/Adidas-Logo.png' %}" alt="Adidas Logo" class="small-logo">
-        <img src="{% static 'css/bata-logo.png' %}" alt="Bata Logo" class="small-logo">
-        <img src="{% static 'css/campus-logo.jpg' %}" alt="Campus Logo" class="small-logo">
-        <img src="{% static 'css/Puma-Logo.png' %}" alt="Puma Logo" class="small-logo">
-        <img src="{% static 'css/Reebok-Logo.png' %}" alt="Reebok Logo" class="small-logo">
-        <img src="{% static 'css/roadrunner-logo.png' %}" alt="roadrunner Logo" class="small-logo">
-        <img src="{% static 'css/sparx-logo.png' %}" alt="sparx Logo" class="small-logo">
-          <div class="footer">
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        .img-cover {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light ">
         <div class="container">
-            <div class="footer-links">
-                <div class="col-md-3 col-lg-3 col-xl-3">
-                    <h6 class="text-uppercase mb-4 font-weight-bold">Happy Team</h6>
-                    <p>
-                        <a href="{% url 'aboutus' %}" >Jane Doe</a>
-                     </p>
-                     <p>
-                       <a href="{% url 'aboutus' %}" >Mike Ross</a>
-                    </p>
-                    <p>
-                     <a href="{% url 'aboutus' %}" >John Doe</a>
-                  </p>
+            <a class="navbar-logo" id="navbar-logo">Happy Feet</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
+                aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="{% url 'homepage' %}">Homepage</a>
+                            <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
+                            <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
+                            <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashions</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="{% url 'menshoes' %}">Men's Shoes</a>
+                            <a class="dropdown-item" href="{% url 'womenshoes' %}">Women's Shoes</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                    </li>
+                </ul>
+                <form class="d-flex my-2 my-lg-0" action="{% url 'search_view' %}" method="POST">
+                    {% csrf_token %}
+                        <input class="form-control me-sm-2" type="text" placeholder="Search" name="Search">
+                        <button class="btn btn-outline-dark ms-2" type="submit">Search</button>
+                </form>
+                <form>
+                    {% if user.is_authenticated %}
+                    <a class="btn btn-outline-dark ms-2" href="{% url 'cart_view' %}">
+                      Cart({{ total_items }})
+                    </a>
+                    <a class="btn btn-outline-dark ms-2" href="{% url 'wishlist' %}">
+                        <i class="fas fa-tasks"></i>
+                      </a>
+                      <a class="btn btn-outline-dark ms-2" href="{% url 'user_settings' %}">
+                        Welcome,&nbsp;{{ user.username }}
+                      </a>
+                      <a class="btn btn-outline-dark ms-2" href="{% url 'signout' %}">
+                        Log&nbsp;Out
+                      </a>
+                    {% else %}
+                      <a class="btn btn-outline-dark ms-2" href="{% url 'signin' %}">
+                        Login
+                       </a>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </nav>
+    <section class="section section-default mt-none mb-none">
+        <div class="container">
+          <h2 class="mb-sm">Our  Partners</h2>
+          <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="square-holder">
+                <img src="/Static/css/Nike.jpg" />
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="square-holder">
+                <img src="/Static/css/adidas.jpg" />
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="square-holder">
+                <img src="/Static/css/puma.jpg" />
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="square-holder">
+                <img src="/Static/css/converse.jpg" />
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="square-holder">
+                <img src="/Static/css/Skechers.png" />
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="square-holder">
+                <img src="/Static/css/nb.jpg" />
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="square-holder">
+                <img src="/Static/css/reebok.png" />
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="square-holder">
+                <img src="/Static/css/fila.jpg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+<footer>
+    <div class="container">
+        <div class="footer-links">
+            <div class="col-md-3 col-lg-3 col-xl-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Happy Team</h6>
+                <p>
+                    <a href="{% url 'aboutus' %}" >Jane Doe</a>
+                 </p>
+                 <p>
+                   <a href="{% url 'aboutus' %}" >Mike Ross</a>
+                </p>
+                <p>
+                 <a href="{% url 'aboutus' %}" >John Doe</a>
+              </p>
+            </div>
+            <div class="col-md-2 col-lg-2 col-xl-2">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                <p>
+                    <a href="{% url 'menshoes' %}" class="text-white">Men Shoes</a>
+                </p>
+                <p>
+                    <a href="{% url 'womenshoes' %}" class="text-white">Women Shoes</a>
+                </p>
+                <p>
+                    <a href="#" class="text-white">Best Selling</a>
+                </p>
+            </div>
+            <div class="col-md-4 col-lg-3 col-xl-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                <p><i class="fas fa-home mr-3"></i> Bangkok, Bang Pho 10012, TH</p>
+                <p><i class="fas fa-envelope mr-3"></i> happyfeet_cs@gmail.com</p>
+                <p><i class="fas fa-phone mr-3"></i> + 092 496 5301</p>
+                <p><i class="fas fa-print mr-3"></i> + 092 496 5302</p>
+            </div>
+        </div>
+        <hr class="my-3">
+        <section class="p-3 pt-0">
+            <div class="row d-flex align-items-center">
+                <div class="col-md-7 col-lg-8 text-center text-md-start">
+                    <div class="p-3">
+                        &copy; 2023 Happy Feet. All rights reserved.
+                    </div>
                 </div>
-
-                <div class="col-md-2 col-lg-2 col-xl-2">
-                    <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
-                    <p>
-                        <a href="{% url 'menshoes' %}" class="text-white">Men Shoes</a>
-                    </p>
-                    <p>
-                        <a href="{% url 'womenshoes' %}" class="text-white">Women Shoes</a>
-                    </p>
-                    <p>
-                        <a href="#" class="text-white">Best Selling</a>
-                    </p>
-                </div>
-
-                <div class="col-md-4 col-lg-3 col-xl-3">
-                    <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
-                    <p><i class="fas fa-home mr-3"></i> Bangkok, Bang Pho 10012, TH</p>
-                    <p><i class="fas fa-envelope mr-3"></i> happyfeet_cs@gmail.com</p>
-                    <p><i class="fas fa-phone mr-3"></i> + 092 496 5301 </p>
-                    <p><i class="fas fa-print mr-3"></i> + 092 496 5302</p>
+                <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+                    <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
+                        <i class="fab fa-instagram"></i>
+                    </a>
                 </div>
             </div>
-
-            <hr class="my-3">
-
-            <section class="p-3 pt-0">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-7 col-lg-8 text-center text-md-start">
-                        <div class="p-3">
-                            &copy; 2023 Happy Feet. All rights reserved.
-                        </div>
-                    </div>
-
-                    <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
-                        <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
-                            <i class="fab fa-google"></i>
-                        </a>
-                        <a class="btn btn-outline-light btn-floating m-1" href="#" role="button">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
-                </div>
-              </div>
-        </div>
-    </footer>
-          
-
-    </body>
+        </section>
+    </div>
+</footer>
+<script>
+    $(document).ready(function () {
+        $('[data-mdb-toggle="collapse-sidebar"]').on('click', function () {
+            $('#navbarSupportedContent').collapse('toggle');
+        });
+        $('[data-mdb-toggle="collapse"]').on('click', function () {
+            const target = $(this).data('target');
+            $(target).collapse('toggle');
+        });
+    });
+</script>
+</body>
 </html>
