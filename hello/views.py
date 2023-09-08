@@ -283,13 +283,6 @@ def filter_products(request):
     }
     return render(request, 'filtered_products.html', context)
 
-def faqpage(request):
-    total_items = calculate_total_items(request.user.username)
-    context = {
-        'total_items': total_items,
-    }
-    return render(request, 'faqpage.html', context)
-
 @login_required
 @csrf_protect
 def user_private_info_change(request):

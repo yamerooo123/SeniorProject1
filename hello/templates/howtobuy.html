@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Homepage</title>
+    <title>How to buy</title>
     {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -70,7 +70,6 @@
                             <a class="dropdown-item" href="{% url 'aboutus' %}">About us</a>
                             <a class="dropdown-item" href="{% url 'howtobuy' %}">How to buy?</a>
                             <a class="dropdown-item" href="{% url 'partnerships' %}">Partnerships</a>
-                            <a class="dropdown-item" href="{% url 'faqpage' %}">FAQ</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -113,52 +112,75 @@
         </div>
     </nav>
     <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card mt-3">
-            <div class="text-center">
-              <img class="img-fluid w-50 align-content-center" alt="MenProduct1" src='/Static/css/searchandbrowse.jpg' style="object-fit: cover;" />
-            </div>
-            <div class="card-text ml-3 mr-3 mb-3">
-            <h5>1. Browse Products:</h5> Search or browse to find what you want.
-          </div>
-          </div>
+      <div class="head mt-3">
+        <b><h5>How to order?</h5></b>
+      </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card mt-3">
+        <div class="text-center">
+          <img class="img-fluid w-50 align-content-center" alt="MenProduct1" src='/Static/css/searchandbrowse.jpg' style="object-fit: cover;" />
         </div>
-        <div class="col-md-4">
-          <div class="card mt-3">
-            <div class="text-center">
-              <img class="img-fluid w-50 align-content-center" alt="MenProduct1" src='/Static/css/addtocart.jpg' style="object-fit: cover;" />
-            </div>
-            <div class="card-text ml-3 mr-3 mb-3">
-            <h5>2. Add to Cart:</h5> Click "Add to Cart" for the item you want.
-
-          </div>
-        </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <!-- Card Content for the Third Card -->
-          </div>
-        </div>
-    
-        <!-- Second Row: Three Cards Below -->
-        <div class="col-md-4">
-          <div class="card">
-            <!-- Card Content for the Fourth Card -->
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <!-- Card Content for the Fifth Card -->
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <!-- Card Content for the Sixth Card -->
-          </div>
+        <div class="card-text ml-3 mr-3 mb-3">
+          <h5>1. Browse Products:</h5> Search or browse to find what you want.
         </div>
       </div>
     </div>
+    <div class="col-md-4">
+      <div class="card mt-3">
+        <div class="text-center">
+          <img class="img-fluid w-50 align-content-center" src='/Static/css/addtocart.jpg' style="object-fit: cover;" />
+        </div>
+        <div class="card-text ml-3 mr-3 mb-3">
+          <h5>2. Add to Cart:</h5> Click "Add to Cart" for the item you want.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mt-3">
+        <div class="text-center">
+          <img class="img-fluid w-50 align-content-center" src='/Static/css/enterdetails.jpg' style="object-fit: cover;" />
+        </div>
+        <div class="card-text ml-3 mr-3 mb-3">
+          <h5>3. Proceed to Checkout:</h5> Click "Checkout" or "Proceed to Checkout."
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card mt-3">
+        <div class="text-center">
+          <img class="img-fluid w-50 align-content-center" src='/Static/css/confirm-payment.jpg' style="object-fit: cover;" />
+        </div>
+        <div class="card-text ml-3 mr-3 mb-3">
+          <h5>4. Confirm and Pay:</h5> Review, confirm your order, and make the payment.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mt-3">
+        <div class="text-center">
+          <img class="img-fluid w-50 align-content-center" src='/Static/css/trackorder.jpg' style="object-fit: cover;" />
+        </div>
+        <div class="card-text ml-3 mr-3 mb-3">
+          <h5>5.Track Order:</h5> Wait for your order, which you can track using provided information.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mt-3">
+        <div class="text-center">
+          <img class="img-fluid w-50 align-content-center" src='/Static/css/enjoy.png' style="object-fit: cover;" />
+        </div>
+        <div class="card-text ml-3 mr-3 mb-3">
+          <h5>6. Receive and Enjoy:</h5>  Once delivered, unpack and enjoy your purchase!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer>
     <div class="container">
         <div class="footer-links">

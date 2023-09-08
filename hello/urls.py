@@ -22,7 +22,6 @@ urlpatterns = [
     path('product-page/<int:product_id>/', views.product_page, name="product_page"),
     path('women-product-page/<int:product_id>/', views.women_product_page, name="women_product_page"),
     path('admin/', admin.site.urls),
-    path('faqpage/', views.faqpage, name="faqpage"),
     path('user-private-info-change/', views.user_private_info_change, name="user_private_info_change"),
     path('user-public-info-change/', views.user_public_info_change, name="user_public_info_change"),
     path('change-password/', auth_views.PasswordChangeView.as_view(template_name='user_settings.html', success_url='/user-settings/'), name='change_password'),

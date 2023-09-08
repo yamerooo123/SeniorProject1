@@ -2,7 +2,7 @@ from django.urls import path, include
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib import admin
 from hello.views import (
-    welcome, homepage, signup, signin, aboutus, howtobuy, partnerships, contact, contact_view, user_settings, menshoes, womenshoes, signout, filtered_products, filter_products, product_page, faqpage, user_private_info_change, user_public_info_change, 
+    welcome, homepage, signup, signin, aboutus, howtobuy, partnerships, contact, contact_view, user_settings, menshoes, womenshoes, signout, filtered_products, filter_products, product_page, user_private_info_change, user_public_info_change, 
     password_change_done, edit_account_success, cart_view, women_product_page, add_to_cart, remove_from_cart, edit_quantity, thank_you_for_purchase, checkout, buy_this,  w_add_to_cart, W_buy_this
     ,w_edit_quantity, search_view, out_of_stock, wishlist, add_to_wishlist, remove_from_wishlist, filtered_products)
 
@@ -26,7 +26,6 @@ urlpatterns = [
     path('product-page/<int:product_id>/', product_page, name='product_page'),
     path('women-product-page/<int:product_id>/', women_product_page, name='women_product_page'),
     path('cart-view/', cart_view, name='cart_view'),
-    path('faqpage/', faqpage, name="faqpage"),
     path('user-private-info-change/', user_private_info_change, name='user_private_info_change'),
     path('user-public-info-change/', user_public_info_change, name='user_public_info_change'),
     path('change-password/', PasswordChangeView.as_view(template_name='user_settings.html'), name='change_password'),
