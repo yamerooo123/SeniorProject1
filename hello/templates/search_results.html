@@ -57,7 +57,10 @@
         }
         .checked {
           color: orange;
-        }    
+        }   
+        .yellow {
+          color: #ffc107;
+        }  
     </style>
 </head>
 
@@ -135,11 +138,11 @@
                             <span class="text-uppercase text-muted brand">{{ item.brand }},{{ item.type2 }},{{ item.material }}</span>
                         </div>
                         <div class="d-flex flex-row">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
+                            <i class="fa fa-star{% if item.rating < 0.5 %}-o{% elif item.rating >= 0.5 and item.rating < 1 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                            <i class="fa fa-star{% if item.rating < 1.5 %}-o{% elif item.rating >= 1.5 and item.rating < 2 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                            <i class="fa fa-star{% if item.rating < 2.5 %}-o{% elif item.rating >= 2.5 and item.rating < 3 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                            <i class="fa fa-star{% if item.rating < 3.5 %}-o{% elif item.rating >= 3.5 and item.rating < 4 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                            <i class="fa fa-star{% if item.rating < 4.5 %}-o{% elif item.rating >= 4.5 and item.rating < 5 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
                           </div>
                         <div class="mt-1 mb-1 spec-1"><span>{{ item.short_description }}</span></div>
                     </div>

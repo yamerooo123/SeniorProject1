@@ -37,6 +37,10 @@
         .footer-links a:hover {
             text-decoration: underline;
         }
+        .custom-red-tab {
+            background-color: red;
+            color: white; 
+        }
     </style>
 </head>
 <body>
@@ -121,7 +125,7 @@
                             <a class="list-group-item list-group-item-action" data-toggle="list" href="#history" role="tab">
                                 History
                             </a>
-                            <a class="list-group-item list-group-item-action" data-toggle="list" href="{% url 'signout' %}" role="tab">
+                            <a class="list-group-item list-group-item-action btn custom-red-tab" data-toggle="list" href="{% url 'signout' %}" role="tab">
                                 Logout
                             </a>
                         </div>

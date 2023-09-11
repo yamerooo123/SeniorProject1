@@ -64,6 +64,9 @@
         .checked {
           color: orange;
         } 
+        .yellow {
+          color: #ffc107;
+        } 
         </style>
     </head>
     <body>
@@ -174,16 +177,18 @@
                                     <span class="text-uppercase text-muted brand">{{ shoefeature.brand }} {{ shoefeature.type2 }} {{ shoefeature.material }}</span>
                                     <h5 class="text-uppercase">{{ shoefeature.productName }}
                                         <div class="d-flex flex-row mt-2">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
+                                            <i class="fa fa-star{% if shoefeature.rating < 0.5 %}-o{% elif shoefeature.rating >= 0.5 and shoefeature.rating < 1 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                            <i class="fa fa-star{% if shoefeature.rating < 1.5 %}-o{% elif shoefeature.rating >= 1.5 and shoefeature.rating < 2 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                            <i class="fa fa-star{% if shoefeature.rating < 2.5 %}-o{% elif shoefeature.rating >= 2.5 and shoefeature.rating < 3 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                            <i class="fa fa-star{% if shoefeature.rating < 3.5 %}-o{% elif shoefeature.rating >= 3.5 and shoefeature.rating < 4 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                            <i class="fa fa-star{% if shoefeature.rating < 4.5 %}-o{% elif shoefeature.rating >= 4.5 and shoefeature.rating < 5 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
                                           </div>
+                                          
                                     </h5>
+                                    <span class="card-text">({{ shoefeature.rating }} out of 5 stars)</span>
                                     {% for shoefeature in shoefeatures %}
                                     <div class="price d-flex flex-row align-items-center">
-                                        <span class="act-price">${{ shoefeature.price }}</span>
+                                        <h4><span class="act-price mt-3">${{ shoefeature.price }}</span></h4>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -353,11 +358,11 @@
                                     <button class="btn btn-success text-uppercase px-4 mb-3">{{ brand }}</button>
                                     <button class="btn btn-dark text-uppercase px-4 mb-3">{{ material }}</button>
                                     <div class="d-flex flex-row">
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
+                                        <i class="fa fa-star{% if rating < 0.5 %}-o{% elif rating >= 0.5 and rating < 1 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 1.5 %}-o{% elif rating >= 1.5 and rating < 2 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 2.5 %}-o{% elif rating >= 2.5 and rating < 3 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 3.5 %}-o{% elif rating >= 3.5 and rating < 4 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 4.5 %}-o{% elif rating >= 4.5 and rating < 5 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
                                         <p class="card-text">({{ rating }} ratings score)</p>
                                       </div>
                                     <h5 class="card-title">{{ model }}</h5>
@@ -409,11 +414,11 @@
                                     <button class="btn btn-success text-uppercase px-4 mb-3">{{ brand }}</button>
                                     <button class="btn btn-dark text-uppercase px-4 mb-3">{{ material }}</button>
                                     <div class="d-flex flex-row">
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
+                                        <i class="fa fa-star{% if rating < 0.5 %}-o{% elif rating >= 0.5 and rating < 1 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 1.5 %}-o{% elif rating >= 1.5 and rating < 2 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 2.5 %}-o{% elif rating >= 2.5 and rating < 3 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 3.5 %}-o{% elif rating >= 3.5 and rating < 4 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 4.5 %}-o{% elif rating >= 4.5 and rating < 5 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
                                         <p class="card-text">({{ rating }} ratings score)</p>
                                       </div>
                                     <h5 class="card-title">{{ model }}</h5>
