@@ -38,7 +38,7 @@ def get_similar_products_mats(input_material):
         )
     cursor = db_connection.cursor()
     #SQL command
-    query = f"SELECT type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_shoefeatures WHERE material = '{input_material}' AND rating > 4"
+    query = f"SELECT type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_shoefeatures WHERE material = '{input_material}' AND rating > 3"
     #retrieve queryset table
     cursor.execute(query)
     #Store fecthed queryset table in the variable
@@ -52,7 +52,7 @@ def get_similar_products_mats(input_material):
     descriptions = [preprocess_text(row[4]) for row in shoe_data]
     
     #Create metrix using TFID and extract words from desc col
-    vectorizer = TfidfVectorizer()
+    vectorizer = TfidfVectorizer(ngram_range=(1, 2))
     tfidf_matrix = vectorizer.fit_transform(descriptions)
 
     input_idx = None
