@@ -180,7 +180,7 @@
                                     <p class="about">{{ shoefeature.description }}</p>
                                     {% endfor %}
                                     {% for shoefeature in shoefeatures %}
-                                    <form action="{% url 'add_to_cart' shoefeature.product_id %}" method="post">
+                                    <form action="{% url 'w_add_to_cart' shoefeature.product_id %}" method="post">
                                         {% csrf_token %}
                                     <div class="sizes mt-3">
                                         <h6 class="text-uppercase">Size</h6> 
@@ -271,7 +271,7 @@
                                                             button.addClass('disabled'); 
                                                     
                                                             var productId = button.closest('form').data('product-id');
-                                                            var url = '{% url "add_to_wishlist" product_id=0 %}'.replace('0', productId);
+                                                            var url = '{% url "w_add_to_wishlist" product_id=0 %}'.replace('0', productId);
                                                             
                                                             //Get CSRF token from the cookie
                                                             var csrftoken = getCookie('csrftoken');
@@ -332,51 +332,62 @@
             <div class="card-body">
                 <div class="row">
                     {% for shoe_tuple in similar_products1 %}
-                    {% with type1=shoe_tuple.0 type2=shoe_tuple.1 brand=shoe_tuple.2 material=shoe_tuple.3 description=shoe_tuple.4 model=shoe_tuple.5 productImage=shoe_tuple.6 price=shoe_tuple.7 rating=shoe_tuple.8%}
+                    {% with product_id=shoe_tuple.0 type1=shoe_tuple.1 type2=shoe_tuple.2 brand=shoe_tuple.3 material=shoe_tuple.4 description=shoe_tuple.5 model=shoe_tuple.6 productImage=shoe_tuple.7 price=shoe_tuple.8 rating=shoe_tuple.9 %}
                         <div class="col-md-3 mb-3">
-                             <div class="card">
+                            <div class="card">
                                 {% for productimage in shoefeatures %}
-                                <img src="{{ productImage }}" class="card-img-top img-fluid" >
+                                <img src="{{ productImage }}" class="card-img-top img-fluid">
                                 {% endfor %}
                                 <div class="card-body">
-                                    <button class="btn btn-primary text-uppercase px-4 mb-3">{{ type1 }}</button>                                   
+                                    <button class="btn btn-primary text-uppercase px-4 mb-3">{{ type1 }}</button>
                                     <button class="btn btn-success text-uppercase px-4 mb-3">{{ brand }}</button>
                                     <button class="btn btn-dark text-uppercase px-4 mb-3">{{ material }}</button>
                                     <div class="d-flex flex-row">
-                                        <i class="fa fa-star{% if rating < 0.5 %}-o{% elif rating >= 0.5 and rating < 1 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
-                                        <i class="fa fa-star{% if rating < 1.5 %}-o{% elif rating >= 1.5 and rating < 2 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
-                                        <i class="fa fa-star{% if rating < 2.5 %}-o{% elif rating >= 2.5 and rating < 3 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
-                                        <i class="fa fa-star{% if rating < 3.5 %}-o{% elif rating >= 3.5 and rating < 4 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
-                                        <i class="fa fa-star{% if rating < 4.5 %}-o{% elif rating >= 4.5 and rating < 5 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 0.5 %}-o{% elif rating >= 0.5 and rating < 1 %}-half-o{% endif %} yellow"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 1.5 %}-o{% elif rating >= 1.5 and rating < 2 %}-half-o{% endif %} yellow"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 2.5 %}-o{% elif rating >= 2.5 and rating < 3 %}-half-o{% endif %} yellow"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 3.5 %}-o{% elif rating >= 3.5 and rating < 4 %}-half-o{% endif %} yellow"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 4.5 %}-o{% elif rating >= 4.5 and rating < 5 %}-half-o{% endif %} yellow"
+                                            aria-hidden="true"></i>
                                         <p class="card-text">({{ rating }} ratings score)</p>
-                                      </div>
-                                    <h5 class="card-title">{{ model }}</h5>
+                                    </div>
+                                    <a href="{% url 'women_product_page' product_id %}">
+                                        <h5 class="card-title">{{ model }}</h5>
+                                    </a>
                                     <p class="card-text">{{ description }}</p>
                                 </div>
                                 <div class="cart ml-3 mt-3 mb-3 align-items-center d-inline-flex">
                                     <div class="row">
                                         <div class="col-6">
-                                    <button type="button" class="btn btn-outline-success text-uppercase px-4">{{price}}$</button>
-                                  </div>   
-                                <div class="col-6">
-                                <div class="cart mr-3 mb-3">
-                                    {% for shoefeature in shoefeatures %}
-                                    <form action="{% url 'add_to_cart' shoefeature.product_id %}" method="POST" >
-                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-outline-danger text-uppercase px-4">Cart</button>                                                                           
-                                    </form>
-                                    {% endfor %}
-                                </div> 
+                                            <form action="{% url 'W_buy_this' product_id %}" method="POST">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-outline-success text-uppercase px-4">{{price}}</button>
+                                            </form>
+                                     
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="cart mr-3 mb-3">
+                                                
+                                                <form action="{% url 'w_add_to_cart' product_id %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-outline-danger text-uppercase px-4">Cart</button>
+                                                </form>
+                                         
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-
-                            </div>
-                        </div>
                             </div>
                         </div>
                     {% endwith %}
                     {% endfor %}
                 </div>
             </div>
+            
             
         </div>
         <div class="card">
@@ -388,7 +399,7 @@
             <div class="card-body">
                 <div class="row">
                     {% for shoe_tuple in similar_products2 %}
-                    {% with type1=shoe_tuple.0 type2=shoe_tuple.1 brand=shoe_tuple.2 material=shoe_tuple.3 description=shoe_tuple.4 model=shoe_tuple.5 productImage=shoe_tuple.6 price=shoe_tuple.7 rating=shoe_tuple.8 %}
+                    {% with product_id=shoe_tuple.0 type1=shoe_tuple.1 type2=shoe_tuple.2 brand=shoe_tuple.3 material=shoe_tuple.4 description=shoe_tuple.5 model=shoe_tuple.6 productImage=shoe_tuple.7 price=shoe_tuple.8 rating=shoe_tuple.9 %}
                         <div class="col-md-3 mb-3">
                              <div class="card">
                                 {% for productimage in shoefeatures %}
@@ -406,22 +417,25 @@
                                         <i class="fa fa-star{% if rating < 4.5 %}-o{% elif rating >= 4.5 and rating < 5 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
                                         <p class="card-text">({{ rating }} ratings score)</p>
                                       </div>
-                                    <h5 class="card-title">{{ model }}</h5>
+                                      <a href="{% url 'women_product_page' product_id %}">
+                                        <h5 class="card-title">{{ model }}</h5>
+                                    </a>
                                     <p class="card-text">{{ description }}</p>
                                 </div>
                                 <div class="cart ml-3 mt-3 mb-3 align-items-center d-inline-flex">
                                     <div class="row">
                                         <div class="col-6">
-                                    <button type="button" class="btn btn-outline-success text-uppercase px-4">{{price}}$</button>
+                                            <form action="{% url 'W_buy_this' product_id %}" method="POST">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-outline-success text-uppercase px-4">{{price}}</button>
+                                            </form>
                                   </div>   
                                 <div class="col-6">
                                 <div class="cart mr-3 mb-3">
-                                    {% for shoefeature in shoefeatures %}
-                                    <form action="{% url 'add_to_cart' shoefeature.product_id %}" method="POST" >
-                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-outline-danger text-uppercase px-4">Cart</button>                                                                           
-                                    </form>
-                                    {% endfor %}
+                                    <form action="{% url 'w_add_to_cart' product_id %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-outline-danger text-uppercase px-4">Cart</button>
+                                    </form>                             
                                 </div> 
                                 </div>
 

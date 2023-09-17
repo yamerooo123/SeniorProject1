@@ -143,7 +143,7 @@
                             <i class="fa fa-star{% if item.rating < 2.5 %}-o{% elif item.rating >= 2.5 and item.rating < 3 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
                             <i class="fa fa-star{% if item.rating < 3.5 %}-o{% elif item.rating >= 3.5 and item.rating < 4 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
                             <i class="fa fa-star{% if item.rating < 4.5 %}-o{% elif item.rating >= 4.5 and item.rating < 5 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
-                          </div>
+                        </div>
                         <div class="mt-1 mb-1 spec-1"><span>{{ item.short_description }}</span></div>
                     </div>
                     <div class="align-items-center align-content-center col-md-3 border-left mt-1">
@@ -152,8 +152,12 @@
                         </div>
                         <h6 class="text-success">Free shipping</h6>
                         <div class="d-flex flex-column mt-4">
-                            <a href="{% url 'product_page' product_id=item.product_id %}" class="btn btn-primary btn-sm">Buy this</a>
-                            <form id="add-to-wishlist-form-{{ item.product_id }}" data-product-id="{{ item.product_id }}" method="post"  >
+                            {% if item in shoefeatures %}
+                                <a href="{% url 'product_page' product_id=item.product_id %}" class="btn btn-primary btn-sm">Buy this</a>
+                            {% elif item in womenshoefeatures %}
+                                <a href="{% url 'women_product_page' product_id=item.product_id %}" class="btn btn-primary btn-sm">Buy this</a>
+                            {% endif %}
+                            <form id="add-to-wishlist-form-{{ item.product_id }}" data-product-id="{{ item.product_id }}" method="post">
                                 {% csrf_token %}
                                 <button class="btn btn-outline-yellow btn-sm add-to-wishlist-button mt-3" type="button">Add to Wishlist</button>
                             </form>
@@ -169,7 +173,7 @@
                                         button.addClass('disabled'); 
                                 
                                         var productId = button.closest('form').data('product-id');
-                                        var url = '{% url "add_to_wishlist" product_id=0 %}'.replace('0', productId);
+                                        var url = '{% if item in shoefeatures %}{% url "add_to_wishlist" product_id=0 %}{% elif item in womenshoefeatures %}{% url "w_add_to_wishlist" product_id=0 %}{% endif %}'.replace('0', productId);
                                         
                                         //Get CSRF token from the cookie
                                         var csrftoken = getCookie('csrftoken');
@@ -186,7 +190,7 @@
                                                 console.log(data.message);
                                             },
                                             complete: function() {
-                                                button.removeClass('disabled');  //Re-enable the button
+                                                button.removeClass('disabled');  
                                             }
                                         });
                                     });                              
@@ -206,12 +210,14 @@
                                         return cookieValue;
                                     }
                                 });
-                                </script>
-                            </div>
+                            </script>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
+    </div>
+    
         {% if products %}
         {% else %}
         <div>

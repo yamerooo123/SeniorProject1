@@ -17,7 +17,7 @@ def preprocess_text(text):
     return text
 
 #get similar prod. using material col
-def get_similar_products_mats(input_material):
+def get_similar_products_mats(input_material,  input_source):
     #if in development sets False, while deploying sets True
     is_jawsdb = True
     #connect to JawsDB
@@ -38,7 +38,13 @@ def get_similar_products_mats(input_material):
         )
     cursor = db_connection.cursor()
     #SQL command
-    query = f"SELECT type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_shoefeatures WHERE material = '{input_material}' AND rating > 3"
+    #use SQL commeand to find gender(type1), category(type2), brand, material and description based on the input brand from views.py
+    if input_source == 'product_page':
+        #if the request is from men product page
+        query = f"SELECT product_id,type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_shoefeatures WHERE material = '{input_material}' AND rating > 3"
+    else:
+        #if the request is from women product page
+        query = f"SELECT product_id,type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_womenshoefeatures WHERE material = '{input_material}' AND rating > 3"
     #retrieve queryset table
     cursor.execute(query)
     #Store fecthed queryset table in the variable
@@ -49,7 +55,7 @@ def get_similar_products_mats(input_material):
     db_connection.close()
     
     #clean data in desc col 
-    descriptions = [preprocess_text(row[4]) for row in shoe_data]
+    descriptions = [preprocess_text(row[5]) for row in shoe_data]
     
     #Create metrix using TFID and extract words from desc col
     vectorizer = TfidfVectorizer(ngram_range=(1, 2))
@@ -59,7 +65,7 @@ def get_similar_products_mats(input_material):
 
     #loop over col to find mats col
     for i, shoe_features_column in enumerate(shoe_data):
-        if shoe_features_column[3] == input_material:
+        if shoe_features_column[4] == input_material:
             input_idx = i
             break
     #if none case
@@ -69,15 +75,16 @@ def get_similar_products_mats(input_material):
     similarity_scores = []
 
     for i, shoe_features_column in enumerate(shoe_data):
-        type1 = shoe_features_column[0]
-        type2 = shoe_features_column[1]
-        brand = shoe_features_column[2]
-        product_image = shoe_features_column[3] 
-        material = shoe_features_column[4]
-        description = shoe_features_column[5]
-        product_image = shoe_features_column[6]
-        price = shoe_features_column[7]
-        rating = shoe_features_column[8]
+        product_id = shoe_features_column[0]
+        type1 = shoe_features_column[1]
+        type2 = shoe_features_column[2]
+        brand = shoe_features_column[3]
+        product_image = shoe_features_column[4] 
+        material = shoe_features_column[5]
+        description = shoe_features_column[6]
+        product_image = shoe_features_column[7]
+        price = shoe_features_column[8]
+        rating = shoe_features_column[9]
         #calculate sim score using COSINE
         similarity_score = calculate_similarity_score(tfidf_matrix.getrow(input_idx), tfidf_matrix.getrow(i))
         

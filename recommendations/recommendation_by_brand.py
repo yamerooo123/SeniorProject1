@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 #generate recommendation using product brand
-def get_similar_products(input_brand, input_material):
+def get_similar_products(input_brand, input_material, input_source):
     is_jawsdb = True
     #connect to mysql
     if is_jawsdb:
@@ -26,10 +26,15 @@ def get_similar_products(input_brand, input_material):
         )
     cursor = db_connection.cursor()
     #use SQL commeand to find gender(type1), category(type2), brand, material and description based on the input brand from views.py
-    query = f"SELECT type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_shoefeatures WHERE brand = '{input_brand}' AND material = '{input_material}'"
+    if input_source == 'product_page':
+        #if the request is from men product page
+        query = f"SELECT product_id, type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_shoefeatures WHERE brand = '{input_brand}' AND material = '{input_material}'"
+    else:
+        #if the request is from women product page
+        query = f"SELECT product_id, type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_womenshoefeatures WHERE brand = '{input_brand}' AND material = '{input_material}'"
     #execute the SQL command
     cursor.execute(query)
-    #show the quert table using fetchall
+    #show the query table using fetchall
     shoe_data = cursor.fetchall()
 
     cursor.close()
@@ -42,7 +47,7 @@ def get_similar_products(input_brand, input_material):
 #find similarity between input brand and query table
 def recommend_products(input_brand, input_material, shoe_data):
     # Extract description column by iterating over columns in the query table
-    descriptions = [row[4] for row in shoe_data]
+    descriptions = [row[5] for row in shoe_data]
     
     # Use TF-IDF Vectorizer to generate the matrix of word frequencies in the description column
     vectorizer = TfidfVectorizer()
@@ -51,7 +56,7 @@ def recommend_products(input_brand, input_material, shoe_data):
     input_idx = None
 
     for i, shoe_features_column in enumerate(shoe_data):
-        if shoe_features_column[2] == input_brand:
+        if shoe_features_column[3] == input_brand:
             input_idx = i
             break 
 
@@ -61,15 +66,16 @@ def recommend_products(input_brand, input_material, shoe_data):
     similarity_scores = []
 
     for i, shoe_features_column in enumerate(shoe_data):
-        type1 = shoe_features_column[0]
-        type2 = shoe_features_column[1]
-        brand = shoe_features_column[2]
-        product_image = shoe_features_column[3]
-        material = shoe_features_column[4]  
-        description = shoe_features_column[5]
-        product_image = shoe_features_column[6]
-        price = shoe_features_column[7]
-        rating = shoe_features_column[8]
+        product_id = shoe_features_column[0]
+        type1 = shoe_features_column[1]
+        type2 = shoe_features_column[2]
+        brand = shoe_features_column[3]
+        product_image = shoe_features_column[4]
+        material = shoe_features_column[5]  
+        description = shoe_features_column[6]
+        product_image = shoe_features_column[7]
+        price = shoe_features_column[8]
+        rating = shoe_features_column[9]
 
         #Calculate the similarity score between input product and current product
         similarity_score = calculate_similarity_score(tfidf_matrix.getrow(input_idx), tfidf_matrix.getrow(i))

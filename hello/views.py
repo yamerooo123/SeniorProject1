@@ -230,8 +230,8 @@ def product_page(request, product_id):
     input_brand = shoefeature.brand
     input_material = shoefeature.material
     
-    similar_products1 = get_similar_products(input_brand, input_material)
-    similar_products2 = get_similar_products_mats(input_material)
+    similar_products1 = get_similar_products(input_brand, input_material, 'product_page')
+    similar_products2 = get_similar_products_mats(input_material, 'product_page')
 
     context = {
         'shoefeatures': [shoefeature],
@@ -252,8 +252,8 @@ def women_product_page(request, product_id):
     input_brand = shoefeature.brand
     input_material = shoefeature.material
 
-    similar_products1 = get_similar_products(input_brand, input_material)
-    similar_products2 = get_similar_products_mats(input_material)
+    similar_products1 = get_similar_products(input_brand, input_material, 'women_product_page')
+    similar_products2 = get_similar_products_mats(input_material, 'women_product_page')
 
     context = {
         'shoefeatures': [shoefeature],
@@ -476,7 +476,7 @@ def add_to_cart(request, product_id):
     context = {
         'shoefeatures': shoefeature,
     }
-    return render(request, 'product_page.html', context)
+    return render(request, 'product_page', context)
 
 @login_required(login_url='/signin/')
 def w_add_to_cart(request, product_id):
@@ -502,7 +502,8 @@ def w_add_to_cart(request, product_id):
     context = {
         'womenshoefeatures': womenshoefeature,
     }
-    return render(request, 'women_product_page', context)
+    return redirect(request, 'women_product_page', product_id=product_id)
+
 
 @login_required(login_url='/signin/')
 def buy_this(request, product_id):
@@ -703,6 +704,7 @@ def search_view(request):
     womenshoefeatures = WomenShoeFeatures.objects.get_queryset().order_by('product_id')
     search_items = request.POST.get('Search')
     
+    
     context = {
         'shoefeatures': shoefeatures,
         'womenshoefeatures': womenshoefeatures,
@@ -744,6 +746,28 @@ def wishlist(request):
 @login_required(login_url='/signin/')
 def add_to_wishlist(request, product_id):
     shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
+    
+    if request.method == 'POST':
+        product = Wishlist(
+            productName=shoefeature.productName,
+            price=shoefeature.price,
+            available_quantity=shoefeature.InStock,
+            productImage=shoefeature.productImage,
+            type2=shoefeature.type2,
+            brand=shoefeature.brand,
+            material=shoefeature.material,
+            username=request.user.username,
+            product_id=shoefeature.product_id,
+        )
+        product.save()
+        
+        return JsonResponse({'message': 'Item added to wishlist successfully'})
+    
+    return JsonResponse({'message': 'Invalid request'}, status=400)
+
+@login_required(login_url='/signin/')
+def w_add_to_wishlist(request, product_id):
+    shoefeature = get_object_or_404(WomenShoeFeatures, product_id=product_id)
     
     if request.method == 'POST':
         product = Wishlist(
