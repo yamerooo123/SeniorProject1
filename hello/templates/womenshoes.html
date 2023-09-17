@@ -44,6 +44,55 @@
         .footer-links a:hover {
             text-decoration: underline;
         }
+        .btn-outline-yellow {
+          color: #ffc107; 
+          background-color: transparent;
+          border-color: #ffc107; 
+          width: 140px;
+        }
+        .btn-outline-yellow:hover {
+          background-color: #ffc107; 
+          border-color: #ffc107; 
+          color: #fff; 
+        }
+        .checked {
+          color: orange;
+        }  
+        .yellow {
+          color: #ffc107;
+        } 
+        .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 5px 10px;
+        margin: 0 2px;
+        text-align: center;
+        text-decoration: none;
+        background-color: #000000;
+        color: #fff;
+        border: 1px solid #000000;
+        border-radius: 3px;
+    }
+
+    .pagination a:hover {
+        background-color: #000000;
+    }
+
+    .pagination .current-page {
+        background-color: #000000;
+        border: 1px solid #000000;
+    }
+
+    .pagination .step-links {
+        display: flex;
+        align-items: center;
+    }
     </style>
 </head>
 
@@ -435,11 +484,17 @@
                   <div class="col-md-6 mt-1">
                     <h5>{{ womenshoefeature.productName }}</h5>
                     <div class="d-flex flex-row">
-                      <span class="text-uppercase text-muted brand">{{ womenshoefeature.brand }}</span>
+                      <span class="text-uppercase text-muted brand">{{ womenshoefeature.brand }},{{ womenshoefeature.type2 }},{{ womenshoefeature.material }}</span>
                     </div>
                     <div class="d-flex flex-row">
-                      Material: {{ womenshoefeature.material }}</span>
+                      <i class="fa fa-star{% if womenshoefeature.rating < 0.5 %}-o{% elif womenshoefeature.rating >= 0.5 and womenshoefeature.rating < 1 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                      <i class="fa fa-star{% if womenshoefeature.rating < 1.5 %}-o{% elif womenshoefeature.rating >= 1.5 and womenshoefeature.rating < 2 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                      <i class="fa fa-star{% if womenshoefeature.rating < 2.5 %}-o{% elif womenshoefeature.rating >= 2.5 and womenshoefeature.rating < 3 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                      <i class="fa fa-star{% if womenshoefeature.rating < 3.5 %}-o{% elif womenshoefeature.rating >= 3.5 and womenshoefeature.rating < 4 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                      <i class="fa fa-star{% if womenshoefeature.rating < 4.5 %}-o{% elif womenshoefeature.rating >= 4.5 and womenshoefeature.rating < 5 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+      
                     </div>
+                    <p class="card-text">({{ womenshoefeature.rating }} out of 5 ratings score)</p>
                     <div class="mt-1 mb-1 spec-1"><span>{{ womenshoefeature.short_description }}</span></div>
                   </div>
                   <div class="align-items-center align-content-center col-md-3 border-left mt-1">
@@ -449,33 +504,83 @@
                     <h6 class="text-success">Free shipping</h6>
                     <div class="d-flex flex-column mt-4">
                       <a href="{% url 'women_product_page' product_id=womenshoefeature.product_id %}" class="btn btn-primary btn-sm">Details</a>
-                      <button class="btn btn-outline-primary btn-sm mt-2" type="button">Add to wishlist</button>
+                      <form id="add-to-wishlist-form-{{ womenshoefeature.product_id }}" data-product-id="{{ womenshoefeature.product_id }}" method="post"  >
+                        {% csrf_token %}
+                        <button class="btn btn-outline-yellow btn-sm add-to-wishlist-button mt-3" type="button">Add to Wishlist</button>
+                    </form>
+                      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
+                                    //add to Wishlist button
+                                    $('.add-to-wishlist-button').click(function() {
+                                        var button = $(this);
+                                        if (button.hasClass('disabled')) {
+                                            return; 
+                                        }                              
+                                        button.addClass('disabled'); 
+                                
+                                        var productId = button.closest('form').data('product-id');
+                                        var url = '{% url "add_to_wishlist" product_id=0 %}'.replace('0', productId);
+                                        
+                                        //get CSRF token from the cookie
+                                        var csrftoken = getCookie('csrftoken');
+                                
+                                        //send an AJAX POST request to add the product to the wishlist
+                                        $.ajax({
+                                            url: url,
+                                            method: 'POST',
+                                            headers: {
+                                                'X-CSRFToken': csrftoken
+                                            },
+                                            success: function(data) {
+                                                //handle the JSON response here
+                                                console.log(data.message);
+                                            },
+                                            complete: function() {
+                                                button.removeClass('disabled');
+                                            }
+                                        });
+                                    });                              
+                                    //function to get CSRF cookie
+                                    function getCookie(name) {
+                                        var cookieValue = null;
+                                        if (document.cookie && document.cookie !== '') {
+                                            var cookies = document.cookie.split(';');
+                                            for (var i = 0; i < cookies.length; i++) {
+                                                var cookie = cookies[i].trim();
+                                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        return cookieValue;
+                                    }
+                                });
+                                </script>
                     </div>
                   </div>
                 </div>
                 {% endfor %}
               </div>
             </div>
-            
-            <nav aria-label="pagination" class="d-flex justify-content-center mt-3">
-              <ul class="pagination">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <div class="pagination">
+              <span class="step-links">
+                  {% if womenshoefeatures.has_previous %}
+                      <a href="?page=1">&laquo; first</a>
+                      <a href="?page={{ womenshoefeatures.previous_page_number }}">previous</a>
+                  {% endif %}
+          
+                  <span class="current-page">
+                      Page {{ womenshoefeatures.number }} of {{ womenshoefeatures.paginator.num_pages }}.
+                  </span>
+          
+                  {% if womenshoefeatures.has_next %}
+                      <a href="?page={{ womenshoefeatures.next_page_number }}">next</a>
+                      <a href="?page={{ womenshoefeatures.paginator.num_pages }}">last &raquo;</a>
+                  {% endif %}
+              </span>
+          </div>
     </div>
 </div>
         </section>

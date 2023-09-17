@@ -9,7 +9,7 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="{% static 'css/Style2.css' %}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -41,6 +41,32 @@
         .footer-links a:hover {
             text-decoration: underline;
         }
+        .btn-outline-yellow {
+          color: #ffc107; 
+          background-color: transparent;
+          border-color: #ffc107; 
+        }
+        .btn-outline-yellow:hover {
+          background-color: #ffc107; 
+          border-color: #ffc107; 
+          color: #fff; 
+        }
+        .btn-yellow {
+            color: #ffc107; 
+            background-color: #ffc107; 
+            border-color: #ffc107;
+        }   
+        .btn-yellow:hover {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #ffc107; 
+        }
+        .checked {
+          color: orange;
+        } 
+        .yellow {
+          color: #ffc107;
+        } 
         </style>
     </head>
     <body>
@@ -105,165 +131,311 @@
                 </div>
             </div>
         </nav>
-        <div class="row">
-            <div class="col-md-12">
-              <nav>
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item">
-                    <a href="{% url 'homepage' %}">Home</a>
-                  </li>
-                  <li class="breadcrumb-item">
-                    <a href="{% url 'womenshoes' %}">Women products</a>
-                  </li>
-                  {% for womenshoefeature in womenshoefeatures %}
-                  <li class="breadcrumb-item active">
-                    {{ womenshoefeature.productName }}
-                  </li>
-                  {% endfor %}
-            </div>
-          </div>
-    <div class="container mt-5 mb-5">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-10">
-                <div class="card">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="images p-3">
-                                {% for womenshoefeature in womenshoefeatures %}
-                                <div class="text-center p-4"> 
-                                    <img id="main-image" src="{{ womenshoefeature.productImage }}" width="250" />
+        <div class="container mt-5 mb-5">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="images p-3">
+                                    {% for shoefeature in shoefeatures %}
+                                    <div class="text-center p-4"> 
+                                        <img id="main-image" src="{{ shoefeature.productImage }}" width="400" />
+                                    </div>
+                                    
+                                    <div class="thumbnail text-center"> <img onclick="change_image(this)" src="{{ shoefeature.productImage }}" width="70"> <img onclick="change_image(this)" src="{{ shoefeature.productImage }}" width="70"> </div>
                                 </div>
-                                
-                                <div class="thumbnail text-center"> <img onclick="change_image(this)" src="{{ womenshoefeature.productImage }}" width="70"> <img onclick="change_image(this)" src="{{ womenshoefeature.productImage }}" width="70"> </div>
+                                    {% endfor %}
                             </div>
-                                {% endfor %}
-                        </div>
-                        <div class="col-md-6">
-                            <div class="product p-4">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex align-items-center">
-                                        <a href="{% url 'womenshoes' %}" class="text-decoration-none text-dark">
+                            <div class="col-md-6">
+                                <div class="product p-4">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
                                             <i class="fa fa-long-arrow-left"></i>
-                                            <span class="ml-1">Back</span>
-                                          </a>
-                                    </div>
-                                </div>
-                                {% for womenshoefeature in womenshoefeatures %}
-                                <div class="mt-4 mb-3">
-                                    <span class="text-uppercase text-muted brand">{{ womenshoefeature.brand }}</span>
-                                    <h5 class="text-uppercase">{{ womenshoefeature.productName }}</h5>
-                                    {% for womenshoefeature in womenshoefeatures %}
-                                    <div class="price d-flex flex-row align-items-center">
-                                        <span class="act-price">${{ womenshoefeature.price }}</span>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                                {% endfor %}
-                                {% for womenshoefeature in womenshoefeatures %}
-                                <p class="about">{{ womenshoefeature.description }}</p>
-                                {% endfor %}
-                                {% for womenshoefeature in womenshoefeatures %}
-                                <form action="{% url 'w_add_to_cart' womenshoefeature.product_id %}" method="post">
-                                    {% csrf_token %}
-                                <div class="sizes mt-3">
-                                    <h6 class="text-uppercase">Size</h6> 
-                                    <label class="radio"> <input type="radio" name="product_size" value="7" checked> <span>7</span> </label> 
-                                    <label class="radio"> <input type="radio" name="product_size" value="8"> <span>8</span> </label> 
-                                    <label class="radio"> <input type="radio" name="product_size" value="9"> <span>9</span> </label> 
-                                    <label class="radio"> <input type="radio" name="product_size" value="10"> <span>10</span> </label>
-                                    <label class="radio"> <input type="radio" name="product_size" value="11"> <span>11</span> </label>
-                                    <label class="radio"> <input type="radio" name="product_size" value="12"> <span>12</span> </label>
-                                    <label class="radio"> <input type="radio" name="product_size" value="13"> <span>13</span> </label>
-                                    <label class="radio"> <input type="radio" name="product_size" value="14"> <span>14</span> </label>
-                                </div>
-                                {% endfor %}
-                                {% for womenshoefeature in womenshoefeatures %}
-                                <div class="MainColor mt-3">
-                                    <h6 class="text-uppercase">Main Color</h6> 
-                                    <label class="radio"> <input type="radio" name="main_color" value="Black" checked> <span>Black</span> </label> 
-                                    <label class="radio"> <input type="radio" name="main_color" value="White"> <span>White</span></label> 
-                                    <label class="radio"> <input type="radio" name="main_color" value="Grey"> <span>Grey</span></label> 
-                                    <label class="radio"> <input type="radio" name="main_color" value="Blue"> <span>Blue</span></label>
-                                    <label class="radio"> <input type="radio" name="main_color" value="Red"> <span>Red</span></label>
-                                </div>
-                                {% endfor %}
-                                {% for womenshoefeature in womenshoefeatures %}
-                                <div class="SubColor mt-3">
-                                    <h6 class="text-uppercase">Sub Color</h6> 
-                                    <label class="radio"> <input type="radio" name="sub_color" value="Black" checked> <span>Black</span> </label> 
-                                    <label class="radio"> <input type="radio" name="sub_color" value="White"> <span>White</span></label> 
-                                    <label class="radio"> <input type="radio" name="sub_color" value="Grey"> <span>Grey</span></label> 
-                                    <label class="radio"> <input type="radio" name="sub_color" value="Blue"> <span>Blue</span></label>
-                                    <label class="radio"> <input type="radio" name="sub_color" value="Red"> <span>Red</span></label>
-                                </div>
-                                {% endfor %}
-                                {% for womenshoefeature in womenshoefeatures %}
-                                <div class="row">
-                                    <div class="col-md-6">
-                                      <div class="Quantity mt-3">
-                                        <h6 class="text-uppercase">In stock</h6>
-                                        <h6 class="rounded bg-light d-inline-block p-2">{{ womenshoefeature.InStock }}</h6>
-                                      </div>
-                                    </div>
-                                    {% endfor %}
-                                    {% for womenshoefeature in womenshoefeatures %}
-                                    <div class="col-md-6">
-                                      <div class="OrderQuantity mt-3">
-                                        <h6 class="text-uppercase">Quantity</h6>
-                                        <select class="form-select" name="quantity">
-                                          <option value="1">1</option>
-                                          <option value="2">2</option>
-                                          <option value="3">3</option>
-                                          <option value="4">4</option>
-                                          <option value="5">5</option>
-                                          <option value="6">6</option>
-                                          <option value="7">7</option>
-                                          <option value="8">8</option>
-                                          <option value="9">9</option>
-                                          <option value="10">10</option>
-                                        </select>
-                                        <div class="cart mt-3 align-items-center d-inline-flex">
-                                            <button type="submit" class="btn btn-danger text-uppercase px-4">Add to cart</button>
-                                            <i class="fa fa-heart text-muted"></i>
-                                            <i class="fa fa-share-alt text-muted"></i>
+                                            <a href="javascript:history.back()" class="btn btn-sm-primary">Back</a>
                                         </div>
-                                        </form> 
-                                        <div class="cart mt-3 align-items-center d-inline-flex">
-                                            <form action="{% url 'W_buy_this' womenshoefeature.product_id %}" method="POST" >
-                                             {% csrf_token %}
-                                            <button type="submit" class="btn btn-success text-uppercase px-4">Buy this</button>                                        
-                                            <i class="fa fa-heart text-muted"></i>
-                                            <i class="fa fa-share-alt text-muted"></i>
-                                            </form>
-                                          </div>     
-                                      </div>
                                     </div>
-                                  </div>                                         
-                                {% endfor %}                                                                                                                      
+                                    {% for shoefeature in shoefeatures %}
+                                    <div class="mt-4 mb-3">
+                                        <span class="text-uppercase text-muted brand">{{ shoefeature.brand }} {{ shoefeature.type2 }} {{ shoefeature.material }}</span>
+                                        <h5 class="text-uppercase">{{ shoefeature.productName }}
+                                            <div class="d-flex flex-row mt-2">
+                                                <i class="fa fa-star{% if shoefeature.rating < 0.5 %}-o{% elif shoefeature.rating >= 0.5 and shoefeature.rating < 1 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if shoefeature.rating < 1.5 %}-o{% elif shoefeature.rating >= 1.5 and shoefeature.rating < 2 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if shoefeature.rating < 2.5 %}-o{% elif shoefeature.rating >= 2.5 and shoefeature.rating < 3 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if shoefeature.rating < 3.5 %}-o{% elif shoefeature.rating >= 3.5 and shoefeature.rating < 4 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                                <i class="fa fa-star{% if shoefeature.rating < 4.5 %}-o{% elif shoefeature.rating >= 4.5 and shoefeature.rating < 5 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                              </div>
+                                              
+                                        </h5>
+                                        <span class="card-text">({{ shoefeature.rating }} out of 5 stars)</span>
+                                        {% for shoefeature in shoefeatures %}
+                                        <div class="price d-flex flex-row align-items-center">
+                                            <h4><span class="act-price mt-3">${{ shoefeature.price }}</span></h4>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endfor %}
+                                    {% for shoefeature in shoefeatures %}
+                                    <p class="about">{{ shoefeature.description }}</p>
+                                    {% endfor %}
+                                    {% for shoefeature in shoefeatures %}
+                                    <form action="{% url 'add_to_cart' shoefeature.product_id %}" method="post">
+                                        {% csrf_token %}
+                                    <div class="sizes mt-3">
+                                        <h6 class="text-uppercase">Size</h6> 
+                                        <label class="radio"> <input type="radio" name="product_size" value="7" checked> <span>7</span> </label> 
+                                        <label class="radio"> <input type="radio" name="product_size" value="8"> <span>8</span> </label> 
+                                        <label class="radio"> <input type="radio" name="product_size" value="9"> <span>9</span> </label> 
+                                        <label class="radio"> <input type="radio" name="product_size" value="10"> <span>10</span> </label>
+                                        <label class="radio"> <input type="radio" name="product_size" value="11"> <span>11</span> </label>
+                                        <label class="radio"> <input type="radio" name="product_size" value="12"> <span>12</span> </label>
+                                        <label class="radio"> <input type="radio" name="product_size" value="13"> <span>13</span> </label>
+                                        <label class="radio"> <input type="radio" name="product_size" value="14"> <span>14</span> </label>
+                                    </div>
+                                    {% endfor %}
+                                    {% for shoefeature in shoefeatures %}
+                                    <div class="MainColor mt-3">
+                                        <h6 class="text-uppercase">Main Color</h6> 
+                                        <label class="radio"> <input type="radio" name="main_color" value="Black" checked> <span>Black</span> </label> 
+                                        <label class="radio"> <input type="radio" name="main_color" value="White"> <span>White</span></label> 
+                                        <label class="radio"> <input type="radio" name="main_color" value="Grey"> <span>Grey</span></label> 
+                                        <label class="radio"> <input type="radio" name="main_color" value="Blue"> <span>Blue</span></label>
+                                        <label class="radio"> <input type="radio" name="main_color" value="Red"> <span>Red</span></label>
+                                    </div>
+                                    {% endfor %}
+                                    {% for shoefeature in shoefeatures %}
+                                    <div class="SubColor mt-3">
+                                        <h6 class="text-uppercase">Sub Color</h6> 
+                                        <label class="radio"> <input type="radio" name="sub_color" value="Black" checked> <span>Black</span> </label> 
+                                        <label class="radio"> <input type="radio" name="sub_color" value="White"> <span>White</span></label> 
+                                        <label class="radio"> <input type="radio" name="sub_color" value="Grey"> <span>Grey</span></label> 
+                                        <label class="radio"> <input type="radio" name="sub_color" value="Blue"> <span>Blue</span></label>
+                                        <label class="radio"> <input type="radio" name="sub_color" value="Red"> <span>Red</span></label>
+                                    </div>
+                                    {% endfor %}
+                                    {% for shoefeature in shoefeatures %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                          <div class="Quantity mt-3">
+                                            <h6 class="text-uppercase">In stock</h6>
+                                            <h6 class="rounded bg-light d-inline-block p-2">{{ shoefeature.InStock }}</h6>
+                                          </div>
+                                        </div>
+                                        {% endfor %}
+                                        {% for shoefeature in shoefeatures %}
+                                        <div class="col-md-6">
+                                          <div class="OrderQuantity mt-3">
+                                            <h6 class="text-uppercase">Quantity</h6>
+                                            <select class="form-select" name="quantity">
+                                              <option value="1">1</option>
+                                              <option value="2">2</option>
+                                              <option value="3">3</option>
+                                              <option value="4">4</option>
+                                              <option value="5">5</option>
+                                              <option value="6">6</option>
+                                              <option value="7">7</option>
+                                              <option value="8">8</option>
+                                              <option value="9">9</option>
+                                              <option value="10">10</option>
+                                            </select>
+                                            <div class="cart mt-3 align-items-center d-inline-flex">
+                                                <form action="{% url 'w_add_to_cart' shoefeature.product_id %}" method="POST" >
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger text-uppercase px-4">Add to cart</button>
+                                            </form>
+                                            </div>                                  
+                                            <div class="cart mt-3 align-items-center d-inline-flex ">
+                                                <form action="{% url 'W_buy_this' shoefeature.product_id %}" method="POST" >
+                                                 {% csrf_token %}
+                                                <button type="submit" class="btn btn-success text-uppercase px-4">Buy this</button>                                        
+                                                </form>
+                                              </div>   
+                                              {% for shoefeature in shoefeatures %}
+                                              <div class="cart mt-3 align-items-center d-inline-flex ">
+                                                <form id="add-to-wishlist-form-{{ shoefeature.product_id }}" data-product-id="{{ shoefeature.product_id }}" method="post"  >
+                                                    {% csrf_token %}
+                                                    <button class="btn btn-yellow btn-md add-to-wishlist-button" type="button">
+                                                        <i class="fas fa-star" style="color: #ffffff;"></i>
+                                                    </button>
+                                                </form>
+                                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                                <script>
+                                                    $(document).ready(function() {
+                                                        //Add to Wishlist button
+                                                        $('.add-to-wishlist-button').click(function() {
+                                                            var button = $(this);
+                                                            if (button.hasClass('disabled')) {
+                                                                return; 
+                                                            }                              
+                                                            button.addClass('disabled'); 
+                                                    
+                                                            var productId = button.closest('form').data('product-id');
+                                                            var url = '{% url "add_to_wishlist" product_id=0 %}'.replace('0', productId);
+                                                            
+                                                            //Get CSRF token from the cookie
+                                                            var csrftoken = getCookie('csrftoken');
+                                                    
+                                                            //Send an AJAX POST request to add the product to the wishlist
+                                                            $.ajax({
+                                                                url: url,
+                                                                method: 'POST',
+                                                                headers: {
+                                                                    'X-CSRFToken': csrftoken
+                                                                },
+                                                                success: function(data) {
+                                                                    //Handle the JSON response here
+                                                                    console.log(data.message);
+                                                                },
+                                                                complete: function() {
+                                                                    button.removeClass('disabled');  //Re-enable the button
+                                                                }
+                                                            });
+                                                        });                              
+                                                        //Function to get CSRF cookie
+                                                        function getCookie(name) {
+                                                            var cookieValue = null;
+                                                            if (document.cookie && document.cookie !== '') {
+                                                                var cookies = document.cookie.split(';');
+                                                                for (var i = 0; i < cookies.length; i++) {
+                                                                    var cookie = cookies[i].trim();
+                                                                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                                                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            return cookieValue;
+                                                        }
+                                                    });
+                                                    </script>
+                                              </div>
+                                              {% endfor %}     
+                                          </div>
+                                        </div>
+                                      </div>                                         
+                                    {% endfor %}                                                                                                                      
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
-    <div>
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    {% for womenshoefeature in womenshoefeatures %}
-                    <h5>Similar products to {{ womenshoefeature.productName }}</h5>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                {% for menshoes in shoefeatures %}
+                <h4>Similar products to {{ menshoes.productName }}</h4>
+                {% endfor %}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for shoe_tuple in similar_products1 %}
+                    {% with type1=shoe_tuple.0 type2=shoe_tuple.1 brand=shoe_tuple.2 material=shoe_tuple.3 description=shoe_tuple.4 model=shoe_tuple.5 productImage=shoe_tuple.6 price=shoe_tuple.7 rating=shoe_tuple.8%}
+                        <div class="col-md-3 mb-3">
+                             <div class="card">
+                                {% for productimage in shoefeatures %}
+                                <img src="{{ productImage }}" class="card-img-top img-fluid" >
+                                {% endfor %}
+                                <div class="card-body">
+                                    <button class="btn btn-primary text-uppercase px-4 mb-3">{{ type1 }}</button>                                   
+                                    <button class="btn btn-success text-uppercase px-4 mb-3">{{ brand }}</button>
+                                    <button class="btn btn-dark text-uppercase px-4 mb-3">{{ material }}</button>
+                                    <div class="d-flex flex-row">
+                                        <i class="fa fa-star{% if rating < 0.5 %}-o{% elif rating >= 0.5 and rating < 1 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 1.5 %}-o{% elif rating >= 1.5 and rating < 2 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 2.5 %}-o{% elif rating >= 2.5 and rating < 3 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 3.5 %}-o{% elif rating >= 3.5 and rating < 4 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 4.5 %}-o{% elif rating >= 4.5 and rating < 5 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <p class="card-text">({{ rating }} ratings score)</p>
+                                      </div>
+                                    <h5 class="card-title">{{ model }}</h5>
+                                    <p class="card-text">{{ description }}</p>
+                                </div>
+                                <div class="cart ml-3 mt-3 mb-3 align-items-center d-inline-flex">
+                                    <div class="row">
+                                        <div class="col-6">
+                                    <button type="button" class="btn btn-outline-success text-uppercase px-4">{{price}}$</button>
+                                  </div>   
+                                <div class="col-6">
+                                <div class="cart mr-3 mb-3">
+                                    {% for shoefeature in shoefeatures %}
+                                    <form action="{% url 'add_to_cart' shoefeature.product_id %}" method="POST" >
+                                     {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-danger text-uppercase px-4">Cart</button>                                                                           
+                                    </form>
+                                    {% endfor %}
+                                </div> 
+                                </div>
+
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                    {% endwith %}
                     {% endfor %}
                 </div>
-                <div class="card-body">
-                    <ul>
-                        {% for shoe in similar_shoes_list %}
-                            <li>{{ shoe }}</li>
-                        {% endfor %}
-                    </ul>
+            </div>
+            
+        </div>
+        <div class="card">
+            <div class="card-header">
+                {% for menshoes in shoefeatures %}
+                <h4>Similar products to {{ menshoes.productName }} from other brands</h4>
+                {% endfor %}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for shoe_tuple in similar_products2 %}
+                    {% with type1=shoe_tuple.0 type2=shoe_tuple.1 brand=shoe_tuple.2 material=shoe_tuple.3 description=shoe_tuple.4 model=shoe_tuple.5 productImage=shoe_tuple.6 price=shoe_tuple.7 rating=shoe_tuple.8 %}
+                        <div class="col-md-3 mb-3">
+                             <div class="card">
+                                {% for productimage in shoefeatures %}
+                                <img src="{{ productImage }}" class="card-img-top img-fluid " >
+                                {% endfor %}
+                                <div class="card-body">
+                                    <button class="btn btn-primary text-uppercase px-4 mb-3">{{ type1 }}</button>                                   
+                                    <button class="btn btn-success text-uppercase px-4 mb-3">{{ brand }}</button>
+                                    <button class="btn btn-dark text-uppercase px-4 mb-3">{{ material }}</button>
+                                    <div class="d-flex flex-row">
+                                        <i class="fa fa-star{% if rating < 0.5 %}-o{% elif rating >= 0.5 and rating < 1 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 1.5 %}-o{% elif rating >= 1.5 and rating < 2 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 2.5 %}-o{% elif rating >= 2.5 and rating < 3 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 3.5 %}-o{% elif rating >= 3.5 and rating < 4 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if rating < 4.5 %}-o{% elif rating >= 4.5 and rating < 5 %}-half-o{% endif %} yellow" aria-hidden="true"></i>
+                                        <p class="card-text">({{ rating }} ratings score)</p>
+                                      </div>
+                                    <h5 class="card-title">{{ model }}</h5>
+                                    <p class="card-text">{{ description }}</p>
+                                </div>
+                                <div class="cart ml-3 mt-3 mb-3 align-items-center d-inline-flex">
+                                    <div class="row">
+                                        <div class="col-6">
+                                    <button type="button" class="btn btn-outline-success text-uppercase px-4">{{price}}$</button>
+                                  </div>   
+                                <div class="col-6">
+                                <div class="cart mr-3 mb-3">
+                                    {% for shoefeature in shoefeatures %}
+                                    <form action="{% url 'add_to_cart' shoefeature.product_id %}" method="POST" >
+                                     {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-danger text-uppercase px-4">Cart</button>                                                                           
+                                    </form>
+                                    {% endfor %}
+                                </div> 
+                                </div>
+
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                    {% endfor %}
                 </div>
             </div>
+            
         </div>
+    </div>
     <footer>
         <div class="container">
             <div class="footer-links">

@@ -80,6 +80,7 @@ class WomenShoeFeatures(models.Model):
     InStock = models.IntegerField(verbose_name="In stock")
     product_idName = models.CharField(max_length=255, verbose_name="Product ID")
     material = models.CharField(max_length=255,  verbose_name="Material")
+    rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
     class Meta:
         verbose_name = "Women product"
         verbose_name_plural = "Women products"

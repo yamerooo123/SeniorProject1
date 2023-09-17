@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage, send_mail
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_protect
@@ -154,21 +154,22 @@ def user_dashboard(request):
 
 def menshoes(request):
     total_items = calculate_total_items(request.user.username)
-    shoefeatures = ShoeFeatures.objects.get_queryset().order_by('product_id')
-    
+    shoefeatures = ShoeFeatures.objects.all().order_by('product_id')
 
     items_per_page = 10
     paginator = Paginator(shoefeatures, items_per_page)
     page_number = request.GET.get('page')
-    shoefeatures_page = paginator.get_page(page_number)
 
-    max_page_links = 10
-    page_range = paginator.page_range[:max_page_links]
+    try:
+        shoefeatures_page = paginator.page(page_number)
+    except PageNotAnInteger:
+        shoefeatures_page = paginator.page(1)
+    except EmptyPage:
+        shoefeatures_page = paginator.page(paginator.num_pages)
 
     context = {
-        'shoefeatures': shoefeatures_page, 
+        'shoefeatures': shoefeatures_page,
         'total_items': total_items,
-        'page_range': page_range,
     }
     return render(request, 'menshoes.html', context)
 
@@ -199,7 +200,20 @@ def filtered_products(request):
     
 def womenshoes(request):
     total_items = calculate_total_items(request.user.username)
-    womenshoefeature = WomenShoeFeatures.objects.get_queryset().order_by('product_id')
+    womenshoefeature = WomenShoeFeatures.objects.all().order_by('product_id')
+
+    items_per_page = 10
+    paginator = Paginator(womenshoefeature, items_per_page)
+
+    page = request.GET.get('page')
+
+    try:
+        womenshoefeature = paginator.page(page)
+    except PageNotAnInteger:
+        womenshoefeature = paginator.page(1)
+    except EmptyPage:
+        womenshoefeature = paginator.page(paginator.num_pages)
+
     context = {
         'womenshoefeatures': womenshoefeature,
         'total_items': total_items,
@@ -230,19 +244,24 @@ def product_page(request, product_id):
     return render(request, 'product_page.html', context)
 
 def women_product_page(request, product_id):
+    page_number = request.GET.get('page')
+    product = WomenShoeFeatures.objects.get(product_id=product_id)
     total_items = calculate_total_items(request.user.username)
     shoefeature = get_object_or_404(WomenShoeFeatures, product_id=product_id)
 
-    # Get the brand of the input shoe
     input_brand = shoefeature.brand
+    input_material = shoefeature.material
 
-    # Call the recommendation function to get similar products
-    similar_shoes_list = get_similar_products(input_brand)  # Pass the input brand
+    similar_products1 = get_similar_products(input_brand, input_material)
+    similar_products2 = get_similar_products_mats(input_material)
 
     context = {
         'shoefeatures': [shoefeature],
         'total_items': total_items,
-        'similar_shoes_list': similar_shoes_list,  
+        'similar_products1': similar_products1,  
+        'similar_products2': similar_products2,
+        'product': product,
+        'page_number': page_number, 
     }
     return render(request, 'women_product_page.html', context)
 
@@ -461,17 +480,17 @@ def add_to_cart(request, product_id):
 
 @login_required(login_url='/signin/')
 def w_add_to_cart(request, product_id):
-    shoefeature = get_object_or_404(WomenShoeFeatures, product_id=product_id)
+    womenshoefeature = get_object_or_404(WomenShoeFeatures, product_id=product_id)
     if request.method == 'POST':
         product_quantity = request.POST.get('quantity', 1)
         main_color = request.POST.get('main_color')
         sub_color = request.POST.get('sub_color')
         product_size = request.POST.get('product_size') 
         cart = W_Cart(
-            product_price=shoefeature.price,
-            productName=shoefeature.productName,
+            product_price=womenshoefeature.price,
+            productName=womenshoefeature.productName,
             username=request.user.username,
-            product_image=shoefeature.productImage,
+            product_image=womenshoefeature.productImage,
             product_quantity=product_quantity,
             main_color =main_color,
             sub_color=sub_color,
@@ -481,9 +500,9 @@ def w_add_to_cart(request, product_id):
         return redirect('women_product_page', product_id=product_id)
 
     context = {
-        'womenshoefeatures': shoefeature,
+        'womenshoefeatures': womenshoefeature,
     }
-    return render(request, 'women_product_page.html', context)
+    return render(request, 'women_product_page', context)
 
 @login_required(login_url='/signin/')
 def buy_this(request, product_id):

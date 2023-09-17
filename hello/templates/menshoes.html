@@ -61,6 +61,38 @@
         .yellow {
           color: #ffc107;
         } 
+        .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .pagination a, .pagination .current-page {
+        display: inline-block;
+        padding: 5px 10px;
+        margin: 0 2px;
+        text-align: center;
+        text-decoration: none;
+        background-color: #000000;
+        color: #fff;
+        border: 1px solid #000000;
+        border-radius: 3px;
+    }
+
+    .pagination a:hover {
+        background-color: #000000;
+    }
+
+    .pagination .current-page {
+        background-color: #000000;
+        border: 1px solid #000000;
+    }
+
+    .pagination .step-links {
+        display: flex;
+        align-items: center;
+    }
     </style>
 </head>
 
@@ -532,56 +564,23 @@
             </div>
             </div>
           </div>
-          <nav aria-label="pagination" class="d-flex justify-content-center mt-3">
-            <ul class="pagination">
+          <div class="pagination">
+            <span class="step-links">
                 {% if shoefeatures.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page=1" aria-label="First">
-                            <span aria-hidden="true">&laquo;&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ shoefeatures.previous_page_number }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
+                    <a href="?page=1"> first</a>
+                    <a href="?page={{ shoefeatures.previous_page_number }}">previous</a>
                 {% endif %}
         
-                {% for num in page_range %}
-                    {% if shoefeatures.number == num %}
-                        <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
-                    {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                    {% endif %}
-                {% endfor %}
+                <span class="current-page">
+                    Page {{ shoefeatures.number }} of {{ shoefeatures.paginator.num_pages }}.
+                </span>
         
                 {% if shoefeatures.has_next %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ shoefeatures.next_page_number }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ shoefeatures.paginator.num_pages }}" aria-label="Last">
-                            <span aria-hidden="true">&raquo;&raquo;</span>
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
+                    <a href="?page={{ shoefeatures.next_page_number }}">next</a>
+                    <a href="?page={{ shoefeatures.paginator.num_pages }}">last &raquo;</a>
                 {% endif %}
-            </ul>
-        </nav>
-        
+            </span>
+        </div>
           
     </div>
 </div>
