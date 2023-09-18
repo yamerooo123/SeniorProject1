@@ -145,6 +145,7 @@ class OrderTransaction(models.Model):
     created_by = models.DateTimeField(default=timezone.now, verbose_name="Order date")
     delivery_status = models.CharField(max_length=255, default="Ongoing", choices=STATUS_CHOICES)
     total_amount_vat = models.DecimalField(max_digits=10, decimal_places=2,  verbose_name="Total amount")
+    order_ratings = models.DecimalField(max_digits=10, decimal_places=2,  verbose_name="Order Ratings")
 
 
 

@@ -16,6 +16,8 @@ from recommendations.recommendation_by_brand import *
 from recommendations.recommendation_by_material import *
 import os
 from django.http import JsonResponse
+from django.db.models import Avg
+
 
 
 def welcome(request):
@@ -801,4 +803,14 @@ def calculate_total_wishlist(username):
     total_products_in_wishlist = len(products_in_wishlist)
     return total_products_in_wishlist
 
+@login_required(login_url='/signin/')
+def rate_product(request, product_id):
+    if request.method == 'POST':
+        star_rating = request.POST.get('star_rating')
+        record_rate = ShoeFeatures.objects.get(product_id=product_id)
 
+        record_rate.rating = star_rating
+        record_rate.save()
+        return redirect('user_settings')
+
+    return redirect('user_settings')
