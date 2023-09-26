@@ -45,15 +45,24 @@
             text-decoration: underline;
         }
         .btn-outline-yellow {
-          color: #ffc107; 
+          color: #ffc107;
           background-color: transparent;
-          border-color: #ffc107; 
-          width: 140px;
+          border-color: #ffc107;
+          width: 100%;
+          padding: 6px 20px;
         }
+
         .btn-outline-yellow:hover {
-          background-color: #ffc107; 
-          border-color: #ffc107; 
-          color: #fff; 
+          background-color: #ffc107;
+          border-color: #ffc107;
+          color: #fff;
+        }
+  
+        @media (max-width: 768px) {
+          .btn-outline-yellow {
+            width: 100%;
+            padding: 3px 10px; 
+          }
         }
         .checked {
           color: orange;
