@@ -42,6 +42,8 @@ class ShoeFeatures(models.Model):
     product_idName = models.CharField(max_length=255, verbose_name="Product ID")
     material = models.CharField(max_length=255,  verbose_name="Material")
     rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
+    order_ratings = models.DecimalField(max_digits=10, decimal_places=2,  verbose_name="Order Ratings")
+
     class Meta:
         verbose_name = "Men product "
         verbose_name_plural = "Men products"
@@ -81,6 +83,8 @@ class WomenShoeFeatures(models.Model):
     product_idName = models.CharField(max_length=255, verbose_name="Product ID")
     material = models.CharField(max_length=255,  verbose_name="Material")
     rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
+    order_ratings = models.DecimalField(max_digits=10, decimal_places=2,  verbose_name="Order Ratings")
+
     class Meta:
         verbose_name = "Women product"
         verbose_name_plural = "Women products"
@@ -99,6 +103,8 @@ class M_Cart(models.Model):
     sub_color = models.CharField(max_length=255)
     product_size = models.IntegerField()
     InStock = models.IntegerField()
+    order_ratings = models.DecimalField(max_digits=10, decimal_places=2,  verbose_name="Order Ratings")
+
 
     def __str__(self):
         return str(self.productName)
@@ -113,6 +119,7 @@ class W_Cart(models.Model):
     main_color = models.CharField(max_length=255)
     sub_color = models.CharField(max_length=255)
     product_size = models.IntegerField()
+    order_ratings = models.DecimalField(max_digits=10, decimal_places=2,  verbose_name="Order Ratings")
 
     def __str__(self):
         return str(self.productName)

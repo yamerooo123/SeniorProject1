@@ -471,6 +471,7 @@ def add_to_cart(request, product_id):
             sub_color=sub_color,
             product_size=product_size,
             InStock=shoefeature.InStock,
+            order_ratings=shoefeature.order_ratings,
         )
         cart.save()
         return redirect('product_page', product_id=product_id)
@@ -497,6 +498,7 @@ def w_add_to_cart(request, product_id):
             main_color =main_color,
             sub_color=sub_color,
             product_size=product_size,
+            order_ratings=womenshoefeature.order_ratings,
         )
         cart.save()
         return redirect('women_product_page', product_id=product_id)
@@ -526,6 +528,7 @@ def buy_this(request, product_id):
             sub_color=sub_color,
             product_size=product_size,
             InStock=shoefeature.InStock,
+            order_ratings=shoefeature.order_ratings,
         )
         cart.save()
         return redirect('cart_view', product_id=product_id)
@@ -553,6 +556,7 @@ def W_buy_this(request, product_id):
             main_color =main_color,
             sub_color=sub_color,
             product_size=product_size,
+            order_ratings=womenshoefeature.order_ratings,
         )
         cart.save()
         return redirect('cart_view', product_id=product_id)
@@ -677,6 +681,7 @@ def checkout(request):
                     product_size=m_cart_entry.product_size,
                     total_amount_vat=total_amount_vat,
                     payment_method=payment_method,
+                    order_ratings=m_cart_entry.order_ratings,
                 )
 
             for w_cart_entry in w_cart_entries:
@@ -691,6 +696,7 @@ def checkout(request):
                     product_size=w_cart_entry.product_size,
                     total_amount_vat=total_amount_vat,
                     payment_method=payment_method,
+                    order_ratings=w_cart_entry.order_ratings,
                 )
 
             m_cart_entries.delete()
