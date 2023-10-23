@@ -12,72 +12,75 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-     body {
-            background-image: url('/Static/css/aboutus.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            }
-            body {
-            margin: 0;
-            padding: 0;
-        }
+    body {
+    margin: 0;
+    padding: 0;
+    background-image: url('/Static/css/aboutus.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    }
 
-        footer {
-            background-color: #45526e;
-            color: white;
-        }
+    footer {
+        background-color: #45526e;
+        color: white;
+    }
 
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            padding: 2rem 0;
-        }
+    .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 2rem 0;
+    }
 
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-        }
+    .footer-links a {
+        color: white;
+        text-decoration: none;
+    }
 
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
+    .footer-links a:hover {
+        text-decoration: underline;
+    }
+
+    .btn-outline-yellow {
+        color: #ffc107;
+        background-color: transparent;
+        border-color: #ffc107;
+        width: 100%;
+        padding: 6px 20px;
+    }
+
+    .btn-outline-yellow:hover {
+        background-color: #ffc107;
+        border-color: #ffc107;
+        color: #fff;
+    }
+
+    @media (max-width: 768px) {
         .btn-outline-yellow {
-          color: #ffc107;
-          background-color: transparent;
-          border-color: #ffc107;
-          width: 100%;
-          padding: 6px 20px;
-        }
-
-        .btn-outline-yellow:hover {
-          background-color: #ffc107;
-          border-color: #ffc107;
-          color: #fff;
-        }
-  
-        @media (max-width: 768px) {
-          .btn-outline-yellow {
             width: 100%;
-            padding: 3px 10px; 
-          }
+            padding: 3px 10px;
         }
-        .checked {
-          color: orange;
-        }  
-        .yellow {
-          color: #ffc107;
-        } 
-        .pagination {
+    }
+
+    .checked {
+        color: orange;
+    }
+
+    .yellow {
+        color: #ffc107;
+    }
+
+    .pagination {
         display: flex;
         justify-content: center;
         align-items: center;
         margin-top: 20px;
     }
 
-    .pagination a, .pagination .current-page {
+    .pagination a,
+    .pagination .current-page {
         display: inline-block;
         padding: 5px 10px;
         margin: 0 2px;

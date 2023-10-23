@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 #generate recommendation using product brand
-def get_similar_products(input_brand, input_material, input_source):
+def get_similar_products(input_brand, input_material, input_current_product_id, input_source):
     is_jawsdb = True
     #connect to mysql
     if is_jawsdb:
@@ -25,13 +25,13 @@ def get_similar_products(input_brand, input_material, input_source):
             database="web_project"  
         )
     cursor = db_connection.cursor()
-    #use SQL commeand to find gender(type1), category(type2), brand, material and description based on the input brand from views.py
+    #use SQL command to find recommendation products based on the input brand from views.py
     if input_source == 'product_page':
         #if the request is from men product page
-        query = f"SELECT product_id, type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_shoefeatures WHERE brand = '{input_brand}' AND material = '{input_material}'"
+        query = f"SELECT product_id, type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_shoefeatures WHERE brand = '{input_brand}' AND material = '{input_material}' AND product_id != '{input_current_product_id}'"
     else:
         #if the request is from women product page
-        query = f"SELECT product_id, type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_womenshoefeatures WHERE brand = '{input_brand}' AND material = '{input_material}'"
+        query = f"SELECT product_id, type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_womenshoefeatures WHERE brand = '{input_brand}' AND material = '{input_material}' AND product_id != '{input_current_product_id}'"
     #execute the SQL command
     cursor.execute(query)
     #show the query table using fetchall
@@ -41,15 +41,12 @@ def get_similar_products(input_brand, input_material, input_source):
     #close the connection
     db_connection.close()
     #find similarity between input brand and query table using recommend_products function
-    recommendations = recommend_products(input_brand, input_material, shoe_data)
+    recommendations = recommend_products(input_brand, input_material, input_current_product_id, shoe_data)
     #return results
     return recommendations
 #find similarity between input brand and query table
-def recommend_products(input_brand, input_material, shoe_data):
-    # Extract description column by iterating over columns in the query table
+def recommend_products(input_brand, input_material, input_current_product_id, shoe_data):
     descriptions = [row[5] for row in shoe_data]
-    
-    # Use TF-IDF Vectorizer to generate the matrix of word frequencies in the description column
     vectorizer = TfidfVectorizer()
     tfidf_matrix = vectorizer.fit_transform(descriptions)
 
@@ -83,12 +80,12 @@ def recommend_products(input_brand, input_material, shoe_data):
         #Check if the current product is the same as the input product, and exclude it
         if i != input_idx:
             similarity_scores.append((shoe_features_column, similarity_score))
-    
+
     #Sort the recommendations by similarity score in descending order
     sorted_recommendations = sorted(similarity_scores, key=lambda x: x[1], reverse=True)
     
-    #Limit the number of recommendations to 4, excluding the input product
-    top_4_recommendations = [rec[0] for rec in sorted_recommendations[:4]]
+    #Limit the number of recommendations to 4, including the similarity score
+    top_4_recommendations = [(rec[0], rec[1]) for rec in sorted_recommendations[:4]]
     
     return top_4_recommendations
 

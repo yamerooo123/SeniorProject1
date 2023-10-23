@@ -43,6 +43,7 @@ class ShoeFeatures(models.Model):
     material = models.CharField(max_length=255,  verbose_name="Material")
     rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
     order_ratings = models.DecimalField(max_digits=10, decimal_places=2,  verbose_name="Order Ratings")
+    sim_score = models.DecimalField(max_digits=10, decimal_places=2,  verbose_name="Similarity Score")
 
     class Meta:
         verbose_name = "Men product "
@@ -84,6 +85,7 @@ class WomenShoeFeatures(models.Model):
     material = models.CharField(max_length=255,  verbose_name="Material")
     rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
     order_ratings = models.DecimalField(max_digits=10, decimal_places=2,  verbose_name="Order Ratings")
+    sim_score = models.DecimalField(max_digits=10, decimal_places=2,  verbose_name="Similarity Score")
 
     class Meta:
         verbose_name = "Women product"

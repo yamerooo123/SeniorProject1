@@ -229,11 +229,12 @@ def product_page(request, product_id):
     total_items = calculate_total_items(request.user.username)
     shoefeature = get_object_or_404(ShoeFeatures, product_id=product_id)
     
+    input_current_product_id = shoefeature.product_id
     input_brand = shoefeature.brand
     input_material = shoefeature.material
-    
-    similar_products1 = get_similar_products(input_brand, input_material, 'product_page')
-    similar_products2 = get_similar_products_mats(input_material, 'product_page')
+    #pass product into recommendation system
+    similar_products1 = get_similar_products(input_brand, input_material, input_current_product_id,'product_page')
+    similar_products2 = get_similar_products_mats(input_material,input_brand, 'product_page')
 
     context = {
         'shoefeatures': [shoefeature],
@@ -251,11 +252,12 @@ def women_product_page(request, product_id):
     total_items = calculate_total_items(request.user.username)
     shoefeature = get_object_or_404(WomenShoeFeatures, product_id=product_id)
 
+    input_current_product_id = shoefeature.product_id
     input_brand = shoefeature.brand
     input_material = shoefeature.material
 
-    similar_products1 = get_similar_products(input_brand, input_material, 'women_product_page')
-    similar_products2 = get_similar_products_mats(input_material, 'women_product_page')
+    similar_products1 = get_similar_products(input_brand, input_material, input_current_product_id,'women_product_page')
+    similar_products2 = get_similar_products_mats(input_material,input_brand, 'women_product_page')
 
     context = {
         'shoefeatures': [shoefeature],

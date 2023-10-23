@@ -1,27 +1,14 @@
+# Generate recommendation using Material column
+import mysql.connector
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
-import mysql.connector #fetching table
-import numpy as np#similarity calculation
-from sklearn.feature_extraction.text import TfidfVectorizer#extract meaningful words
-from sklearn.metrics.pairwise import cosine_similarity#cosine similarity lib
-from nltk.corpus import stopwords#preprocess data
-import string
-
-#load NLTK stop words
-stop_words = set(stopwords.words('english'))
-
-#preprocess process
-def preprocess_text(text):
-    text = ''.join([char for char in text if char not in string.punctuation])
-    text = text.lower()
-    text = ' '.join([word for word in text.split() if word not in stop_words])
-    return text
-
-#get similar prod. using material col
-def get_similar_products_mats(input_material,  input_source):
-    #if in development sets False, while deploying sets True
+def get_similar_products_mats(input_material, input_brand, input_source):
     is_jawsdb = True
-    #connect to JawsDB
+    # Connect to MySQL
     if is_jawsdb:
+        # Connect to JawsDB
         db_connection = mysql.connector.connect(
             host="dt3bgg3gu6nqye5f.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
             user="nxniqxcq5s01amgv",
@@ -29,7 +16,7 @@ def get_similar_products_mats(input_material,  input_source):
             database="oy8070wbdpo6vn6u"
         )
     else:
-        #Connect to local database port:80
+        # Connect to local database
         db_connection = mysql.connector.connect(
             host="localhost",
             user="root",
@@ -37,41 +24,45 @@ def get_similar_products_mats(input_material,  input_source):
             database="web_project"  
         )
     cursor = db_connection.cursor()
-    #SQL command
-    #use SQL commeand to find gender(type1), category(type2), brand, material and description based on the input brand from views.py
+    
+    # Use SQL command to find recommendation products based on the input material from views.py
     if input_source == 'product_page':
-        #if the request is from men product page
-        query = f"SELECT product_id,type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_shoefeatures WHERE material = '{input_material}' AND rating > 3"
+        # If the request is from the men's product page
+        query = f"SELECT product_id, type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_shoefeatures WHERE material = '{input_material}' AND brand <> '{input_brand}'"
     else:
-        #if the request is from women product page
-        query = f"SELECT product_id,type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_womenshoefeatures WHERE material = '{input_material}' AND rating > 3"
-    #retrieve queryset table
+        # If the request is from the women's product page
+        query = f"SELECT product_id, type1, type2, brand, material, description, productName, productImage, price, rating FROM hello_womenshoefeatures WHERE material = '{input_material}'  AND brand <> '{input_brand}'"
+    
+    # Execute the SQL command
     cursor.execute(query)
-    #Store fecthed queryset table in the variable
+    
+    # Fetch the query table
     shoe_data = cursor.fetchall()
-
+    
+    # Find similarity between input material and query table using the recommend_products_mats function
+    recommendations = recommend_products_mats(input_material, shoe_data)
+    
     cursor.close()
-    #exit DB
+    
+    # Close the connection
     db_connection.close()
     
-    #clean data in desc col 
-    descriptions = [preprocess_text(row[5]) for row in shoe_data]
+    # Return product items and similarity scores
+    return recommendations
+
+# Find similarity between input material and query table
+def recommend_products_mats(input_material, shoe_data):
+    # Extract description column by iterating over columns in the query table
+    descriptions = [row[5] for row in shoe_data]
     
-    #Create metrix using TFID and extract words from desc col
-    vectorizer = TfidfVectorizer(ngram_range=(1, 2))
+    # Use TF-IDF Vectorizer to generate the matrix of word frequencies in the description column
+    vectorizer = TfidfVectorizer()
     tfidf_matrix = vectorizer.fit_transform(descriptions)
 
     input_idx = None
 
-    #loop over col to find mats col
-    for i, shoe_features_column in enumerate(shoe_data):
-        if shoe_features_column[4] == input_material:
-            input_idx = i
-            break
-    #if none case
-    if input_idx is None:
-        raise ValueError("Input material not found in shoe data")
-    
+    # Since we are using material, there is no input_material to find an index for
+
     similarity_scores = []
 
     for i, shoe_features_column in enumerate(shoe_data):
@@ -79,34 +70,30 @@ def get_similar_products_mats(input_material,  input_source):
         type1 = shoe_features_column[1]
         type2 = shoe_features_column[2]
         brand = shoe_features_column[3]
-        product_image = shoe_features_column[4] 
-        material = shoe_features_column[5]
+        product_image = shoe_features_column[4]
+        material = shoe_features_column[5]  
         description = shoe_features_column[6]
         product_image = shoe_features_column[7]
         price = shoe_features_column[8]
         rating = shoe_features_column[9]
-        #calculate sim score using COSINE
-        similarity_score = calculate_similarity_score(tfidf_matrix.getrow(input_idx), tfidf_matrix.getrow(i))
-        
-        #check if the current product is the same as the input product nd exclude it
-        if i != input_idx:
-            similarity_scores.append((shoe_features_column, similarity_score))
+
+        # Calculate the similarity score between input material and the material of the current product
+        similarity_score = calculate_similarity_score(tfidf_matrix.getrow(0), tfidf_matrix.getrow(i))
+        similarity_scores.append((shoe_features_column, similarity_score))
     
-    #sort rec list from highest to lowest sim score
+    # Sort the recommendations by similarity score in descending order
     sorted_recommendations = sorted(similarity_scores, key=lambda x: x[1], reverse=True)
     
-    #find top 4 matched prod.
-    top_4_recommendations = [rec[0] for rec in sorted_recommendations[:4]]
+    # Limit the number of recommendations to 4
+    top_4_recommendations = [(rec[0], rec[1]) for rec in sorted_recommendations[:4]]
     
     return top_4_recommendations
 
-#sim score calculation logic
 def calculate_similarity_score(input_vector, product_vector):
-    #dot prod formula
     dot_product = np.dot(input_vector.toarray(), product_vector.toarray().T)
-    magnitude_input_material = np.linalg.norm(input_vector.toarray())
+    magnitude_input_brand = np.linalg.norm(input_vector.toarray())
     magnitude_product = np.linalg.norm(product_vector.toarray())
 
-    cosine_similarity = dot_product / (magnitude_input_material * magnitude_product)
+    cosine_similarity = dot_product / (magnitude_input_brand * magnitude_product)
 
     return cosine_similarity
